@@ -1,0 +1,53 @@
+architecture behaviour_nand of and_or is
+begin
+	nand_process : process(a, b)
+	begin
+		if a = '1' and b = '1' then
+			c <= '0';
+		else 
+			c <= '1';
+		end if;
+	end process nand_process;
+end behaviour_nand;
+
+architecture structure_nand of and_or is
+	component and_or
+		port (a_in : in bit; b_in : in bit; c_out : out bit);
+	end component;
+
+	component not_ent
+		port (ain : in bit; bout : out bit);
+	end component;
+
+	signal s1 : bit;
+begin
+	t1 : and_or port map (c_out => s1, a_in => a, b_in => b);
+	t2 : not_ent port map (ain => s1, bout => c);  
+end structure_nand;
+
+architecture behaviour_nor of and_or is
+begin
+	nor_process : process(a, b)
+	begin
+		if a = '0' and b = '0' then
+			c <= '1';
+		else 
+			c <= '0';
+		end if;
+	end process nor_process;
+end behaviour_nor;
+
+architecture structure_nor of and_or is
+	component and_or
+		port (a_in : in bit; b_in : in bit; c_out : out bit);
+	end component;
+
+	component not_ent
+		port (ain : in bit; bout : out bit);
+	end component;
+
+	signal s1 : bit;
+begin
+	t1 : and_or port map (c_out => s1, a_in => a, b_in => b);
+	t2 : not_ent port map (ain => s1, bout => c);  
+end structure_nor;

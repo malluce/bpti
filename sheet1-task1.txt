@@ -1,0 +1,30 @@
+ABEL:
+	- Advanced Boolean Equation Language
+	- für einfache logische Schaltungen (z.B. kleine FPGAs)
+	- in den 80ern und 90ern
+	- "that supports a variety of behavioral
+		input forms, including high-level equations, state diagrams, and truth tables."
+	- Vorteile: Output entspricht Standard-Interfaces von anderen Tools; hardwarenaher als z.B. VHDL 			(genauere Beschreibung möglich)
+	- Nachteile: heute nicht mehr relevant (-> Verbreitungsgrad), da andere Sprachen (z.B. VHDL, 			Verilog, SystemC) Beschreibung auf höhere Ebene ermöglichen
+	- Synthesewerkzeuge: z.B. von Xilinx (weit verbreitet?)
+	
+
+Verilog:
+	- früher proprietär bei Cadence (bis 1990), dann Freigabe; verwendet zur Sim/Verif, früher noch nicht Synth, jetzt schon
+	- erste Hardware-und Verifikationssprache, SystemVerilog ging daraus hervor
+	- Modellierung des Verhaltens, aber auch RT-Ebene möglich (breites Spektrum der Abstraktion)
+	- Simulatoren z.B.: Icarus Verilog, VerilogXL, Incisive Enterprise Simulator
+	- Syntheseprog: Yosys, Icarus Verilog
+	- Ausgabe von Text für Debugging möglich (Problem: nicht synthetisierbar)
+	- Verbreitung: stark in NA und Japan, weniger in Europa
+	- Vorteile: Kompakter Code, ähnliche Syntax wie C, Standardisierung, gut für low-level
+	- Nachteile: Schwächen bei system-level, nicht alle Implementierungen erfüllen Standards 
+	
+
+SystemC:
+	- Klassenbibliothek für C++ (keine komplett eigene Sprache)
+	- abstrakte Beschreibung sowie RT (für RT Verilog-ähnlicher Dialekt von SystemC)
+	- nur High-Level-Synthese zu RT-Ebene möglich
+	- Vorteil: zahlreiche Erweiterungen, freie Verfügbarkeit(sogar Open Source), Syntax leicht wegen C++-Ähnlichkeit (insb. gegeüber den anderen Sprachen!), 
+	- Nachteil: nicht ohne weiteres direkt synthesefähig (aber vlt. bald)
+	
