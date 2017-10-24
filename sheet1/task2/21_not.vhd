@@ -3,7 +3,7 @@ entity not_ent is
 		a : in bit;
 		b : out bit
 	);
-end not;
+end not_ent;
 
 architecture behaviour_not of not_ent is
 begin

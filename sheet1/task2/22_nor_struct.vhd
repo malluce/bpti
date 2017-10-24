@@ -11,7 +11,7 @@ entity not_ent is
 		a : in bit;
 		b : out bit
 	);
-end not;
+end not_ent;
 
 architecture structure_nor of and_or is
 	component and_or
