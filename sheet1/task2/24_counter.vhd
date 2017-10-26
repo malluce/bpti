@@ -1,11 +1,11 @@
-entity counter is
+entity counter_ent is
 	port (
 		clk : in bit;
 		b : out bit 
 	);
-end counter;
+end counter_ent;
 
-architecture behaviour_counter of counter is
+architecture behaviour_counter of counter_ent is
     constant max : integer range 0 to 100 := 100;
     signal cnt : integer range 0 to 100 := 0;
 begin
@@ -13,16 +13,12 @@ begin
 	begin
 		if clk'event and clk = '1' then
 			cnt <= cnt + 1;
-		end if;
-		if cnt = (max-1) then
-			cnt <= 0;
-			if clk'event and clk='1' then
-				b <= '1';
-			elsif clk'event and clk='0' then
-				b <= '0';
-			end if;
+		  if cnt = (max - 1) then
+                b <= '1';
+                cnt <= 0;
+      end if;
 		else
 			b <= '0';
 		end if;
-	end count_process;
+	end process count_process;
 end behaviour_counter;

@@ -1,19 +1,19 @@
-entity and_or is
+entity or_ent is
 	port (
-		a : in bit;
-		b : in bit;
-		c : out bit
+		a_or : in bit;
+		b_or : in bit;
+		c_or : out bit
 	);
-end and_or;
+end or_ent;
 
-architecture behaviour_or of and_or is
+architecture behaviour_or of or_ent is
 begin
-	or_process : process(a, b)
+	or_process : process(a_or, b_or)
 	begin
-		if a = '0' and b = '0' then
-			c <= '0';
+		if a_or = '0' and b_or = '0' then
+			c_or <= '0';
 		else 
-			c <= '1';
+			c_or <= '1';
 		end if;
 	end process or_process;
 end behaviour_or;

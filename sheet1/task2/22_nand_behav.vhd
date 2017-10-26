@@ -1,19 +1,19 @@
-entity and_or is
+entity nand_ent is
 	port (
-		a : in bit;
-		b : in bit;
-		c : out bit
+		a_nand : in bit;
+		b_nand : in bit;
+		c_nand : out bit
 	);
-end and_or;
+end nand_ent;
 
-architecture behaviour_nand of and_or is
+architecture behaviour_nand of nand_ent is
 begin
-	nand_process : process(a, b)
+	nand_process : process(a_nand, b_nand)
 	begin
-		if a = '1' and b = '1' then
-			c <= '0';
+		if a_nand = '1' and b_nand = '1' then
+			c_nand <= '0';
 		else 
-			c <= '1';
+			c_nand <= '1';
 		end if;
 	end process nand_process;
 end behaviour_nand;
