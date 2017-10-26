@@ -6,15 +6,15 @@ entity counter is
 end counter;
 
 architecture behaviour_counter of counter is
+    constant max : integer range 0 to 100 := 100;
+    signal cnt : integer range 0 to 100 := 0;
 begin
-		signal cnt : integer range 0 to 100 := 100;
 	count_process : process(clk)
-		variable max : integer range 0 to 100 := 100;
 	begin
-		if clk'event then
+		if clk'event and clk = '1' then
 			cnt <= cnt + 1;
 		end if;
-		if cnt = max then
+		if cnt = (max - 1) then
 			b <= '1';
 			cnt <= 0;
 		else
