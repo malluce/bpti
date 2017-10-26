@@ -1,0 +1,16 @@
+modelsim
+	vorteile: 
+		-GUI
+		-bessere Gliederung (Projekte), Übersicht etc.
+		-integrierter editor 
+	nachteile:
+		-z.T umständlich, unübersichtlich
+		-strg-s = suchen, nicht speichern
+
+ghdl
+	vorteile: 
+		- leichtgewichtig
+	nachteile:
+		- unintuitiv, keine GUI
+		- alt, keine updates
+		- 
