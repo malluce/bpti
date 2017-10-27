@@ -1,3 +1,4 @@
+# modelsim
 work/
 *.mti
 *.mpf
@@ -5,3 +6,10 @@ work/
 transcript
 *.swp
 .nfs0000000004a7006e00000009
+
+# latex
+*.log
+*.aux
+*.out
+*.pdf
+*.synctex.gz
