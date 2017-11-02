@@ -13,3 +13,5 @@ transcript
 *.out
 *.pdf
 *.synctex.gz
+
+bpti_ise/
