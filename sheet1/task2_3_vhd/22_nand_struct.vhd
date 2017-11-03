@@ -6,21 +6,6 @@ entity nand_ent is
 	);
 end nand_ent;
 
-entity and_ent is
-  port (
-    a_and : in bit;
-    b_and : in bit;
-    c_and : out bit
-  );
-end and_ent;
-
-entity not_ent is
-	port (
-		a_not : in bit;
-		b_not : out bit
-	);
-end not_ent;
-
 architecture structure_nand of nand_ent is
 	component and_ent
 		port (a_and : in bit; b_and : in bit; c_and : out bit);

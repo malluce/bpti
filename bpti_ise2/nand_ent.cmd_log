@@ -1,0 +1,9 @@
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.xst" -ofn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.syr" 
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.xst" -ofn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.syr" 
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.xst" -ofn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.syr" 
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.xst" -ofn "/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc nand.ucf -p xc3sd1800a-fg676-4 nand_ent.ngc nand_ent.ngd  
+map -intstyle ise -p xc3sd1800a-fg676-4 -cm area -ir off -pr off -c 100 -o nand_ent_map.ncd nand_ent.ngd nand_ent.pcf 
+par -w -intstyle ise -ol high -t 1 nand_ent_map.ncd nand_ent.ncd nand_ent.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml nand_ent.twx nand_ent.ncd -o nand_ent.twr nand_ent.pcf -ucf nand.ucf 
+bitgen -intstyle ise -f nand_ent.ut nand_ent.ncd 

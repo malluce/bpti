@@ -1,0 +1,3 @@
+vhdl work "../sheet1/task2_3_vhd/21_not.vhd"
+vhdl work "../sheet1/task2_3_vhd/21_and.vhd"
+vhdl work "../sheet1/task2_3_vhd/22_nand_struct.vhd"
