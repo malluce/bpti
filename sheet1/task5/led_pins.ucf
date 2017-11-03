@@ -1,0 +1,3 @@
+NET "in_led" LOC = F13;
+NET "rst_led" LOC = Y16;
+NET "out_led" LOC = P18;

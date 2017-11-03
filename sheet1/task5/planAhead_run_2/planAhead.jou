@@ -1,0 +1,11 @@
+#-----------------------------------------------------------
+# PlanAhead v14.7
+# Build 321239 by xbuild on Fri Sep 27 19:24:55 MDT 2013
+# Start of session at: Fri Nov  3 12:59:15 2017
+# Process ID: 6071
+# Log file: /home/capplab10/Schreibtisch/bpti/sheet1/task5/planAhead_run_2/planAhead.log
+# Journal file: /home/capplab10/Schreibtisch/bpti/sheet1/task5/planAhead_run_2/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source /home/capplab10/Schreibtisch/bpti/sheet1/task5/pa.fromHdl.tcl
+update_compile_order -fileset sim_1

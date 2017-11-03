@@ -15,7 +15,7 @@ architecture behaviour_counter of counter_ent is
 begin
 	count_process : process(clk, rst)
 	begin
-		if rst = '0' then
+		if rst = '1' then
 			cnt <= 0;
 			b <= '0';
 		else
