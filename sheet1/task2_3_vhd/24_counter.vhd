@@ -10,8 +10,8 @@ entity counter_ent is
 end counter_ent;
 
 architecture behaviour_counter of counter_ent is
-    constant MAX : integer range 0 to 31250000 := 31250000;
-    signal cnt : integer range 0 to 31250000 := 0;
+    constant MAX : integer range 0 to 15625000 := 15625000;
+    signal cnt : integer range 0 to 15625000 := 0;
 begin
 	count_process : process(clk, rst)
 	begin
