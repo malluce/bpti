@@ -21,5 +21,5 @@ begin
 				set_led <= '1';
 				led_was_set <= '1';
 		end if;
-	end process count_process;
-end behaviour_counter;
+	end process set_process;
+end behaviour_set_led;
