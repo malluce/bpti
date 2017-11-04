@@ -6,21 +6,6 @@ entity nor_ent is
 	);
 end nor_ent;
 
-entity or_ent is
-  port (
-    a_or : in bit;
-    b_or : in bit;
-    c_or : out bit
-  );
-end or_ent;
-
-entity not_ent is
-	port (
-		a_not : in bit;
-		b_not : out bit
-	);
-end not_ent;
-
 architecture structure_nor of nor_ent is
 	component or_ent
 		port (a_or : in bit; b_or : in bit; c_or : out bit);
