@@ -10,7 +10,7 @@ entity counter_ent is
 end counter_ent;
 
 architecture behaviour_counter of counter_ent is
-    constant max : integer range 0 to 31250000 := 31250000;
+    constant MAX : integer range 0 to 31250000 := 31250000;
     signal cnt : integer range 0 to 31250000 := 0;
 begin
 	count_process : process(clk, rst)
@@ -21,7 +21,7 @@ begin
 		else
 			if clk'event and clk = '1' then
 			cnt <= cnt + 1;
-				if cnt = (max - 1) then
+				if cnt = (MAX - 1) then
 					b <= '1';
 					cnt <= 0;
 				else 

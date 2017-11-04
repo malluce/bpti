@@ -6,14 +6,14 @@ entity impuls_ent is
 end impuls_ent;
 
 architecture behaviour_impuls of impuls_ent is
-    constant max : integer range 0 to 100 := 100;
+    constant MAX : integer range 0 to 100 := 100;
     signal cnt : integer range 0 to 100 := 0;
 begin
 	count_process : process(clk)
 	begin
 		if clk'event and clk = '1' then
 			cnt <= cnt + 1;
-			if cnt = (max - 1) then
+			if cnt = (MAX - 1) then
             b <= '1';
             cnt <= 0;
             else
