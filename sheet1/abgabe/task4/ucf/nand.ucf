@@ -1,0 +1,3 @@
+NET "c_nand" LOC = P18;
+NET "a_nand" LOC = J17;
+NET "b_nand" LOC = J15;

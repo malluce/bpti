@@ -1,3 +1,5 @@
+vhdl work "set_led_ent.vhd"
 vhdl work "myDCM2.vhd"
 vhdl work "../task2_3_vhd/24_counter.vhd"
+vhdl work "../task2_3_vhd/21_not.vhd"
 vhdl work "led_test.vhd"

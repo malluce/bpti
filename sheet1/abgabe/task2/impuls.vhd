@@ -1,0 +1,28 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity impuls_ent is
+	port (
+		clk : in std_logic;
+		b : out std_logic
+	);
+end impuls_ent;
+
+architecture behaviour_impuls of impuls_ent is
+    constant MAX : integer range 0 to 100 := 100;
+    signal cnt : integer range 0 to 100 := 0;
+begin
+	count_process : process(clk)
+	begin
+		if clk'event and clk = '1' then
+			if cnt = MAX then
+            b <= '1';
+            cnt <= 0;
+            else
+              cnt <= cnt + 1;
+              b <= '0';
+		  end if;
+		end if;
+	end process count_process;
+end behaviour_impuls;
+
