@@ -1,0 +1,8 @@
+vhdl work "set_led.vhd"
+vhdl work "myDCM2.vhd"
+vhdl work "modi_selector.vhd"
+vhdl work "counter.vhd"
+vhdl work "21_not.vhd"
+vhdl work "modi.vhd"
+vhdl work "led_test.vhd"
+vhdl work "run_light.vhd"
