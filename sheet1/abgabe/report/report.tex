@@ -32,7 +32,12 @@
 		\subsection*{2.4 Zähler}
 			Beim Implementieren des Zählers war die Schwierigkeit in der fallenden Taktflanke den Ausgang wieder auf 0 zu setzen, falls er vorher auf 1 war (somit ist der Ausgang jeweils gleich lang 1 und 0, wie in der Aufgabenstellung gefordert). Dies haben wir gelöst, indem wir ein Signal "'was\_1"' eingeführt haben, dass den letzten gesetzten Ausgang speichert. Der Code funktioniert in der Simulation wie gedacht (bei Zähler-Überlauf wird einen halben Takt 1 und einen halben Takt 0 ausgegeben), bei der Synthese gibt es allerdings einen Fehler. Der FPGA unterstützt die Abfrage "'if clk'event then"' nicht (siehe: \url{https://www.xilinx.com/support/answers/17023.html}). Da der Erfolg der Synthese hier aber nicht gefordert war und die Simulation funktioniert, ist die Aufgabe gelöst.
 	\section*{Aufgabe 3: Simulation}
-		%TODO
+		\subsection*{3.1 GHDL}
+			Die Schwierigkeit bei dieser Aufgabe bestand darin, GHDL zu installieren. GHDL und viele Abhängigkeiten von GHDL sind nicht mehr in den offiziellen Paketquellen vorhanden und GHDL war zu Beginn nicht auf den Pool-Rechnern installiert.
+		\subsection*{3.2 Modelsim}
+			Die Handhabung von Modelsim war anfangs ziemlich komplex, da die GUI unserer Auffassung nach recht überladen (und zum Teil altbacken) ist und uns überfordert hat. Der schwierigste und zeitaufwendigste Teil der Aufgabe bestand jedoch in dem Erstellen der Skripte, da wir mit der Sprache Tcl noch nicht vertraut waren. Zudem war ein großes Problem, dass die Kommandozeilenargumente des Skripts beim Aufruf aus Modelsim nicht wie üblich in \$argv geschrieben werden, sondern über \$1 bis \$9 abzufragen sind.
+		\subsection*{3.3 Auswertung}
+			%TODO (table!) 
 	\section*{Aufgabe 4: Xilinx ISE}
 		%TODO
 	\section*{Aufgabe 5: LED-Test}
