@@ -17,7 +17,26 @@
 
 \begin{document}
 	\section*{Aufgabe 1: Hardwarebeschreibungssprachen}
-		%TODO
+		\subsection{ABEL}
+			ABEL steht für Advanced Boolean Equation Language und wurde hauptsächlich in den 80ern und 90ern für einfache logische Schaltungen, also vorallem kleine FPGAs, verwendet. ABEL unterstützt eine breite Anzahl an Eingabemethoden von High-Level Gleichungen bis zu einfach Wahrheitstabellen. 
+			Die Ausgabe von ABEL entspricht dem Standard-Interface, was die Benutzung von anderen Tools vereinfacht. ABEL ist besonders hardwarenah, was eine genauere Beschreibung ermöglicht.
+			Allerdings ist ABEL in der heutigen Zeit nicht mehr relevant, da es von anderen Sprachen, die Beschreibungen auf höheren Ebenen ermöglichen, verdrängt wurde.
+			Synthesewerkzeuge gibt es beispielsweise von Xilinx.
+			
+		\subsection{Verilog}
+			Verilog war früher proprietär bei Cadence und wurde 1990 freigegeben. SystemVerilog, die erste Hardware- und Verifikationssprache, ging aus Verilog hervor. Mit Verilog ist einerseits die Modellierung des Verhaltens als auch die Beschreibung der RT-Ebene möglich.
+			Simulatoren sind beispielsweise: Icarus Verilog, VerilogXL, Incisive Enterprise Simulator
+			Syntheseprogramme: Yosys, Icarus Verilog
+			Verilog kann Text zu Debugging-Zwecken ausgeben, allerdings kann diese Ausgabe nicht synthetisiert werden. In Nordamerika und Japan ist Verilog stark verbreitet, allerdings kaum in Europa.
+			Vorteile von Verilog sind vorallem der kompakte Code, die syntaktische Ähnlichkeit zu C und die Standardisierung der Sprache. Außerdem ist Verilog den low-level Entwurf.
+			Nachteile hat Verilog vorallem durch die Schwächen beim system-level Entwurf und die Tatsache, dass nicht alle Implementierungen den Standards folgen.
+		
+		\subsection{SystemC}
+			SystemC ist lediglich eine Klassenbibliothek für C++, also keine eigenständige Sprache. Mit SystemC ist eine abstrakte Beschreibung aber auch der RT-Entwurt möglich. Letzteres wird durch einen Verilog ähnlichen Dialekt von SystemC realisiert. Mit SystemC ist nur die High-Level-Synthese zur RT-Ebene möglich.
+			Vorteile von SystemC sind die zahlreichen Erweiterungen, die freie Verfügbarkeit des Quelltextes und die "leichte" Syntax aufgrund der Ähnlichkeit zu C++.
+			Der Nachteil von SystemC ist die fehlende Möglichkeit ohne weiteres direkt zu synthetisieren.
+		
+		
 	\section*{Aufgabe 2: Schaltungsentwurf mit VHDL}
 		In dieser Aufgabe ging es darum einfache Schaltungen mit VHDL als Struktur- und Verhaltensbeschreibung zu implementieren. Dies stellte uns vor keine große Herausforderung, da wir
 		die Vorlesung "'Rechnerstrukturen"' bereits gehört haben und daher schon mit den Grundlagen vertraut waren. Dennoch traten einige Probleme auf, die erst beim Simulieren und/oder Synthetisieren auffielen.

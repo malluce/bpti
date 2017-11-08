@@ -13,5 +13,6 @@ transcript
 *.out
 *.pdf
 *.synctex.gz
+*.DS_store
 
 bpti_ise/
