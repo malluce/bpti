@@ -12,12 +12,14 @@ entity counter_ent is
 end counter_ent;
 
 architecture behaviour_counter of counter_ent is
-	 constant MIN : integer range 0 to 31250000 := 3125000;
+	 constant MIN : integer range 0 to 31250000 := 31250000;
 	 constant MAX : integer range 0 to 488281 := 488281;
 	 constant MULTIPLIER : integer range 0 to 250000 := 250000;
 	 constant SPEED_INIT : integer range 0 to 3906250 := 3906250;
-    signal speed : integer range 0 to 3906250 := 3906250;
-    signal cnt : integer range 0 to 3906250 := 0;
+    signal cnt : integer range 0 to 31250000 := 0;
+	 signal speed : integer range 0 to MIN := SPEED_INIT;
+	 signal up_button_pressed : std_logic := '0';
+	 signal down_button_pressed : std_logic := '0';
 begin
 	count_process : process(clk, rst)
 	begin
@@ -29,6 +31,7 @@ begin
 				if cnt = speed then
 					b <= '1';
 					cnt <= 0;
+					-- report "setting b to 1";
 				else 
 				  b <= '0';
 				  cnt <= cnt + 1;
@@ -37,24 +40,26 @@ begin
 		end if;
 	end process count_process;
 	
-	speed_up_proc : process(speed_up, speed_down, rst)
+	speed_proc : process(clk, rst)
 	begin
-	  if rst = '0' then
-	    speed <= SPEED_INIT;
-	   else
-		if speed_up'event and speed_up = '1' then
-			if (speed - MULTIPLIER) > MIN then
+		if rst = '0' then
+			speed <= SPEED_INIT;
+			up_button_pressed <= '0';
+			down_button_pressed <= '0';
+		elsif clk'event and clk = '1' then	
+			-- report "speed - mult: " & integer'image(speed - MULTIPLIER);
+			if  speed_up = '1' and speed > MIN and up_button_pressed = '0' then
 				speed <= speed - MULTIPLIER;
-			end if;
-		else	
-			if speed_down ='1' and (speed + MULTIPLIER) < MAX then
+				up_button_pressed <= '1';
+				report "i bims, speed up";
+			elsif speed_down ='1' and speed < MAX and down_button_pressed = '0' then
 				speed <= speed + MULTIPLIER;
+				down_button_pressed <= '1';	
+			elsif speed_up = '0' and up_button_pressed = '1' then
+				up_button_pressed <= '0';
+			elsif speed_down = '0' and down_button_pressed = '1' then
+				down_button_pressed <= '0';
 			end if;
 		end if;
-		end if;
-	end process speed_up_proc;
-	
-	
-	
-	
+	end process speed_proc;
 end behaviour_counter;

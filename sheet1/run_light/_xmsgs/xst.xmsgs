@@ -5,46 +5,16 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="Xst" num="753" delta="old" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet1/run_light/led_test.vhd</arg>&quot; line <arg fmt="%d" index="2">43</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">CLK0_OUT</arg>&apos; of component &apos;<arg fmt="%s" index="4">myDCM2</arg>&apos;.
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet1/run_light/led_test.vhd</arg>&quot; line <arg fmt="%d" index="2">43</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">CLK0_OUT</arg>&apos; of component &apos;<arg fmt="%s" index="4">myDCM2</arg>&apos;.
 </msg>
 
-<msg type="warning" file="Xst" num="753" delta="old" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet1/run_light/led_test.vhd</arg>&quot; line <arg fmt="%d" index="2">43</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">LOCKED_OUT</arg>&apos; of component &apos;<arg fmt="%s" index="4">myDCM2</arg>&apos;.
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet1/run_light/led_test.vhd</arg>&quot; line <arg fmt="%d" index="2">43</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">LOCKED_OUT</arg>&apos; of component &apos;<arg fmt="%s" index="4">myDCM2</arg>&apos;.
 </msg>
 
-<msg type="warning" file="Xst" num="753" delta="old" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet1/run_light/led_test.vhd</arg>&quot; line <arg fmt="%d" index="2">43</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">CLKIN_IBUFG_OUT</arg>&apos; of component &apos;<arg fmt="%s" index="4">myDCM2</arg>&apos;.
+<msg type="warning" file="Xst" num="753" delta="new" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet1/run_light/led_test.vhd</arg>&quot; line <arg fmt="%d" index="2">43</arg>: Unconnected output port &apos;<arg fmt="%s" index="3">CLKIN_IBUFG_OUT</arg>&apos; of component &apos;<arg fmt="%s" index="4">myDCM2</arg>&apos;.
 </msg>
 
-<msg type="warning" file="Xst" num="2211" delta="old" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet1/run_light/modi.vhd</arg>&quot; line <arg fmt="%d" index="2">50</arg>: Instantiating black box module &lt;<arg fmt="%s" index="3">modi_selector</arg>&gt;.
-</msg>
-
-<msg type="warning" file="Xst" num="737" delta="old" >Found <arg fmt="%d" index="1">32</arg>-bit latch for signal &lt;<arg fmt="%s" index="2">speed</arg>&gt;. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
-</msg>
-
-<msg type="info" file="Xst" num="1767" delta="new" >HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led8_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led4_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led5_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led1_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led6_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led2_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led7_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
-</msg>
-
-<msg type="warning" file="Xst" num="2036" delta="old" >Inserting OBUF on port &lt;<arg fmt="%s" index="1">led3_out</arg>&gt; driven by black box &lt;<arg fmt="%s" index="2">modi_selector</arg>&gt;. Possible simulation mismatch.
+<msg type="info" file="Xst" num="2169" delta="new" >HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 </msg>
 
 </messages>

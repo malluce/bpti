@@ -53,9 +53,9 @@ architecture run_light_struct of run_light is
 begin
 	led : led_ent port map(
 		clock_in,
-		reset_in,
 		speed_up_in,
 		speed_down_in,
+		reset_in,
 		slow_clk_fwd
 	);
 

@@ -5,14 +5,14 @@ Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.14 secs
+Total CPU time to Xst completion: 0.11 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.14 secs
+Total CPU time to Xst completion: 0.11 secs
  
 --> 
 Reading design: run_light.prj
@@ -109,12 +109,12 @@ Slice Utilization Ratio Delta      : 5
 *                          HDL Compilation                              *
 =========================================================================
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/modi_selector.vhd" in Library work.
-Architecture modi_selector_behav of Entity modi_selector is up to date.
+Entity <modi_selector> compiled.
+Entity <modi_selector> (Architecture <modi_selector_behav>) compiled.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/set_led.vhd" in Library work.
 Architecture set_led_behav of Entity set_led is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/counter.vhd" in Library work.
-Entity <counter_ent> compiled.
-Entity <counter_ent> (Architecture <behaviour_counter>) compiled.
+Architecture behaviour_counter of Entity counter_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/21_not.vhd" in Library work.
 Architecture behaviour_not of Entity not_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/myDCM2.vhd" in Library work.
@@ -140,6 +140,8 @@ Analyzing hierarchy for entity <counter_ent> in library <work> (architecture <be
 Analyzing hierarchy for entity <not_ent> in library <work> (architecture <behaviour_not>).
 
 Analyzing hierarchy for entity <myDCM2> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <modi_selector> in library <work> (architecture <modi_selector_behav>).
 
 Analyzing hierarchy for entity <set_led> in library <work> (architecture <set_led_behav>).
 
@@ -185,8 +187,10 @@ Analyzing Entity <myDCM2> in library <work> (Architecture <behavioral>).
 Entity <myDCM2> analyzed. Unit <myDCM2> generated.
 
 Analyzing Entity <modi> in library <work> (Architecture <modi_struct>).
-WARNING:Xst:2211 - "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/modi.vhd" line 50: Instantiating black box module <modi_selector>.
 Entity <modi> analyzed. Unit <modi> generated.
+
+Analyzing Entity <modi_selector> in library <work> (Architecture <modi_selector_behav>).
+Entity <modi_selector> analyzed. Unit <modi_selector> generated.
 
 Analyzing Entity <set_led> in library <work> (Architecture <set_led_behav>).
 Entity <set_led> analyzed. Unit <set_led> generated.
@@ -200,22 +204,43 @@ Performing bidirectional port resolution...
 
 Synthesizing Unit <counter_ent>.
     Related source file is "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/counter.vhd".
-WARNING:Xst:737 - Found 32-bit latch for signal <speed>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
     Found 1-bit register for signal <b>.
     Found 25-bit up counter for signal <cnt>.
-    Found 32-bit comparator equal for signal <cnt$cmp_eq0000> created at line 29.
-    Found 32-bit addsub for signal <speed$mux0002>.
+    Found 25-bit comparator greatequal for signal <cnt$cmp_ge0000> created at line 31.
+    Found 1-bit register for signal <down_button_pressed>.
+    Found 25-bit comparator greatequal for signal <down_button_pressed$cmp_ge0000> created at line 51.
+    Found 25-bit updown accumulator for signal <speed>.
+    Found 25-bit comparator greater for signal <speed$cmp_gt0000> created at line 49.
+    Found 25-bit comparator less for signal <speed$cmp_lt0000> created at line 51.
+    Found 1-bit register for signal <up_button_pressed>.
     Summary:
 	inferred   1 Counter(s).
-	inferred   1 D-type flip-flop(s).
-	inferred   1 Adder/Subtractor(s).
-	inferred   1 Comparator(s).
+	inferred   1 Accumulator(s).
+	inferred   3 D-type flip-flop(s).
+	inferred   4 Comparator(s).
 Unit <counter_ent> synthesized.
 
 
 Synthesizing Unit <not_ent>.
     Related source file is "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/21_not.vhd".
 Unit <not_ent> synthesized.
+
+
+Synthesizing Unit <modi_selector>.
+    Related source file is "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/modi_selector.vhd".
+    Using one-hot encoding for signal <modus_0_state$mux0000>.
+    Using one-hot encoding for signal <modus_0_state$mux0001>.
+    Found 8-bit register for signal <vector_sel>.
+    Found 1-bit register for signal <direction<0>>.
+    Found 1-bit register for signal <direction_pressed>.
+    Found 2-bit register for signal <modus>.
+    Found 2-bit adder for signal <modus$addsub0000> created at line 35.
+    Found 4-bit register for signal <modus_0_state>.
+    Found 1-bit register for signal <modus_pressed>.
+    Summary:
+	inferred  13 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+Unit <modi_selector> synthesized.
 
 
 Synthesizing Unit <set_led>.
@@ -242,22 +267,26 @@ Synthesizing Unit <run_light>.
     Related source file is "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/run_light.vhd".
 Unit <run_light> synthesized.
 
-INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
 
 =========================================================================
 HDL Synthesis Report
 
 Macro Statistics
 # Adders/Subtractors                                   : 1
- 32-bit addsub                                         : 1
+ 2-bit adder                                           : 1
 # Counters                                             : 1
  25-bit up counter                                     : 1
-# Registers                                            : 1
- 1-bit register                                        : 1
-# Latches                                              : 1
- 32-bit latch                                          : 1
-# Comparators                                          : 1
- 32-bit comparator equal                               : 1
+# Accumulators                                         : 1
+ 25-bit updown accumulator                             : 1
+# Registers                                            : 9
+ 1-bit register                                        : 6
+ 2-bit register                                        : 1
+ 4-bit register                                        : 1
+ 8-bit register                                        : 1
+# Comparators                                          : 4
+ 25-bit comparator greatequal                          : 2
+ 25-bit comparator greater                             : 1
+ 25-bit comparator less                                : 1
 
 =========================================================================
 
@@ -271,15 +300,17 @@ Advanced HDL Synthesis Report
 
 Macro Statistics
 # Adders/Subtractors                                   : 1
- 32-bit addsub                                         : 1
+ 2-bit adder                                           : 1
 # Counters                                             : 1
  25-bit up counter                                     : 1
-# Registers                                            : 1
- Flip-Flops                                            : 1
-# Latches                                              : 1
- 32-bit latch                                          : 1
-# Comparators                                          : 1
- 32-bit comparator equal                               : 1
+# Accumulators                                         : 1
+ 25-bit updown accumulator                             : 1
+# Registers                                            : 20
+ Flip-Flops                                            : 20
+# Comparators                                          : 4
+ 25-bit comparator greatequal                          : 2
+ 25-bit comparator greater                             : 1
+ 25-bit comparator less                                : 1
 
 =========================================================================
 
@@ -289,15 +320,11 @@ Macro Statistics
 
 Optimizing unit <run_light> ...
 
+Optimizing unit <counter_ent> ...
+
+Optimizing unit <modi_selector> ...
+
 Mapping all equations...
-WARNING:Xst:2036 - Inserting OBUF on port <led8_out> driven by black box <modi_selector>. Possible simulation mismatch.
-WARNING:Xst:2036 - Inserting OBUF on port <led4_out> driven by black box <modi_selector>. Possible simulation mismatch.
-WARNING:Xst:2036 - Inserting OBUF on port <led5_out> driven by black box <modi_selector>. Possible simulation mismatch.
-WARNING:Xst:2036 - Inserting OBUF on port <led1_out> driven by black box <modi_selector>. Possible simulation mismatch.
-WARNING:Xst:2036 - Inserting OBUF on port <led6_out> driven by black box <modi_selector>. Possible simulation mismatch.
-WARNING:Xst:2036 - Inserting OBUF on port <led2_out> driven by black box <modi_selector>. Possible simulation mismatch.
-WARNING:Xst:2036 - Inserting OBUF on port <led7_out> driven by black box <modi_selector>. Possible simulation mismatch.
-WARNING:Xst:2036 - Inserting OBUF on port <led3_out> driven by black box <modi_selector>. Possible simulation mismatch.
 Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 5) on block run_light, actual ratio is 0.
 
@@ -307,8 +334,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 26
- Flip-Flops                                            : 26
+# Registers                                            : 70
+ Flip-Flops                                            : 70
 
 =========================================================================
 
@@ -337,29 +364,34 @@ Design Statistics
 # IOs                              : 14
 
 Cell Usage :
-# BELS                             : 269
+# BELS                             : 289
 #      GND                         : 1
-#      INV                         : 2
-#      LUT2                        : 51
-#      LUT3                        : 73
-#      LUT4                        : 13
-#      MUXCY                       : 71
+#      INV                         : 10
+#      LUT1                        : 4
+#      LUT2                        : 36
+#      LUT2_D                      : 1
+#      LUT3                        : 33
+#      LUT4                        : 48
+#      LUT4_D                      : 1
+#      LUT4_L                      : 4
+#      MUXCY                       : 98
+#      MUXF5                       : 2
 #      VCC                         : 1
-#      XORCY                       : 57
-# FlipFlops/Latches                : 58
-#      FDC                         : 26
-#      LDCP                        : 32
-# Clock Buffers                    : 3
+#      XORCY                       : 50
+# FlipFlops/Latches                : 70
+#      FDC                         : 39
+#      FDCE                        : 15
+#      FDE                         : 2
+#      FDP                         : 1
+#      FDPE                        : 13
+# Clock Buffers                    : 2
 #      BUFG                        : 2
-#      BUFGP                       : 1
-# IO Buffers                       : 13
-#      IBUF                        : 4
+# IO Buffers                       : 14
+#      IBUF                        : 5
 #      IBUFG                       : 1
 #      OBUF                        : 8
 # DCMs                             : 1
 #      DCM_SP                      : 1
-# Others                           : 1
-#      modi_selector               : 1
 =========================================================================
 
 Device utilization summary:
@@ -367,12 +399,12 @@ Device utilization summary:
 
 Selected Device : 3sd1800afg676-4 
 
- Number of Slices:                       75  out of  16640     0%  
- Number of Slice Flip Flops:             58  out of  33280     0%  
- Number of 4 input LUTs:                139  out of  33280     0%  
+ Number of Slices:                       85  out of  16640     0%  
+ Number of Slice Flip Flops:             70  out of  33280     0%  
+ Number of 4 input LUTs:                137  out of  33280     0%  
  Number of IOs:                          14
  Number of bonded IOBs:                  14  out of    519     2%  
- Number of GCLKs:                         3  out of     24    12%  
+ Number of GCLKs:                         2  out of     24     8%  
  Number of DCMs:                          1  out of      8    12%  
 
 ---------------------------
@@ -393,93 +425,30 @@ NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
 
 Clock Information:
 ------------------
------------------------------------+-----------------------------+-------+
-Clock Signal                       | Clock buffer(FF name)       | Load  |
------------------------------------+-----------------------------+-------+
-clock_in                           | led/my_dcm/DCM_SP_INST:CLKDV| 26    |
-reset_in                           | BUFGP                       | 32    |
------------------------------------+-----------------------------+-------+
+-----------------------------------+------------------------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)                    | Load  |
+-----------------------------------+------------------------------------------+-------+
+clock_in                           | led/my_dcm/DCM_SP_INST:CLKDV             | 53    |
+led/cnt/b                          | NONE(my_modi/my_modi_sel/modus_0_state_0)| 17    |
+-----------------------------------+------------------------------------------+-------+
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 
 Asynchronous Control Signals Information:
 ----------------------------------------
--------------------------------------------------------+------------------------+-------+
-Control Signal                                         | Buffer(FF name)        | Load  |
--------------------------------------------------------+------------------------+-------+
-led/cnt/rst_inv(led/cnt/rst_inv1_INV_0:O)              | NONE(led/cnt/b)        | 26    |
-led/cnt/speed_0__and0000(led/cnt/speed_0__and00001:O)  | NONE(led/cnt/speed_0)  | 1     |
-led/cnt/speed_0__or0000(led/cnt/speed_0__or00001:O)    | NONE(led/cnt/speed_0)  | 1     |
-led/cnt/speed_10__and0000(led/cnt/speed_10__and00001:O)| NONE(led/cnt/speed_10) | 1     |
-led/cnt/speed_10__or0000(led/cnt/speed_10__or00001:O)  | NONE(led/cnt/speed_10) | 1     |
-led/cnt/speed_11__and0000(led/cnt/speed_11__and00001:O)| NONE(led/cnt/speed_11) | 1     |
-led/cnt/speed_11__or0000(led/cnt/speed_11__or00001:O)  | NONE(led/cnt/speed_11) | 1     |
-led/cnt/speed_12__and0000(led/cnt/speed_12__and00001:O)| NONE(led/cnt/speed_12) | 1     |
-led/cnt/speed_12__or0000(led/cnt/speed_12__or00001:O)  | NONE(led/cnt/speed_12) | 1     |
-led/cnt/speed_13__and0000(led/cnt/speed_13__and00001:O)| NONE(led/cnt/speed_13) | 1     |
-led/cnt/speed_13__or0000(led/cnt/speed_13__or00001:O)  | NONE(led/cnt/speed_13) | 1     |
-led/cnt/speed_14__and0000(led/cnt/speed_14__and00001:O)| NONE(led/cnt/speed_14) | 1     |
-led/cnt/speed_14__or0000(led/cnt/speed_14__or00001:O)  | NONE(led/cnt/speed_14) | 1     |
-led/cnt/speed_15__and0000(led/cnt/speed_15__and00001:O)| NONE(led/cnt/speed_15) | 1     |
-led/cnt/speed_15__or0000(led/cnt/speed_15__or00001:O)  | NONE(led/cnt/speed_15) | 1     |
-led/cnt/speed_16__and0000(led/cnt/speed_16__and00001:O)| NONE(led/cnt/speed_16) | 1     |
-led/cnt/speed_16__or0000(led/cnt/speed_16__or00001:O)  | NONE(led/cnt/speed_16) | 1     |
-led/cnt/speed_17__and0000(led/cnt/speed_17__and00001:O)| NONE(led/cnt/speed_17) | 1     |
-led/cnt/speed_17__or0000(led/cnt/speed_17__or00001:O)  | NONE(led/cnt/speed_17) | 1     |
-led/cnt/speed_18__and0000(led/cnt/speed_18__and00001:O)| NONE(led/cnt/speed_18) | 1     |
-led/cnt/speed_18__or0000(led/cnt/speed_18__or00001:O)  | NONE(led/cnt/speed_18) | 1     |
-led/cnt/speed_19__and0000(led/cnt/speed_19__and00001:O)| NONE(led/cnt/speed_19) | 1     |
-led/cnt/speed_19__or0000(led/cnt/speed_19__or00001:O)  | NONE(led/cnt/speed_19) | 1     |
-led/cnt/speed_1__and0000(led/cnt/speed_1__and00001:O)  | NONE(led/cnt/speed_1)  | 1     |
-led/cnt/speed_1__or0000(led/cnt/speed_1__or00001:O)    | NONE(led/cnt/speed_1)  | 1     |
-led/cnt/speed_20__and0000(led/cnt/speed_20__and00001:O)| NONE(led/cnt/speed_20) | 1     |
-led/cnt/speed_20__or0000(led/cnt/speed_20__or00001:O)  | NONE(led/cnt/speed_20) | 1     |
-led/cnt/speed_21__and0000(led/cnt/speed_21__and00001:O)| NONE(led/cnt/speed_21) | 1     |
-led/cnt/speed_21__or0000(led/cnt/speed_21__or00001:O)  | NONE(led/cnt/speed_21) | 1     |
-led/cnt/speed_22__and0000(led/cnt/speed_22__and00001:O)| NONE(led/cnt/speed_22) | 1     |
-led/cnt/speed_22__or0000(led/cnt/speed_22__or00001:O)  | NONE(led/cnt/speed_22) | 1     |
-led/cnt/speed_23__and0000(led/cnt/speed_23__and00001:O)| NONE(led/cnt/speed_23) | 1     |
-led/cnt/speed_23__or0000(led/cnt/speed_23__or00001:O)  | NONE(led/cnt/speed_23) | 1     |
-led/cnt/speed_24__and0000(led/cnt/speed_24__and00001:O)| NONE(led/cnt/speed_24) | 1     |
-led/cnt/speed_24__or0000(led/cnt/speed_24__or00001:O)  | NONE(led/cnt/speed_24) | 1     |
-led/cnt/speed_25__and0000(led/cnt/speed_25__and00001:O)| NONE(led/cnt/speed_25) | 1     |
-led/cnt/speed_25__or0000(led/cnt/speed_25__or00001:O)  | NONE(led/cnt/speed_25) | 1     |
-led/cnt/speed_26__and0000(led/cnt/speed_26__and00001:O)| NONE(led/cnt/speed_26) | 1     |
-led/cnt/speed_26__or0000(led/cnt/speed_26__or00001:O)  | NONE(led/cnt/speed_26) | 1     |
-led/cnt/speed_27__and0000(led/cnt/speed_27__and00001:O)| NONE(led/cnt/speed_27) | 1     |
-led/cnt/speed_27__or0000(led/cnt/speed_27__or00001:O)  | NONE(led/cnt/speed_27) | 1     |
-led/cnt/speed_28__and0000(led/cnt/speed_28__and00001:O)| NONE(led/cnt/speed_28) | 1     |
-led/cnt/speed_28__or0000(led/cnt/speed_28__or00001:O)  | NONE(led/cnt/speed_28) | 1     |
-led/cnt/speed_29__and0000(led/cnt/speed_29__and00001:O)| NONE(led/cnt/speed_29) | 1     |
-led/cnt/speed_29__or0000(led/cnt/speed_29__or00001:O)  | NONE(led/cnt/speed_29) | 1     |
-led/cnt/speed_2__and0000(led/cnt/speed_2__and00001:O)  | NONE(led/cnt/speed_2)  | 1     |
-led/cnt/speed_2__or0000(led/cnt/speed_2__or00001:O)    | NONE(led/cnt/speed_2)  | 1     |
-led/cnt/speed_30__and0000(led/cnt/speed_30__and00001:O)| NONE(led/cnt/speed_30) | 1     |
-led/cnt/speed_30__or0000(led/cnt/speed_30__or00001:O)  | NONE(led/cnt/speed_30) | 1     |
-led/cnt/speed_31__and0000(led/cnt/speed_31__and00001:O)| NONE(led/cnt/speed_31) | 1     |
-led/cnt/speed_31__or0000(led/cnt/speed_31__or00001:O)  | NONE(led/cnt/speed_31) | 1     |
-led/cnt/speed_3__and0000(led/cnt/speed_3__and00001:O)  | NONE(led/cnt/speed_3)  | 1     |
-led/cnt/speed_3__or0000(led/cnt/speed_3__or00001:O)    | NONE(led/cnt/speed_3)  | 1     |
-led/cnt/speed_4__and0000(led/cnt/speed_4__and00001:O)  | NONE(led/cnt/speed_4)  | 1     |
-led/cnt/speed_4__or0000(led/cnt/speed_4__or00001:O)    | NONE(led/cnt/speed_4)  | 1     |
-led/cnt/speed_5__and0000(led/cnt/speed_5__and00001:O)  | NONE(led/cnt/speed_5)  | 1     |
-led/cnt/speed_5__or0000(led/cnt/speed_5__or00001:O)    | NONE(led/cnt/speed_5)  | 1     |
-led/cnt/speed_6__and0000(led/cnt/speed_6__and00001:O)  | NONE(led/cnt/speed_6)  | 1     |
-led/cnt/speed_6__or0000(led/cnt/speed_6__or00001:O)    | NONE(led/cnt/speed_6)  | 1     |
-led/cnt/speed_7__and0000(led/cnt/speed_7__and00001:O)  | NONE(led/cnt/speed_7)  | 1     |
-led/cnt/speed_7__or0000(led/cnt/speed_7__or00001:O)    | NONE(led/cnt/speed_7)  | 1     |
-led/cnt/speed_8__and0000(led/cnt/speed_8__and00001:O)  | NONE(led/cnt/speed_8)  | 1     |
-led/cnt/speed_8__or0000(led/cnt/speed_8__or00001:O)    | NONE(led/cnt/speed_8)  | 1     |
-led/cnt/speed_9__and0000(led/cnt/speed_9__and00001:O)  | NONE(led/cnt/speed_9)  | 1     |
-led/cnt/speed_9__or0000(led/cnt/speed_9__or00001:O)    | NONE(led/cnt/speed_9)  | 1     |
--------------------------------------------------------+------------------------+-------+
+--------------------------------------------------------------------+------------------------+-------+
+Control Signal                                                      | Buffer(FF name)        | Load  |
+--------------------------------------------------------------------+------------------------+-------+
+led/cnt/rst_inv(my_modi/my_modi_sel/modus_0_state_Acst_inv1_INV_0:O)| NONE(led/cnt/b)        | 68    |
+--------------------------------------------------------------------+------------------------+-------+
 
 Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 5.576ns (Maximum Frequency: 179.340MHz)
-   Minimum input arrival time before clock: 6.601ns
-   Maximum output required time after clock: 0.591ns
-   Maximum combinational path delay: 4.940ns
+   Minimum period: 4.771ns (Maximum Frequency: 209.600MHz)
+   Minimum input arrival time before clock: 6.079ns
+   Maximum output required time after clock: 5.558ns
+   Maximum combinational path delay: No path found
 
 Timing Detail:
 --------------
@@ -487,10 +456,10 @@ All values displayed in nanoseconds (ns)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clock_in'
-  Clock period: 0.549ns (frequency: 1820.948MHz)
-  Total number of paths / destination ports: 9100 / 26
+  Clock period: 0.586ns (frequency: 1707.280MHz)
+  Total number of paths / destination ports: 37367 / 80
 -------------------------------------------------------------------------
-Delay:               8.787ns (Levels of Logic = 43)
+Delay:               9.372ns (Levels of Logic = 52)
   Source:            led/cnt/cnt_0 (FF)
   Destination:       led/cnt/cnt_24 (FF)
   Source Clock:      clock_in rising 0.1X
@@ -501,23 +470,32 @@ Delay:               8.787ns (Levels of Logic = 43)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDC:C->Q              2   0.591   0.590  led/cnt/cnt_0 (led/cnt/cnt_0)
-     LUT4:I0->O            1   0.648   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_lut<0> (led/cnt/Mcompar_cnt_cmp_eq0000_lut<0>)
-     MUXCY:S->O            1   0.632   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<0> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<0>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<1> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<1>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<2> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<2>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<3> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<3>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<4> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<4>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<5> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<5>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<6> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<6>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<7> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<7>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<8> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<8>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<9> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<9>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<10> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<10>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<11> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<11>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<12> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<12>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<13> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<13>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_eq0000_cy<14> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<14>)
-     MUXCY:CI->O          27   0.141   1.404  led/cnt/Mcompar_cnt_cmp_eq0000_cy<15> (led/cnt/Mcompar_cnt_cmp_eq0000_cy<15>)
+     LUT2:I0->O            1   0.648   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_lut<0> (led/cnt/Mcompar_cnt_cmp_ge0000_lut<0>)
+     MUXCY:S->O            1   0.632   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<0> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<0>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<1> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<1>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<2> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<2>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<3> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<3>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<4> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<4>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<5> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<5>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<6> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<6>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<7> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<7>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<8> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<8>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<9> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<9>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<10> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<10>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<11> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<11>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<12> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<12>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<13> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<13>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<14> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<14>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<15> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<15>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<16> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<16>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<17> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<17>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<18> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<18>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<19> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<19>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<20> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<20>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<21> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<21>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<22> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<22>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcompar_cnt_cmp_ge0000_cy<23> (led/cnt/Mcompar_cnt_cmp_ge0000_cy<23>)
+     MUXCY:CI->O          27   0.141   1.404  led/cnt/Mcompar_cnt_cmp_ge0000_cy<24> (led/cnt/cnt_cmp_ge0000)
      LUT3:I0->O            1   0.648   0.000  led/cnt/Mcount_cnt_lut<0> (led/cnt/Mcount_cnt_lut<0>)
      MUXCY:S->O            1   0.632   0.000  led/cnt/Mcount_cnt_cy<0> (led/cnt/Mcount_cnt_cy<0>)
      MUXCY:CI->O           1   0.065   0.000  led/cnt/Mcount_cnt_cy<1> (led/cnt/Mcount_cnt_cy<1>)
@@ -546,164 +524,131 @@ Delay:               8.787ns (Levels of Logic = 43)
      XORCY:CI->O           1   0.844   0.000  led/cnt/Mcount_cnt_xor<24> (led/cnt/Mcount_cnt24)
      FDC:D                     0.252          led/cnt/cnt_24
     ----------------------------------------
-    Total                      8.787ns (6.793ns logic, 1.994ns route)
-                                       (77.3% logic, 22.7% route)
+    Total                      9.372ns (7.378ns logic, 1.994ns route)
+                                       (78.7% logic, 21.3% route)
 
 =========================================================================
-Timing constraint: Default period analysis for Clock 'reset_in'
-  Clock period: 5.576ns (frequency: 179.340MHz)
-  Total number of paths / destination ports: 1024 / 32
+Timing constraint: Default period analysis for Clock 'led/cnt/b'
+  Clock period: 4.771ns (frequency: 209.600MHz)
+  Total number of paths / destination ports: 109 / 20
 -------------------------------------------------------------------------
-Delay:               5.576ns (Levels of Logic = 33)
-  Source:            led/cnt/speed_0 (LATCH)
-  Destination:       led/cnt/speed_31 (LATCH)
-  Source Clock:      reset_in falling
-  Destination Clock: reset_in falling
+Delay:               4.771ns (Levels of Logic = 3)
+  Source:            my_modi/my_modi_sel/modus_pressed (FF)
+  Destination:       my_modi/my_modi_sel/modus_0_state_1 (FF)
+  Source Clock:      led/cnt/b rising
+  Destination Clock: led/cnt/b rising
 
-  Data Path: led/cnt/speed_0 to led/cnt/speed_31
+  Data Path: my_modi/my_modi_sel/modus_pressed to my_modi/my_modi_sel/modus_0_state_1
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     LDCP:G->Q             2   0.728   0.527  led/cnt/speed_0 (led/cnt/speed_0)
-     LUT2:I1->O            1   0.643   0.000  led/cnt/Maddsub_speed_mux0002_lut<0> (led/cnt/Maddsub_speed_mux0002_lut<0>)
-     MUXCY:S->O            1   0.632   0.000  led/cnt/Maddsub_speed_mux0002_cy<0> (led/cnt/Maddsub_speed_mux0002_cy<0>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<1> (led/cnt/Maddsub_speed_mux0002_cy<1>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<2> (led/cnt/Maddsub_speed_mux0002_cy<2>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<3> (led/cnt/Maddsub_speed_mux0002_cy<3>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<4> (led/cnt/Maddsub_speed_mux0002_cy<4>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<5> (led/cnt/Maddsub_speed_mux0002_cy<5>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<6> (led/cnt/Maddsub_speed_mux0002_cy<6>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<7> (led/cnt/Maddsub_speed_mux0002_cy<7>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<8> (led/cnt/Maddsub_speed_mux0002_cy<8>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<9> (led/cnt/Maddsub_speed_mux0002_cy<9>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<10> (led/cnt/Maddsub_speed_mux0002_cy<10>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<11> (led/cnt/Maddsub_speed_mux0002_cy<11>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<12> (led/cnt/Maddsub_speed_mux0002_cy<12>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<13> (led/cnt/Maddsub_speed_mux0002_cy<13>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<14> (led/cnt/Maddsub_speed_mux0002_cy<14>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<15> (led/cnt/Maddsub_speed_mux0002_cy<15>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<16> (led/cnt/Maddsub_speed_mux0002_cy<16>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<17> (led/cnt/Maddsub_speed_mux0002_cy<17>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<18> (led/cnt/Maddsub_speed_mux0002_cy<18>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<19> (led/cnt/Maddsub_speed_mux0002_cy<19>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<20> (led/cnt/Maddsub_speed_mux0002_cy<20>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<21> (led/cnt/Maddsub_speed_mux0002_cy<21>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<22> (led/cnt/Maddsub_speed_mux0002_cy<22>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<23> (led/cnt/Maddsub_speed_mux0002_cy<23>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<24> (led/cnt/Maddsub_speed_mux0002_cy<24>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<25> (led/cnt/Maddsub_speed_mux0002_cy<25>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<26> (led/cnt/Maddsub_speed_mux0002_cy<26>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<27> (led/cnt/Maddsub_speed_mux0002_cy<27>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<28> (led/cnt/Maddsub_speed_mux0002_cy<28>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<29> (led/cnt/Maddsub_speed_mux0002_cy<29>)
-     MUXCY:CI->O           0   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<30> (led/cnt/Maddsub_speed_mux0002_cy<30>)
-     XORCY:CI->O           3   0.844   0.000  led/cnt/Maddsub_speed_mux0002_xor<31> (led/cnt/speed_mux0002<31>)
-     LDCP:D                    0.252          led/cnt/speed_31
+     FDE:C->Q              9   0.591   0.900  my_modi/my_modi_sel/modus_pressed (my_modi/my_modi_sel/modus_pressed)
+     LUT2_D:I1->O         13   0.643   0.986  my_modi/my_modi_sel/direction_pressed_and000021 (my_modi/my_modi_sel/N8)
+     LUT4_L:I3->LO         1   0.648   0.103  my_modi/my_modi_sel/modus_0_state_mux0004<2>_SW0 (N5)
+     LUT4:I3->O            1   0.648   0.000  my_modi/my_modi_sel/modus_0_state_mux0004<2> (my_modi/my_modi_sel/modus_0_state_mux0004<2>)
+     FDC:D                     0.252          my_modi/my_modi_sel/modus_0_state_1
     ----------------------------------------
-    Total                      5.576ns (5.049ns logic, 0.527ns route)
-                                       (90.5% logic, 9.5% route)
+    Total                      4.771ns (2.782ns logic, 1.989ns route)
+                                       (58.3% logic, 41.7% route)
 
 =========================================================================
-Timing constraint: Default OFFSET IN BEFORE for Clock 'reset_in'
-  Total number of paths / destination ports: 560 / 32
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clock_in'
+  Total number of paths / destination ports: 409 / 54
 -------------------------------------------------------------------------
-Offset:              6.601ns (Levels of Logic = 34)
-  Source:            speed_down_in (PAD)
-  Destination:       led/cnt/speed_31 (LATCH)
-  Destination Clock: reset_in falling
+Offset:              6.079ns (Levels of Logic = 27)
+  Source:            speed_up_in (PAD)
+  Destination:       led/cnt/speed_24 (FF)
+  Destination Clock: clock_in rising 0.1X
 
-  Data Path: speed_down_in to led/cnt/speed_31
+  Data Path: speed_up_in to led/cnt/speed_24
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O            97   0.849   1.426  speed_down_in_IBUF (speed_down_in1)
-     LUT2:I0->O            1   0.648   0.000  led/cnt/Maddsub_speed_mux0002_lut<0> (led/cnt/Maddsub_speed_mux0002_lut<0>)
-     MUXCY:S->O            1   0.632   0.000  led/cnt/Maddsub_speed_mux0002_cy<0> (led/cnt/Maddsub_speed_mux0002_cy<0>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<1> (led/cnt/Maddsub_speed_mux0002_cy<1>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<2> (led/cnt/Maddsub_speed_mux0002_cy<2>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<3> (led/cnt/Maddsub_speed_mux0002_cy<3>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<4> (led/cnt/Maddsub_speed_mux0002_cy<4>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<5> (led/cnt/Maddsub_speed_mux0002_cy<5>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<6> (led/cnt/Maddsub_speed_mux0002_cy<6>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<7> (led/cnt/Maddsub_speed_mux0002_cy<7>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<8> (led/cnt/Maddsub_speed_mux0002_cy<8>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<9> (led/cnt/Maddsub_speed_mux0002_cy<9>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<10> (led/cnt/Maddsub_speed_mux0002_cy<10>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<11> (led/cnt/Maddsub_speed_mux0002_cy<11>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<12> (led/cnt/Maddsub_speed_mux0002_cy<12>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<13> (led/cnt/Maddsub_speed_mux0002_cy<13>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<14> (led/cnt/Maddsub_speed_mux0002_cy<14>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<15> (led/cnt/Maddsub_speed_mux0002_cy<15>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<16> (led/cnt/Maddsub_speed_mux0002_cy<16>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<17> (led/cnt/Maddsub_speed_mux0002_cy<17>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<18> (led/cnt/Maddsub_speed_mux0002_cy<18>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<19> (led/cnt/Maddsub_speed_mux0002_cy<19>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<20> (led/cnt/Maddsub_speed_mux0002_cy<20>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<21> (led/cnt/Maddsub_speed_mux0002_cy<21>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<22> (led/cnt/Maddsub_speed_mux0002_cy<22>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<23> (led/cnt/Maddsub_speed_mux0002_cy<23>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<24> (led/cnt/Maddsub_speed_mux0002_cy<24>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<25> (led/cnt/Maddsub_speed_mux0002_cy<25>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<26> (led/cnt/Maddsub_speed_mux0002_cy<26>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<27> (led/cnt/Maddsub_speed_mux0002_cy<27>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<28> (led/cnt/Maddsub_speed_mux0002_cy<28>)
-     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<29> (led/cnt/Maddsub_speed_mux0002_cy<29>)
-     MUXCY:CI->O           0   0.065   0.000  led/cnt/Maddsub_speed_mux0002_cy<30> (led/cnt/Maddsub_speed_mux0002_cy<30>)
-     XORCY:CI->O           3   0.844   0.000  led/cnt/Maddsub_speed_mux0002_xor<31> (led/cnt/speed_mux0002<31>)
-     LDCP:D                    0.252          led/cnt/speed_31
+     IBUF:I->O            28   0.849   1.293  speed_up_in_IBUF (speed_up_in_IBUF)
+     LUT3:I2->O            5   0.648   0.633  led/cnt/up_button_pressed_not000111 (led/cnt/speed_not0003_inv)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<0> (led/cnt/Maccum_speed_cy<0>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<1> (led/cnt/Maccum_speed_cy<1>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<2> (led/cnt/Maccum_speed_cy<2>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<3> (led/cnt/Maccum_speed_cy<3>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<4> (led/cnt/Maccum_speed_cy<4>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<5> (led/cnt/Maccum_speed_cy<5>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<6> (led/cnt/Maccum_speed_cy<6>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<7> (led/cnt/Maccum_speed_cy<7>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<8> (led/cnt/Maccum_speed_cy<8>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<9> (led/cnt/Maccum_speed_cy<9>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<10> (led/cnt/Maccum_speed_cy<10>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<11> (led/cnt/Maccum_speed_cy<11>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<12> (led/cnt/Maccum_speed_cy<12>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<13> (led/cnt/Maccum_speed_cy<13>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<14> (led/cnt/Maccum_speed_cy<14>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<15> (led/cnt/Maccum_speed_cy<15>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<16> (led/cnt/Maccum_speed_cy<16>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<17> (led/cnt/Maccum_speed_cy<17>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<18> (led/cnt/Maccum_speed_cy<18>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<19> (led/cnt/Maccum_speed_cy<19>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<20> (led/cnt/Maccum_speed_cy<20>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<21> (led/cnt/Maccum_speed_cy<21>)
+     MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<22> (led/cnt/Maccum_speed_cy<22>)
+     MUXCY:CI->O           0   0.065   0.000  led/cnt/Maccum_speed_cy<23> (led/cnt/Maccum_speed_cy<23>)
+     XORCY:CI->O           1   0.844   0.000  led/cnt/Maccum_speed_xor<24> (led/cnt/Result<24>)
+     FDCE:D                    0.252          led/cnt/speed_24
     ----------------------------------------
-    Total                      6.601ns (5.175ns logic, 1.426ns route)
-                                       (78.4% logic, 21.6% route)
+    Total                      6.079ns (4.153ns logic, 1.926ns route)
+                                       (68.3% logic, 31.7% route)
 
 =========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'clock_in'
-  Total number of paths / destination ports: 1 / 1
+Timing constraint: Default OFFSET IN BEFORE for Clock 'led/cnt/b'
+  Total number of paths / destination ports: 49 / 19
 -------------------------------------------------------------------------
-Offset:              0.591ns (Levels of Logic = 0)
-  Source:            led/cnt/b (FF)
-  Destination:       my_modi/my_modi_sel:clock_sel (PAD)
-  Source Clock:      clock_in rising 0.1X
+Offset:              5.097ns (Levels of Logic = 4)
+  Source:            modus_in (PAD)
+  Destination:       my_modi/my_modi_sel/modus_0_state_1 (FF)
+  Destination Clock: led/cnt/b rising
 
-  Data Path: led/cnt/b to my_modi/my_modi_sel:clock_sel
+  Data Path: modus_in to my_modi/my_modi_sel/modus_0_state_1
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q              0   0.591   0.000  led/cnt/b (led/cnt/b)
-    modi_selector:clock_sel        0.000          my_modi/my_modi_sel
+     IBUF:I->O             9   0.849   0.963  modus_in_IBUF (modus_in_IBUF)
+     LUT2_D:I0->O         13   0.648   0.986  my_modi/my_modi_sel/direction_pressed_and000021 (my_modi/my_modi_sel/N8)
+     LUT4_L:I3->LO         1   0.648   0.103  my_modi/my_modi_sel/modus_0_state_mux0004<2>_SW0 (N5)
+     LUT4:I3->O            1   0.648   0.000  my_modi/my_modi_sel/modus_0_state_mux0004<2> (my_modi/my_modi_sel/modus_0_state_mux0004<2>)
+     FDC:D                     0.252          my_modi/my_modi_sel/modus_0_state_1
     ----------------------------------------
-    Total                      0.591ns (0.591ns logic, 0.000ns route)
-                                       (100.0% logic, 0.0% route)
+    Total                      5.097ns (3.045ns logic, 2.052ns route)
+                                       (59.7% logic, 40.3% route)
 
 =========================================================================
-Timing constraint: Default path analysis
-  Total number of paths / destination ports: 11 / 11
+Timing constraint: Default OFFSET OUT AFTER for Clock 'led/cnt/b'
+  Total number of paths / destination ports: 8 / 8
 -------------------------------------------------------------------------
-Delay:               4.940ns (Levels of Logic = 1)
-  Source:            my_modi/my_modi_sel:vector_sel<7> (PAD)
+Offset:              5.558ns (Levels of Logic = 1)
+  Source:            my_modi/my_modi_sel/vector_sel_7 (FF)
   Destination:       led8_out (PAD)
+  Source Clock:      led/cnt/b rising
 
-  Data Path: my_modi/my_modi_sel:vector_sel<7> to led8_out
+  Data Path: my_modi/my_modi_sel/vector_sel_7 to led8_out
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-    modi_selector:vector_sel<7>    1   0.000   0.420  my_modi/my_modi_sel (led8_out_OBUF)
+     FDC:C->Q              2   0.591   0.447  my_modi/my_modi_sel/vector_sel_7 (my_modi/my_modi_sel/vector_sel_7)
      OBUF:I->O                 4.520          led8_out_OBUF (led8_out)
     ----------------------------------------
-    Total                      4.940ns (4.520ns logic, 0.420ns route)
-                                       (91.5% logic, 8.5% route)
+    Total                      5.558ns (5.111ns logic, 0.447ns route)
+                                       (92.0% logic, 8.0% route)
 
 =========================================================================
 
 
 Total REAL time to Xst completion: 17.00 secs
-Total CPU time to Xst completion: 15.94 secs
+Total CPU time to Xst completion: 16.30 secs
  
 --> 
 
 
-Total memory usage is 184512 kilobytes
+Total memory usage is 184480 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :   13 (   0 filtered)
+Number of warnings :    3 (   0 filtered)
 Number of infos    :    1 (   0 filtered)
 

@@ -1,0 +1,21 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Thu Nov 09 12:03:28 2017
+//! **************************************************************************
+
+SCHEMATIC START;
+COMP "led3_out" LOCATE = SITE "G21" LEVEL 1;
+COMP "reset_in" LOCATE = SITE "Y16" LEVEL 1;
+COMP "clock_in" LOCATE = SITE "F13" LEVEL 1;
+COMP "led4_out" LOCATE = SITE "H20" LEVEL 1;
+COMP "led5_out" LOCATE = SITE "K22" LEVEL 1;
+COMP "led6_out" LOCATE = SITE "N19" LEVEL 1;
+COMP "speed_up_in" LOCATE = SITE "J10" LEVEL 1;
+COMP "direction_in" LOCATE = SITE "J15" LEVEL 1;
+COMP "led7_out" LOCATE = SITE "P25" LEVEL 1;
+COMP "speed_down_in" LOCATE = SITE "J13" LEVEL 1;
+COMP "led1_out" LOCATE = SITE "D25" LEVEL 1;
+COMP "modus_in" LOCATE = SITE "J17" LEVEL 1;
+COMP "led8_out" LOCATE = SITE "P18" LEVEL 1;
+COMP "led2_out" LOCATE = SITE "D24" LEVEL 1;
+SCHEMATIC END;
+
