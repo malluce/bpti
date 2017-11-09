@@ -1,0 +1,15 @@
+NET "clock_in" LOC = F13;
+NET "modus_in" LOC = J17;
+NET "direction_in" LOC = J15;
+NET "speed_up_in" LOC = J10;
+NET "speed_down_in" LOC = J13;
+NET "reset_in" LOC = Y16;
+
+NET "led1_out" LOC = D25;
+NET "led2_out" LOC = D24;
+NET "led3_out" LOC = G21;
+NET "led4_out" LOC = H20;
+NET "led5_out" LOC = K22;
+NET "led6_out" LOC = N19;
+NET "led7_out" LOC = P25;
+NET "led8_out" LOC = P18;

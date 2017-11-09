@@ -4,15 +4,15 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.12 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.11 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.12 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.11 secs
  
 --> 
 Reading design: run_light.prj
@@ -109,19 +109,18 @@ Slice Utilization Ratio Delta      : 5
 *                          HDL Compilation                              *
 =========================================================================
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/modi_selector.vhd" in Library work.
-Architecture modi_selector_behav of Entity modi_selector is up to date.
+Entity <modi_selector> compiled.
+Entity <modi_selector> (Architecture <modi_selector_behav>) compiled.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/set_led.vhd" in Library work.
 Architecture set_led_behav of Entity set_led is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/counter.vhd" in Library work.
-Entity <counter_ent> compiled.
-Entity <counter_ent> (Architecture <behaviour_counter>) compiled.
+Architecture behaviour_counter of Entity counter_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/21_not.vhd" in Library work.
 Architecture behaviour_not of Entity not_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/myDCM2.vhd" in Library work.
 Architecture behavioral of Entity mydcm2 is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/led_test.vhd" in Library work.
-Entity <led_ent> compiled.
-Entity <led_ent> (Architecture <struct_led>) compiled.
+Architecture struct_led of Entity led_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/modi.vhd" in Library work.
 Architecture modi_struct of Entity modi is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/run_light.vhd" in Library work.
@@ -229,24 +228,21 @@ Unit <not_ent> synthesized.
 
 Synthesizing Unit <modi_selector>.
     Related source file is "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/modi_selector.vhd".
-    Using one-hot encoding for signal <modus_2_state$mux0000>.
-    Using one-hot encoding for signal <modus_2_state$mux0001>.
-    Using one-hot encoding for signal <modus_1_state$mux0000>.
-    Using one-hot encoding for signal <modus_1_state$mux0001>.
-    Using one-hot encoding for signal <modus_0_state$mux0000>.
-    Using one-hot encoding for signal <modus_0_state$mux0001>.
+    Using one-hot encoding for signal <state$mux0000>.
+    Using one-hot encoding for signal <state$mux0001>.
+    Using one-hot encoding for signal <state$mux0004>.
     Found 8-bit register for signal <vector_sel>.
     Found 1-bit register for signal <direction<0>>.
     Found 1-bit register for signal <direction_pressed>.
     Found 2-bit register for signal <modus>.
-    Found 4-bit register for signal <modus_0_state>.
-    Found 5-bit register for signal <modus_1_state>.
-    Found 2-bit adder for signal <modus_1_state$add0000> created at line 40.
-    Found 5-bit register for signal <modus_2_state>.
+    Found 2-bit adder for signal <modus$addsub0000> created at line 35.
     Found 1-bit register for signal <modus_pressed>.
+    Found 5-bit register for signal <state>.
+    Found 8-bit 4-to-1 multiplexer for signal <vector_sel$mux0004>.
     Summary:
 	inferred  13 D-type flip-flop(s).
 	inferred   1 Adder/Subtractor(s).
+	inferred   8 Multiplexer(s).
 Unit <modi_selector> synthesized.
 
 
@@ -285,16 +281,17 @@ Macro Statistics
  25-bit up counter                                     : 1
 # Accumulators                                         : 1
  25-bit updown accumulator                             : 1
-# Registers                                            : 11
+# Registers                                            : 9
  1-bit register                                        : 6
  2-bit register                                        : 1
- 4-bit register                                        : 1
- 5-bit register                                        : 2
+ 5-bit register                                        : 1
  8-bit register                                        : 1
 # Comparators                                          : 4
  25-bit comparator greatequal                          : 2
  25-bit comparator greater                             : 1
  25-bit comparator less                                : 1
+# Multiplexers                                         : 1
+ 8-bit 4-to-1 multiplexer                              : 1
 
 =========================================================================
 
@@ -313,12 +310,14 @@ Macro Statistics
  25-bit up counter                                     : 1
 # Accumulators                                         : 1
  25-bit updown accumulator                             : 1
-# Registers                                            : 30
- Flip-Flops                                            : 30
+# Registers                                            : 21
+ Flip-Flops                                            : 21
 # Comparators                                          : 4
  25-bit comparator greatequal                          : 2
  25-bit comparator greater                             : 1
  25-bit comparator less                                : 1
+# Multiplexers                                         : 1
+ 8-bit 4-to-1 multiplexer                              : 1
 
 =========================================================================
 
@@ -342,8 +341,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 80
- Flip-Flops                                            : 80
+# Registers                                            : 71
+ Flip-Flops                                            : 71
 
 =========================================================================
 
@@ -372,31 +371,27 @@ Design Statistics
 # IOs                              : 14
 
 Cell Usage :
-# BELS                             : 363
+# BELS                             : 317
 #      GND                         : 1
 #      INV                         : 10
 #      LUT1                        : 4
-#      LUT2                        : 37
+#      LUT2                        : 38
 #      LUT2_D                      : 1
-#      LUT2_L                      : 1
-#      LUT3                        : 49
-#      LUT3_D                      : 2
-#      LUT3_L                      : 5
-#      LUT4                        : 81
-#      LUT4_D                      : 9
-#      LUT4_L                      : 8
+#      LUT3                        : 38
+#      LUT3_D                      : 3
+#      LUT4                        : 62
 #      MUXCY                       : 98
-#      MUXF5                       : 6
+#      MUXF5                       : 11
 #      VCC                         : 1
 #      XORCY                       : 50
-# FlipFlops/Latches                : 80
-#      FDC                         : 47
+# FlipFlops/Latches                : 71
+#      FDC                         : 40
 #      FDCE                        : 15
 #      FDE                         : 2
-#      FDP                         : 3
+#      FDP                         : 1
 #      FDPE                        : 13
-# Clock Buffers                    : 3
-#      BUFG                        : 3
+# Clock Buffers                    : 2
+#      BUFG                        : 2
 # IO Buffers                       : 14
 #      IBUF                        : 5
 #      IBUFG                       : 1
@@ -410,12 +405,12 @@ Device utilization summary:
 
 Selected Device : 3sd1800afg676-4 
 
- Number of Slices:                      117  out of  16640     0%  
- Number of Slice Flip Flops:             80  out of  33280     0%  
- Number of 4 input LUTs:                207  out of  33280     0%  
+ Number of Slices:                       93  out of  16640     0%  
+ Number of Slice Flip Flops:             71  out of  33280     0%  
+ Number of 4 input LUTs:                156  out of  33280     0%  
  Number of IOs:                          14
  Number of bonded IOBs:                  14  out of    519     2%  
- Number of GCLKs:                         3  out of     24    12%  
+ Number of GCLKs:                         2  out of     24     8%  
  Number of DCMs:                          1  out of      8    12%  
 
 ---------------------------
@@ -436,28 +431,29 @@ NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
 
 Clock Information:
 ------------------
------------------------------------+-----------------------------+-------+
-Clock Signal                       | Clock buffer(FF name)       | Load  |
------------------------------------+-----------------------------+-------+
-clock_in                           | led/my_dcm/DCM_SP_INST:CLKDV| 53    |
-led/cnt/b1                         | BUFG                        | 27    |
------------------------------------+-----------------------------+-------+
+-----------------------------------+----------------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)            | Load  |
+-----------------------------------+----------------------------------+-------+
+clock_in                           | led/my_dcm/DCM_SP_INST:CLKDV     | 53    |
+led/cnt/b                          | NONE(my_modi/my_modi_sel/state_2)| 18    |
+-----------------------------------+----------------------------------+-------+
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 
 Asynchronous Control Signals Information:
 ----------------------------------------
---------------------------------------------------------------------+------------------------+-------+
-Control Signal                                                      | Buffer(FF name)        | Load  |
---------------------------------------------------------------------+------------------------+-------+
-led/cnt/rst_inv(my_modi/my_modi_sel/modus_0_state_Acst_inv1_INV_0:O)| NONE(led/cnt/b)        | 78    |
---------------------------------------------------------------------+------------------------+-------+
+-----------------------------------------------------------+------------------------+-------+
+Control Signal                                             | Buffer(FF name)        | Load  |
+-----------------------------------------------------------+------------------------+-------+
+led/cnt/rst_inv(my_modi/my_modi_sel/reset_sel_inv1_INV_0:O)| NONE(led/cnt/b)        | 69    |
+-----------------------------------------------------------+------------------------+-------+
 
 Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 7.602ns (Maximum Frequency: 131.544MHz)
-   Minimum input arrival time before clock: 7.928ns
-   Maximum output required time after clock: 5.558ns
+   Minimum period: 6.852ns (Maximum Frequency: 145.943MHz)
+   Minimum input arrival time before clock: 7.234ns
+   Maximum output required time after clock: 5.531ns
    Maximum combinational path delay: No path found
 
 Timing Detail:
@@ -538,36 +534,36 @@ Delay:               9.372ns (Levels of Logic = 52)
                                        (78.7% logic, 21.3% route)
 
 =========================================================================
-Timing constraint: Default period analysis for Clock 'led/cnt/b1'
-  Clock period: 7.602ns (frequency: 131.544MHz)
-  Total number of paths / destination ports: 673 / 30
+Timing constraint: Default period analysis for Clock 'led/cnt/b'
+  Clock period: 6.852ns (frequency: 145.943MHz)
+  Total number of paths / destination ports: 332 / 21
 -------------------------------------------------------------------------
-Delay:               7.602ns (Levels of Logic = 5)
-  Source:            my_modi/my_modi_sel/modus_pressed (FF)
-  Destination:       my_modi/my_modi_sel/vector_sel_3 (FF)
-  Source Clock:      led/cnt/b1 rising
-  Destination Clock: led/cnt/b1 rising
+Delay:               6.852ns (Levels of Logic = 5)
+  Source:            my_modi/my_modi_sel/direction_pressed (FF)
+  Destination:       my_modi/my_modi_sel/vector_sel_0 (FF)
+  Source Clock:      led/cnt/b rising
+  Destination Clock: led/cnt/b rising
 
-  Data Path: my_modi/my_modi_sel/modus_pressed to my_modi/my_modi_sel/vector_sel_3
+  Data Path: my_modi/my_modi_sel/direction_pressed to my_modi/my_modi_sel/vector_sel_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q             24   0.591   1.332  my_modi/my_modi_sel/modus_pressed (my_modi/my_modi_sel/modus_pressed)
-     LUT2_D:I1->LO         1   0.643   0.103  my_modi/my_modi_sel/direction_pressed_and000031 (N84)
+     FDE:C->Q              3   0.591   0.611  my_modi/my_modi_sel/direction_pressed (my_modi/my_modi_sel/direction_pressed)
+     LUT2:I1->O            5   0.643   0.636  my_modi/my_modi_sel/direction_pressed_and0000311 (my_modi/my_modi_sel/direction_and0000)
      LUT4:I3->O           11   0.648   0.936  my_modi/my_modi_sel/direction_mux00011 (my_modi/my_modi_sel/direction_mux0001)
-     LUT4:I3->O            3   0.648   0.534  my_modi/my_modi_sel/vector_sel_mux0006<6>2211 (my_modi/my_modi_sel/N191)
-     LUT4:I3->O            4   0.648   0.619  my_modi/my_modi_sel/vector_sel_mux0006<6>217 (my_modi/my_modi_sel/N6)
-     LUT3:I2->O            1   0.648   0.000  my_modi/my_modi_sel/vector_sel_mux0006<5> (my_modi/my_modi_sel/vector_sel_mux0006<5>)
-     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_2
+     LUT4:I3->O            9   0.648   0.963  my_modi/my_modi_sel/state_mux0004<4>1 (my_modi/my_modi_sel/state_mux0004<4>)
+     LUT4:I0->O            1   0.648   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413_G (N53)
+     MUXF5:I1->O           1   0.276   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413 (my_modi/my_modi_sel/vector_sel_mux0004<7>)
+     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_0
     ----------------------------------------
-    Total                      7.602ns (4.078ns logic, 3.524ns route)
-                                       (53.6% logic, 46.4% route)
+    Total                      6.852ns (3.706ns logic, 3.146ns route)
+                                       (54.1% logic, 45.9% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'clock_in'
   Total number of paths / destination ports: 409 / 54
 -------------------------------------------------------------------------
-Offset:              6.122ns (Levels of Logic = 27)
+Offset:              6.079ns (Levels of Logic = 27)
   Source:            speed_up_in (PAD)
   Destination:       led/cnt/speed_24 (FF)
   Destination Clock: clock_in rising 0.1X
@@ -576,8 +572,8 @@ Offset:              6.122ns (Levels of Logic = 27)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O            28   0.849   1.341  speed_up_in_IBUF (speed_up_in_IBUF)
-     LUT3:I1->O            5   0.643   0.633  led/cnt/up_button_pressed_not000111 (led/cnt/speed_not0003_inv)
+     IBUF:I->O            28   0.849   1.293  speed_up_in_IBUF (speed_up_in_IBUF)
+     LUT3:I2->O            5   0.648   0.633  led/cnt/up_button_pressed_not000111 (led/cnt/speed_not0003_inv)
      MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<0> (led/cnt/Maccum_speed_cy<0>)
      MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<1> (led/cnt/Maccum_speed_cy<1>)
      MUXCY:CI->O           1   0.065   0.000  led/cnt/Maccum_speed_cy<2> (led/cnt/Maccum_speed_cy<2>)
@@ -605,64 +601,64 @@ Offset:              6.122ns (Levels of Logic = 27)
      XORCY:CI->O           1   0.844   0.000  led/cnt/Maccum_speed_xor<24> (led/cnt/Result<24>)
      FDCE:D                    0.252          led/cnt/speed_24
     ----------------------------------------
-    Total                      6.122ns (4.148ns logic, 1.974ns route)
-                                       (67.8% logic, 32.2% route)
+    Total                      6.079ns (4.153ns logic, 1.926ns route)
+                                       (68.3% logic, 31.7% route)
 
 =========================================================================
-Timing constraint: Default OFFSET IN BEFORE for Clock 'led/cnt/b1'
-  Total number of paths / destination ports: 242 / 29
+Timing constraint: Default OFFSET IN BEFORE for Clock 'led/cnt/b'
+  Total number of paths / destination ports: 153 / 20
 -------------------------------------------------------------------------
-Offset:              7.928ns (Levels of Logic = 6)
-  Source:            modus_in (PAD)
-  Destination:       my_modi/my_modi_sel/vector_sel_3 (FF)
-  Destination Clock: led/cnt/b1 rising
+Offset:              7.234ns (Levels of Logic = 6)
+  Source:            direction_in (PAD)
+  Destination:       my_modi/my_modi_sel/vector_sel_0 (FF)
+  Destination Clock: led/cnt/b rising
 
-  Data Path: modus_in to my_modi/my_modi_sel/vector_sel_3
+  Data Path: direction_in to my_modi/my_modi_sel/vector_sel_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O            24   0.849   1.395  modus_in_IBUF (modus_in_IBUF)
-     LUT2_D:I0->LO         1   0.648   0.103  my_modi/my_modi_sel/direction_pressed_and000031 (N84)
+     IBUF:I->O             4   0.849   0.730  direction_in_IBUF (direction_in_IBUF)
+     LUT2:I0->O            5   0.648   0.636  my_modi/my_modi_sel/direction_pressed_and0000311 (my_modi/my_modi_sel/direction_and0000)
      LUT4:I3->O           11   0.648   0.936  my_modi/my_modi_sel/direction_mux00011 (my_modi/my_modi_sel/direction_mux0001)
-     LUT4:I3->O            3   0.648   0.534  my_modi/my_modi_sel/vector_sel_mux0006<6>2211 (my_modi/my_modi_sel/N191)
-     LUT4:I3->O            4   0.648   0.619  my_modi/my_modi_sel/vector_sel_mux0006<6>217 (my_modi/my_modi_sel/N6)
-     LUT3:I2->O            1   0.648   0.000  my_modi/my_modi_sel/vector_sel_mux0006<5> (my_modi/my_modi_sel/vector_sel_mux0006<5>)
-     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_2
+     LUT4:I3->O            9   0.648   0.963  my_modi/my_modi_sel/state_mux0004<4>1 (my_modi/my_modi_sel/state_mux0004<4>)
+     LUT4:I0->O            1   0.648   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413_G (N53)
+     MUXF5:I1->O           1   0.276   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413 (my_modi/my_modi_sel/vector_sel_mux0004<7>)
+     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_0
     ----------------------------------------
-    Total                      7.928ns (4.341ns logic, 3.587ns route)
-                                       (54.8% logic, 45.2% route)
+    Total                      7.234ns (3.969ns logic, 3.265ns route)
+                                       (54.9% logic, 45.1% route)
 
 =========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'led/cnt/b1'
+Timing constraint: Default OFFSET OUT AFTER for Clock 'led/cnt/b'
   Total number of paths / destination ports: 8 / 8
 -------------------------------------------------------------------------
-Offset:              5.558ns (Levels of Logic = 1)
+Offset:              5.531ns (Levels of Logic = 1)
   Source:            my_modi/my_modi_sel/vector_sel_0 (FF)
   Destination:       led8_out (PAD)
-  Source Clock:      led/cnt/b1 rising
+  Source Clock:      led/cnt/b rising
 
   Data Path: my_modi/my_modi_sel/vector_sel_0 to led8_out
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q              2   0.591   0.447  my_modi/my_modi_sel/vector_sel_0 (my_modi/my_modi_sel/vector_sel_0)
+     FDC:C->Q              1   0.591   0.420  my_modi/my_modi_sel/vector_sel_0 (my_modi/my_modi_sel/vector_sel_0)
      OBUF:I->O                 4.520          led8_out_OBUF (led8_out)
     ----------------------------------------
-    Total                      5.558ns (5.111ns logic, 0.447ns route)
-                                       (92.0% logic, 8.0% route)
+    Total                      5.531ns (5.111ns logic, 0.420ns route)
+                                       (92.4% logic, 7.6% route)
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 19.00 secs
-Total CPU time to Xst completion: 17.96 secs
+Total REAL time to Xst completion: 17.00 secs
+Total CPU time to Xst completion: 16.58 secs
  
 --> 
 
 
-Total memory usage is 185468 kilobytes
+Total memory usage is 184628 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    3 (   0 filtered)
-Number of infos    :    0 (   0 filtered)
+Number of infos    :    1 (   0 filtered)
 
