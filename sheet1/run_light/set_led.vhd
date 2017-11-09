@@ -20,14 +20,14 @@ architecture set_led_behav of set_led is
 begin
 	led_process : process(vector_set)
 	begin
-		led1_set <= vector_set(0);
-		led2_set <= vector_set(1);
-		led3_set <= vector_set(2);
-		led4_set <= vector_set(3);
-		led5_set <= vector_set(4);
-		led6_set <= vector_set(5);
-		led7_set <= vector_set(6);
-		led8_set <= vector_set(7);
+		led1_set <= vector_set(7);
+		led2_set <= vector_set(6);
+		led3_set <= vector_set(5);
+		led4_set <= vector_set(4);
+		led5_set <= vector_set(3);
+		led6_set <= vector_set(2);
+		led7_set <= vector_set(1);
+		led8_set <= vector_set(0);
 	end process led_process;
 
 end set_led_behav;

@@ -45,8 +45,8 @@ Setup/Hold to clock clock_in
              |Max Setup to|Max Hold to |                  | Clock  |
 Source       | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 -------------+------------+------------+------------------+--------+
-speed_down_in|    6.050(R)|   -2.287(R)|led/led_fwd       |   0.000|
-speed_up_in  |   10.290(R)|   -3.556(R)|led/led_fwd       |   0.000|
+speed_down_in|    6.868(R)|   -2.559(R)|led/led_fwd       |   0.000|
+speed_up_in  |   10.251(R)|   -3.898(R)|led/led_fwd       |   0.000|
 -------------+------------+------------+------------------+--------+
 
 Clock to Setup on destination clock clock_in
@@ -54,11 +54,11 @@ Clock to Setup on destination clock clock_in
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clock_in       |   10.141|         |         |         |
+clock_in       |    9.192|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Thu Nov  9 12:04:43 2017 
+Analysis completed Thu Nov  9 14:02:39 2017 
 --------------------------------------------------------------------------------
 
 Trace Settings:

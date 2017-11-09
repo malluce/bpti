@@ -104,7 +104,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1510225372" xil_pn:in_ck="-8234100120652892975" xil_pn:name="TRANEXT_xstsynthesize_spartan3adsp" xil_pn:prop_ck="-5562323405977382931" xil_pn:start_ts="1510225346">
+    <transform xil_pn:end_ts="1510232450" xil_pn:in_ck="-8234100120652892975" xil_pn:name="TRANEXT_xstsynthesize_spartan3adsp" xil_pn:prop_ck="-5562323405977382931" xil_pn:start_ts="1510232420">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -126,7 +126,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1510225397" xil_pn:in_ck="7595843798992280515" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="5991816993604877164" xil_pn:start_ts="1510225381">
+    <transform xil_pn:end_ts="1510232471" xil_pn:in_ck="7595843798992280515" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="5991816993604877164" xil_pn:start_ts="1510232456">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="_ngo"/>
@@ -135,12 +135,10 @@
       <outfile xil_pn:name="run_light.ngd"/>
       <outfile xil_pn:name="run_light_ngdbuild.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1510225413" xil_pn:in_ck="-7670124303527689724" xil_pn:name="TRANEXT_map_spartan3" xil_pn:prop_ck="1306392966133076781" xil_pn:start_ts="1510225397">
+    <transform xil_pn:end_ts="1510232488" xil_pn:in_ck="-7670124303527689724" xil_pn:name="TRANEXT_map_spartan3" xil_pn:prop_ck="1306392966133076781" xil_pn:start_ts="1510232471">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="_xmsgs/map.xmsgs"/>
       <outfile xil_pn:name="run_light.pcf"/>
       <outfile xil_pn:name="run_light_map.map"/>
@@ -151,7 +149,7 @@
       <outfile xil_pn:name="run_light_summary.xml"/>
       <outfile xil_pn:name="run_light_usage.xml"/>
     </transform>
-    <transform xil_pn:end_ts="1510225485" xil_pn:in_ck="7318571424836521693" xil_pn:name="TRANEXT_par_spartan3" xil_pn:prop_ck="1003115200023085498" xil_pn:start_ts="1510225413">
+    <transform xil_pn:end_ts="1510232560" xil_pn:in_ck="7318571424836521693" xil_pn:name="TRANEXT_par_spartan3" xil_pn:prop_ck="1003115200023085498" xil_pn:start_ts="1510232488">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="_xmsgs/par.xmsgs"/>
@@ -165,7 +163,7 @@
       <outfile xil_pn:name="run_light_pad.txt"/>
       <outfile xil_pn:name="run_light_par.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1510225521" xil_pn:in_ck="-6688314360363562321" xil_pn:name="TRANEXT_bitFile_spartan3adsp" xil_pn:prop_ck="-6028413662513571583" xil_pn:start_ts="1510225490">
+    <transform xil_pn:end_ts="1510232598" xil_pn:in_ck="-6688314360363562321" xil_pn:name="TRANEXT_bitFile_spartan3adsp" xil_pn:prop_ck="-6028413662513571583" xil_pn:start_ts="1510232572">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="_xmsgs/bitgen.xmsgs"/>
@@ -177,7 +175,7 @@
       <outfile xil_pn:name="webtalk.log"/>
       <outfile xil_pn:name="webtalk_pn.xml"/>
     </transform>
-    <transform xil_pn:end_ts="1510225485" xil_pn:in_ck="-3257438805232744320" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416186" xil_pn:start_ts="1510225475">
+    <transform xil_pn:end_ts="1510232559" xil_pn:in_ck="-3257438805232744320" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416186" xil_pn:start_ts="1510232550">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="_xmsgs/trce.xmsgs"/>
