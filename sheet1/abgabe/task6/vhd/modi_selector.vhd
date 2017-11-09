@@ -12,8 +12,8 @@ entity modi_selector is
 end modi_selector;
 
 architecture modi_selector_behav of modi_selector is
-	type DIR is (FWD, BWD);
-	type MODUS_STATES is (INIT, FIRST, SECOND, THIRD, FOURTH);
+	type DIR is (FWD, BWD); -- type for current direction
+	type MODUS_STATES is (INIT, FIRST, SECOND, THIRD, FOURTH); -- type for current state (every modus has 5 states)
 	signal modus_pressed : std_logic := '0';
 	signal direction_pressed : std_logic := '0';
 	
@@ -30,23 +30,27 @@ begin
 			state := INIT;
 		else 
 			if clock_sel'event and clock_sel = '1' then
+				-- increment modus and go to INIT state
 				if  modus_sel = '1' and modus_pressed = '0' then	
 					modus_pressed <= '1';
 					modus := modus + 1;
 					state := INIT;
+				-- possibly toggle direction
 				elsif direction_sel ='1' and direction_pressed = '0' then
 					if (direction = FWD) then
 						direction := BWD;
 					else 
 						direction := FWD;
 					end if;
-					direction_pressed <= '1';	
+					direction_pressed <= '1';
+				-- reset modus and direction when not pressed	
 				elsif modus_sel = '0' and modus_pressed = '1' then
 					modus_pressed <= '0';
 				elsif direction_sel = '0' and direction_pressed = '1' then
 					direction_pressed <= '0';
 				end if;
 				
+				-- state changes (forwards or backwards)
 				if(direction = FWD) then
 					STATE_FWD : case state is
 						when INIT => state := FIRST;
@@ -65,6 +69,8 @@ begin
 					end case STATE_BWD;
 				end if;
 				
+
+				-- in the following every modus has a certain output depending on current state
 				if (modus = 0) then 
 					MODUS_0_CASE : case state is
 						when INIT => vector_sel <= "00000000";

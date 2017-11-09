@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Thu Nov 09 15:01:32 2017
+// Written by: Map P.20131013 on Thu Nov 09 15:33:25 2017
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -7,14 +7,22 @@ COMP "led3_out" LOCATE = SITE "G21" LEVEL 1;
 COMP "reset_in" LOCATE = SITE "Y16" LEVEL 1;
 COMP "clock_in" LOCATE = SITE "F13" LEVEL 1;
 COMP "led4_out" LOCATE = SITE "H20" LEVEL 1;
+COMP "dip1_in" LOCATE = SITE "A7" LEVEL 1;
+COMP "dip2_in" LOCATE = SITE "G16" LEVEL 1;
 COMP "led5_out" LOCATE = SITE "K22" LEVEL 1;
+COMP "dip3_in" LOCATE = SITE "E9" LEVEL 1;
+COMP "dip4_in" LOCATE = SITE "D15" LEVEL 1;
 COMP "led6_out" LOCATE = SITE "N19" LEVEL 1;
 COMP "speed_up_in" LOCATE = SITE "J10" LEVEL 1;
+COMP "dip5_in" LOCATE = SITE "D19" LEVEL 1;
+COMP "dip6_in" LOCATE = SITE "B24" LEVEL 1;
 COMP "direction_in" LOCATE = SITE "J15" LEVEL 1;
 COMP "led7_out" LOCATE = SITE "P25" LEVEL 1;
+COMP "dip7_in" LOCATE = SITE "A5" LEVEL 1;
 COMP "speed_down_in" LOCATE = SITE "J13" LEVEL 1;
 COMP "led1_out" LOCATE = SITE "D25" LEVEL 1;
 COMP "modus_in" LOCATE = SITE "J17" LEVEL 1;
+COMP "dip8_in" LOCATE = SITE "A23" LEVEL 1;
 COMP "led8_out" LOCATE = SITE "P18" LEVEL 1;
 COMP "led2_out" LOCATE = SITE "D24" LEVEL 1;
 SCHEMATIC END;

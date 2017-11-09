@@ -29,7 +29,7 @@ NGDBUILD Design Results Summary:
   Number of errors:     0
   Number of warnings:   0
 
-Total memory usage is 108480 kilobytes
+Total memory usage is 108604 kilobytes
 
 Writing NGD file "run_light.ngd" ...
 Total REAL time to NGDBUILD completion:  9 sec

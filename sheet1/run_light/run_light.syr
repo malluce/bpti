@@ -5,14 +5,14 @@ Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.11 secs
+Total CPU time to Xst completion: 0.14 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.11 secs
+Total CPU time to Xst completion: 0.15 secs
  
 --> 
 Reading design: run_light.prj
@@ -235,7 +235,7 @@ Synthesizing Unit <modi_selector>.
     Found 1-bit register for signal <direction<0>>.
     Found 1-bit register for signal <direction_pressed>.
     Found 2-bit register for signal <modus>.
-    Found 2-bit adder for signal <modus$addsub0000> created at line 35.
+    Found 2-bit adder for signal <modus$addsub0000> created at line 52.
     Found 1-bit register for signal <modus_pressed>.
     Found 5-bit register for signal <state>.
     Found 8-bit 4-to-1 multiplexer for signal <vector_sel$mux0004>.
@@ -368,20 +368,22 @@ Optimization Goal                  : Speed
 Keep Hierarchy                     : No
 
 Design Statistics
-# IOs                              : 14
+# IOs                              : 22
 
 Cell Usage :
-# BELS                             : 317
+# BELS                             : 333
 #      GND                         : 1
 #      INV                         : 10
 #      LUT1                        : 4
 #      LUT2                        : 38
 #      LUT2_D                      : 1
-#      LUT3                        : 38
-#      LUT3_D                      : 3
-#      LUT4                        : 62
+#      LUT3                        : 44
+#      LUT3_L                      : 1
+#      LUT4                        : 68
+#      LUT4_D                      : 4
+#      LUT4_L                      : 4
 #      MUXCY                       : 98
-#      MUXF5                       : 11
+#      MUXF5                       : 9
 #      VCC                         : 1
 #      XORCY                       : 50
 # FlipFlops/Latches                : 71
@@ -392,8 +394,8 @@ Cell Usage :
 #      FDPE                        : 13
 # Clock Buffers                    : 2
 #      BUFG                        : 2
-# IO Buffers                       : 14
-#      IBUF                        : 5
+# IO Buffers                       : 22
+#      IBUF                        : 13
 #      IBUFG                       : 1
 #      OBUF                        : 8
 # DCMs                             : 1
@@ -405,11 +407,11 @@ Device utilization summary:
 
 Selected Device : 3sd1800afg676-4 
 
- Number of Slices:                       93  out of  16640     0%  
+ Number of Slices:                      101  out of  16640     0%  
  Number of Slice Flip Flops:             71  out of  33280     0%  
- Number of 4 input LUTs:                156  out of  33280     0%  
- Number of IOs:                          14
- Number of bonded IOBs:                  14  out of    519     2%  
+ Number of 4 input LUTs:                174  out of  33280     0%  
+ Number of IOs:                          22
+ Number of bonded IOBs:                  22  out of    519     4%  
  Number of GCLKs:                         2  out of     24     8%  
  Number of DCMs:                          1  out of      8    12%  
 
@@ -451,8 +453,8 @@ Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 6.852ns (Maximum Frequency: 145.943MHz)
-   Minimum input arrival time before clock: 7.234ns
+   Minimum period: 8.782ns (Maximum Frequency: 113.869MHz)
+   Minimum input arrival time before clock: 9.108ns
    Maximum output required time after clock: 5.531ns
    Maximum combinational path delay: No path found
 
@@ -535,29 +537,30 @@ Delay:               9.372ns (Levels of Logic = 52)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'led/cnt/b'
-  Clock period: 6.852ns (frequency: 145.943MHz)
-  Total number of paths / destination ports: 332 / 21
+  Clock period: 8.782ns (frequency: 113.869MHz)
+  Total number of paths / destination ports: 562 / 21
 -------------------------------------------------------------------------
-Delay:               6.852ns (Levels of Logic = 5)
-  Source:            my_modi/my_modi_sel/direction_pressed (FF)
-  Destination:       my_modi/my_modi_sel/vector_sel_0 (FF)
+Delay:               8.782ns (Levels of Logic = 6)
+  Source:            my_modi/my_modi_sel/modus_pressed (FF)
+  Destination:       my_modi/my_modi_sel/vector_sel_6 (FF)
   Source Clock:      led/cnt/b rising
   Destination Clock: led/cnt/b rising
 
-  Data Path: my_modi/my_modi_sel/direction_pressed to my_modi/my_modi_sel/vector_sel_0
+  Data Path: my_modi/my_modi_sel/modus_pressed to my_modi/my_modi_sel/vector_sel_6
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q              3   0.591   0.611  my_modi/my_modi_sel/direction_pressed (my_modi/my_modi_sel/direction_pressed)
-     LUT2:I1->O            5   0.643   0.636  my_modi/my_modi_sel/direction_pressed_and0000311 (my_modi/my_modi_sel/direction_and0000)
-     LUT4:I3->O           11   0.648   0.936  my_modi/my_modi_sel/direction_mux00011 (my_modi/my_modi_sel/direction_mux0001)
-     LUT4:I3->O            9   0.648   0.963  my_modi/my_modi_sel/state_mux0004<4>1 (my_modi/my_modi_sel/state_mux0004<4>)
-     LUT4:I0->O            1   0.648   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413_G (N53)
-     MUXF5:I1->O           1   0.276   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413 (my_modi/my_modi_sel/vector_sel_mux0004<7>)
-     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_0
+     FDE:C->Q             16   0.591   1.114  my_modi/my_modi_sel/modus_pressed (my_modi/my_modi_sel/modus_pressed)
+     LUT2_D:I1->O         14   0.643   1.003  my_modi/my_modi_sel/direction_pressed_and000021 (my_modi/my_modi_sel/N12)
+     LUT4:I3->O           14   0.648   1.003  my_modi/my_modi_sel/state_mux0004<3>1 (my_modi/my_modi_sel/state_mux0004<3>)
+     LUT4:I3->O           10   0.648   0.885  my_modi/my_modi_sel/vector_sel_mux0006<4>1 (my_modi/my_modi_sel/vector_sel_mux0006<4>)
+     LUT4:I3->O            1   0.648   0.423  my_modi/my_modi_sel/Mmux_vector_sel_mux0004_3_SW0 (N53)
+     LUT4:I3->O            1   0.648   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux0004_3 (my_modi/my_modi_sel/Mmux_vector_sel_mux0004_3)
+     MUXF5:I1->O           1   0.276   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux0004_2_f5 (my_modi/my_modi_sel/vector_sel_mux0004<1>)
+     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_6
     ----------------------------------------
-    Total                      6.852ns (3.706ns logic, 3.146ns route)
-                                       (54.1% logic, 45.9% route)
+    Total                      8.782ns (4.354ns logic, 4.428ns route)
+                                       (49.6% logic, 50.4% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'clock_in'
@@ -606,27 +609,28 @@ Offset:              6.079ns (Levels of Logic = 27)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'led/cnt/b'
-  Total number of paths / destination ports: 153 / 20
+  Total number of paths / destination ports: 268 / 20
 -------------------------------------------------------------------------
-Offset:              7.234ns (Levels of Logic = 6)
-  Source:            direction_in (PAD)
-  Destination:       my_modi/my_modi_sel/vector_sel_0 (FF)
+Offset:              9.108ns (Levels of Logic = 7)
+  Source:            modus_in (PAD)
+  Destination:       my_modi/my_modi_sel/vector_sel_6 (FF)
   Destination Clock: led/cnt/b rising
 
-  Data Path: direction_in to my_modi/my_modi_sel/vector_sel_0
+  Data Path: modus_in to my_modi/my_modi_sel/vector_sel_6
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O             4   0.849   0.730  direction_in_IBUF (direction_in_IBUF)
-     LUT2:I0->O            5   0.648   0.636  my_modi/my_modi_sel/direction_pressed_and0000311 (my_modi/my_modi_sel/direction_and0000)
-     LUT4:I3->O           11   0.648   0.936  my_modi/my_modi_sel/direction_mux00011 (my_modi/my_modi_sel/direction_mux0001)
-     LUT4:I3->O            9   0.648   0.963  my_modi/my_modi_sel/state_mux0004<4>1 (my_modi/my_modi_sel/state_mux0004<4>)
-     LUT4:I0->O            1   0.648   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413_G (N53)
-     MUXF5:I1->O           1   0.276   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux000413 (my_modi/my_modi_sel/vector_sel_mux0004<7>)
-     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_0
+     IBUF:I->O            16   0.849   1.177  modus_in_IBUF (modus_in_IBUF)
+     LUT2_D:I0->O         14   0.648   1.003  my_modi/my_modi_sel/direction_pressed_and000021 (my_modi/my_modi_sel/N12)
+     LUT4:I3->O           14   0.648   1.003  my_modi/my_modi_sel/state_mux0004<3>1 (my_modi/my_modi_sel/state_mux0004<3>)
+     LUT4:I3->O           10   0.648   0.885  my_modi/my_modi_sel/vector_sel_mux0006<4>1 (my_modi/my_modi_sel/vector_sel_mux0006<4>)
+     LUT4:I3->O            1   0.648   0.423  my_modi/my_modi_sel/Mmux_vector_sel_mux0004_3_SW0 (N53)
+     LUT4:I3->O            1   0.648   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux0004_3 (my_modi/my_modi_sel/Mmux_vector_sel_mux0004_3)
+     MUXF5:I1->O           1   0.276   0.000  my_modi/my_modi_sel/Mmux_vector_sel_mux0004_2_f5 (my_modi/my_modi_sel/vector_sel_mux0004<1>)
+     FDC:D                     0.252          my_modi/my_modi_sel/vector_sel_6
     ----------------------------------------
-    Total                      7.234ns (3.969ns logic, 3.265ns route)
-                                       (54.9% logic, 45.1% route)
+    Total                      9.108ns (4.617ns logic, 4.491ns route)
+                                       (50.7% logic, 49.3% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'led/cnt/b'
@@ -650,13 +654,13 @@ Offset:              5.531ns (Levels of Logic = 1)
 =========================================================================
 
 
-Total REAL time to Xst completion: 17.00 secs
-Total CPU time to Xst completion: 16.58 secs
+Total REAL time to Xst completion: 18.00 secs
+Total CPU time to Xst completion: 17.04 secs
  
 --> 
 
 
-Total memory usage is 184628 kilobytes
+Total memory usage is 184708 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    3 (   0 filtered)

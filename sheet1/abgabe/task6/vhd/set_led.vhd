@@ -20,6 +20,7 @@ architecture set_led_behav of set_led is
 begin
 	led_process : process(vector_set)
 	begin
+		-- map vector to led outputs
 		led1_set <= vector_set(7);
 		led2_set <= vector_set(6);
 		led3_set <= vector_set(5);

@@ -78,3 +78,15 @@ map -intstyle ise -p xc3sd1800a-fg676-4 -cm area -ir off -pr off -c 100 -o run_l
 par -w -intstyle ise -ol high -t 1 run_light_map.ncd run_light.ncd run_light.pcf 
 trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml run_light.twx run_light.ncd -o run_light.twr run_light.pcf -ucf run_light_pins.ucf 
 bitgen -intstyle ise -f run_light.ut run_light.ncd 
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/run_light.xst" -ofn "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/run_light.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc run_light_pins.ucf -p xc3sd1800a-fg676-4 run_light.ngc run_light.ngd  
+map -intstyle ise -p xc3sd1800a-fg676-4 -cm area -ir off -pr off -c 100 -o run_light_map.ncd run_light.ngd run_light.pcf 
+par -w -intstyle ise -ol high -t 1 run_light_map.ncd run_light.ncd run_light.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml run_light.twx run_light.ncd -o run_light.twr run_light.pcf -ucf run_light_pins.ucf 
+bitgen -intstyle ise -f run_light.ut run_light.ncd 
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/run_light.xst" -ofn "/home/capplab10/Schreibtisch/bpti/sheet1/run_light/run_light.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc run_light_pins.ucf -p xc3sd1800a-fg676-4 run_light.ngc run_light.ngd  
+map -intstyle ise -p xc3sd1800a-fg676-4 -cm area -ir off -pr off -c 100 -o run_light_map.ncd run_light.ngd run_light.pcf 
+par -w -intstyle ise -ol high -t 1 run_light_map.ncd run_light.ncd run_light.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml run_light.twx run_light.ncd -o run_light.twr run_light.pcf -ucf run_light_pins.ucf 
+bitgen -intstyle ise -f run_light.ut run_light.ncd 

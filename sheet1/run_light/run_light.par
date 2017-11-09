@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (lin)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-i80labpc01::  Thu Nov 09 15:01:41 2017
+i80labpc01::  Thu Nov 09 15:33:34 2017
 
 par -w -intstyle ise -ol high -t 1 run_light_map.ncd run_light.ncd
 run_light.pcf 
@@ -40,12 +40,12 @@ Device speed data version:  "PRODUCTION 1.34 2013-10-13".
 
 Design Summary Report:
 
- Number of External IOBs                          14 out of 519     2%
+ Number of External IOBs                          22 out of 519     4%
 
-   Number of External Input IOBs                  6
+   Number of External Input IOBs                 14
 
-      Number of External Input IBUFs              6
-        Number of LOCed External Input IBUFs      6 out of 6     100%
+      Number of External Input IBUFs             14
+        Number of LOCed External Input IBUFs     14 out of 14    100%
 
 
    Number of External Output IOBs                 8
@@ -59,7 +59,7 @@ Design Summary Report:
 
    Number of BUFGMUXs                        2 out of 24      8%
    Number of DCMs                            1 out of 8      12%
-   Number of Slices                         81 out of 16640   1%
+   Number of Slices                         90 out of 16640   1%
       Number of SLICEMs                      0 out of 8320    0%
 
 
@@ -78,40 +78,40 @@ Total REAL time at the beginning of Placer: 6 secs
 Total CPU  time at the beginning of Placer: 6 secs 
 
 Phase 1.1  Initial Placement Analysis
-Phase 1.1  Initial Placement Analysis (Checksum:67c446fb) REAL time: 8 secs 
+Phase 1.1  Initial Placement Analysis (Checksum:bb35335e) REAL time: 8 secs 
 
 Phase 2.7  Design Feasibility Check
-Phase 2.7  Design Feasibility Check (Checksum:67c446fb) REAL time: 8 secs 
+Phase 2.7  Design Feasibility Check (Checksum:bb35335e) REAL time: 8 secs 
 
 Phase 3.31  Local Placement Optimization
-Phase 3.31  Local Placement Optimization (Checksum:67c446fb) REAL time: 8 secs 
+Phase 3.31  Local Placement Optimization (Checksum:bb35335e) REAL time: 8 secs 
 
 Phase 4.2  Initial Clock and IO Placement
 
-Phase 4.2  Initial Clock and IO Placement (Checksum:ac0e87fd) REAL time: 16 secs 
+Phase 4.2  Initial Clock and IO Placement (Checksum:2ff8fd49) REAL time: 16 secs 
 
 Phase 5.30  Global Clock Region Assignment
-Phase 5.30  Global Clock Region Assignment (Checksum:ac0e87fd) REAL time: 16 secs 
+Phase 5.30  Global Clock Region Assignment (Checksum:2ff8fd49) REAL time: 16 secs 
 
 Phase 6.36  Local Placement Optimization
-Phase 6.36  Local Placement Optimization (Checksum:ac0e87fd) REAL time: 16 secs 
+Phase 6.36  Local Placement Optimization (Checksum:2ff8fd49) REAL time: 16 secs 
 
 Phase 7.8  Global Placement
-.....................
-..
-...................
+........
 ..
 ..
-Phase 7.8  Global Placement (Checksum:155ee63f) REAL time: 17 secs 
+..
+..
+Phase 7.8  Global Placement (Checksum:2f1cc55) REAL time: 16 secs 
 
 Phase 8.5  Local Placement Optimization
-Phase 8.5  Local Placement Optimization (Checksum:155ee63f) REAL time: 17 secs 
+Phase 8.5  Local Placement Optimization (Checksum:2f1cc55) REAL time: 16 secs 
 
 Phase 9.18  Placement Optimization
-Phase 9.18  Placement Optimization (Checksum:46c8f7a7) REAL time: 17 secs 
+Phase 9.18  Placement Optimization (Checksum:2b9d6837) REAL time: 17 secs 
 
 Phase 10.5  Local Placement Optimization
-Phase 10.5  Local Placement Optimization (Checksum:46c8f7a7) REAL time: 17 secs 
+Phase 10.5  Local Placement Optimization (Checksum:2b9d6837) REAL time: 17 secs 
 
 Total REAL time to Placer completion: 17 secs 
 Total CPU  time to Placer completion: 17 secs 
@@ -122,13 +122,13 @@ Writing design to file run_light.ncd
 Starting Router
 
 
-Phase  1  : 622 unrouted;      REAL time: 40 secs 
+Phase  1  : 692 unrouted;      REAL time: 40 secs 
 
-Phase  2  : 585 unrouted;      REAL time: 41 secs 
+Phase  2  : 638 unrouted;      REAL time: 41 secs 
 
-Phase  3  : 111 unrouted;      REAL time: 41 secs 
+Phase  3  : 116 unrouted;      REAL time: 41 secs 
 
-Phase  4  : 113 unrouted; (Par is working to improve performance)     REAL time: 43 secs 
+Phase  4  : 132 unrouted; (Par is working to improve performance)     REAL time: 43 secs 
 
 Phase  5  : 0 unrouted; (Par is working to improve performance)     REAL time: 44 secs 
 
@@ -136,18 +136,16 @@ Updating file: run_light.ncd with current fully routed design.
 
 Phase  6  : 0 unrouted; (Par is working to improve performance)     REAL time: 44 secs 
 
-Phase  7  : 0 unrouted; (Par is working to improve performance)     REAL time: 47 secs 
+Phase  7  : 0 unrouted; (Par is working to improve performance)     REAL time: 52 secs 
 
-Phase  8  : 0 unrouted; (Par is working to improve performance)     REAL time: 47 secs 
+Phase  8  : 0 unrouted; (Par is working to improve performance)     REAL time: 52 secs 
 
-Phase  9  : 0 unrouted; (Par is working to improve performance)     REAL time: 47 secs 
+Phase  9  : 0 unrouted; (Par is working to improve performance)     REAL time: 52 secs 
 
-Phase 10  : 0 unrouted; (Par is working to improve performance)     REAL time: 47 secs 
-WARNING:Route:455 - CLK Net:led/cnt/b may have excessive skew because 
-      15 CLK pins and 0 NON_CLK pins failed to route using a CLK template.
+Phase 10  : 0 unrouted; (Par is working to improve performance)     REAL time: 52 secs 
 
-Total REAL time to Router completion: 47 secs 
-Total CPU time to Router completion: 47 secs 
+Total REAL time to Router completion: 52 secs 
+Total CPU time to Router completion: 52 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -165,9 +163,9 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|         led/led_fwd | BUFGMUX_X1Y10| No   |   29 |  0.132     |  1.708      |
+|         led/led_fwd | BUFGMUX_X1Y10| No   |   29 |  0.070     |  1.663      |
 +---------------------+--------------+------+------+------------+-------------+
-|           led/cnt/b |         Local|      |   15 |  1.134     |  2.673      |
+|           led/cnt/b |         Local|      |   17 |  0.080     |  1.722      |
 +---------------------+--------------+------+------+------------+-------------+
 
 * Net Skew is the difference between the minimum and maximum routing
@@ -187,11 +185,11 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |    Check    | Worst Case |  Best Case | Timing |   Timing   
                                             |             |    Slack   | Achievable | Errors |    Score   
 ----------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net led | SETUP       |         N/A|     6.255ns|     N/A|           0
-  /cnt/b                                    | HOLD        |     0.478ns|            |       0|           0
+  Autotimespec constraint for clock net led | SETUP       |         N/A|     9.813ns|     N/A|           0
+  /led_fwd                                  | HOLD        |     1.467ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net led | SETUP       |         N/A|     9.390ns|     N/A|           0
-  /led_fwd                                  | HOLD        |     1.435ns|            |       0|           0
+  Autotimespec constraint for clock net led | SETUP       |         N/A|     6.849ns|     N/A|           0
+  /cnt/b                                    | HOLD        |     1.159ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
 
 
@@ -207,8 +205,8 @@ Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 49 secs 
-Total CPU time to PAR completion: 49 secs 
+Total REAL time to PAR completion: 54 secs 
+Total CPU time to PAR completion: 54 secs 
 
 Peak Memory Usage:  260 MB
 
@@ -216,7 +214,7 @@ Placement: Completed - No errors found.
 Routing: Completed - No errors found.
 
 Number of error messages: 0
-Number of warning messages: 1
+Number of warning messages: 0
 Number of info messages: 1
 
 Writing design to file run_light.ncd
