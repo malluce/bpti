@@ -13,7 +13,7 @@
 \pagestyle{scrheadings}
 \usepackage{float}
 
-\clearscrheadfoot
+%\clearscrheadfoot
 \ohead{BPTI: Gruppe 03=\{Niklas Metz, Felix Bachmann\}, Aufgabenblatt 1, WS 2017/18}
 
 \begin{document}
@@ -77,7 +77,9 @@
 		Mit der grundlegenden Benutzung von Xilinx ISE gab es dank der Bereitstellung der Einstellungen für das Projekt keine Probleme. Das einzige und gleichzeitig größte Problem entstand nach dem Erstellen der UCF-Datei. Die Synthese des gesamten Projekts schlug fehl und wir versuchten den Fehler zu finden. Nach einigen Stunden Suche nach dem Problem und vielen gescheiterten Versuchen erstellten wir ein neues Projekt und die Synthese war erfolgreich ohne eine Änderung am Code.
 		
 	\section*{Aufgabe 5: LED-Test}
-		%TODO
+		\setcounter{section}{5}
+		\setcounter{subsection}{0}
+		Bei dieser Aufgabe haben wir den Fehler (erfolgreiches Kompilieren, erfolgreiche Synthese, aber die LED blinkte nicht) lange Zeit nicht gefunden. Der grundlegende Aufbau unserer Schaltung war Board-Clock -> DCM -> Counter -> LED-Pin. Das Problem war, dass wir für die LED das Ausgangssignal des Counters benutzt haben. Dieser ist auf 1, nachdem der vom DCM ausgehende Takt (ca. 7MHz) 15625000 im Counter angekommen ist. So ist der Ausgang vom Counter alle 2 Sekunden einmal auf 1. Das Problem war nun, dass wir den Ausgang des Counters direkt bei der nächsten eingehenden, aufsteigenden Taktflanke vom DCM auf 0 zurückgesetzt haben. Somit ist der Ausgang des Counters nur für einen DCM-Takt auf 1. Da dies allerdings nur für $\frac{1}{7*10^6}s$ der Fall ist, blinkte die LED nicht (sichtbar). Die Lösung war eine Komponente (set\_led) zwischen Counter und LED zu setzen, die den LED-Zustand toggled, wenn der Ausgang des Counters 1 ist.
 	\section*{Aufgabe 6: Lauflicht}
 		%TODO
 	\section*{Aufgabe 7: Bitmuster}
