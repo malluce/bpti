@@ -1,0 +1,66 @@
+\documentclass[parskip=full]{scrartcl}
+\usepackage[utf8]{inputenc} % use utf8 file encoding for TeX sources
+\usepackage[T1]{fontenc}    % avoid garbled Unicode text in pdf
+\usepackage[german]{babel}  % german hyphenation, quotes, etc
+\usepackage{hyperref}       % detailed hyperlink/pdf configuration
+\hypersetup{                % ‘texdoc hyperref‘ for options
+	pdftitle={Entwurf},%
+	bookmarks=true,%
+}
+\usepackage{graphicx}       % provides commands for including figures
+\usepackage{csquotes}       % provides \enquote{} macro for "quotes"
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\usepackage{float}
+
+%\clearscrheadfoot
+\ohead{BPTI: Gruppe 03=\{Niklas Metz, Felix Bachmann\}, Aufgabenblatt 1, WS 2017/18}
+
+\begin{document}
+	\section{Manual für die Schaltung von Aufgabe 6 und 7}
+		\subsection{Features}
+			Die Schaltung verfügt über vier Modi. Je nach Modus variiert das Lauflicht. 
+			\begin{table}[H]
+				\centering
+				\caption{Leuchtsequenzen der Modi}
+				\label{my-label}
+				\begin{tabular}{l|l}
+					Modus &  Leuchtsequenz (leuchtende LEDs)                                                                                                                                                              \\ \hline
+					0     & \begin{tabular}[c]{@{}l@{}}keine \\ =\textgreater D10,D11 \\ =\textgreater D9,D12 \\ =\textgreater D8,D13 \\ =\textgreater D7,D14\end{tabular}                                               \\ \hline
+					1     & \begin{tabular}[c]{@{}l@{}}keine \\ =\textgreater D13,D14 \\ =\textgreater D11,D12,D13,D14\\ =\textgreater D9,D10,D11,D12,D13,D14 \\ =\textgreater D7,D8,D9,D10,D11,D12,D13,D14\end{tabular} \\
+					\hline
+					2     & \begin{tabular}[c]{@{}l@{}}keine \\ =\textgreater D13,D14 \\ =\textgreater D7,D8,D13,D14\\ =\textgreater D7,D8,D11,12,D13,D14 \\ =\textgreater D7,D8,D9,D10,D11,D12,D13,D14\end{tabular}       \\
+					\hline
+					3    & \begin{tabular}[c]{@{}l@{}}keine \\ =\textgreater D7,D8,D13,D14 \\ =\textgreater D8,D9,D12,D13 \\ =\textgreater D9,D10,D11,D12 \\ =\textgreater D10,D11\end{tabular}                        
+				\end{tabular}
+			\end{table}
+			Nachdem der letzte Zustand erreicht ist, beginnen die Modi wieder von vorn.
+			Im Folgenden bezeichne ein Schritt eine Änderung der Leuchtsequenz.
+			 Es besteht die Möglichkeit die Geschwindigkeit der Leuchtsequenz zu erhöhen oder zu verlangsamen. Die minimale Geschwindigkeit beträgt $\frac{1 Schritt}{4 Sekunden} = 0,25 \frac{Schritte}{Sekunde}$, die maximale Geschwindigkeit beträgt $\frac{1 Schritt}{0,06 Sekunden} \approx 17 \frac{Schritte}{Sekunde}$. Die initiale Geschwindigkeit beträgt $\frac{1 Schritt}{0,5 Sekunden} = 2 \frac{Schritte}{Sekunde}$ Die Geschwindigkeit zu erhöhen hat eine höhere Priorität als die Geschwindigkeit zu verringern.
+			Außerdem kann zu jedem Zeitpunkt der Leuchtsequenz die Richtung der Leuchtsequenz umgekehrt werden.
+			Zudem können die Modi gewechselt werden, beginnend bei Modus 0. Die Modi haben dann die Reihenfolge: Modus 1, Modus 2, Modus 3, beim vierten Taster-Druck gelangt man wieder zu Modus 0.
+			Das Auswählen der Modi hat Priorität gegenüber dem Umkehren der Richtung.
+			Zudem kann zu jedem Zeitpunkt ein Reset ausgeführt werden, der die Richtung, Geschwindigkeit und die Modus-Wahl zurücksetzt.
+			Der Reset hat Priorität über alle anderen möglichen Aktionen.
+			
+			\subsection{Bedienkonzept}
+				\begin{table}[H]
+					\centering
+					\caption{Taster-Belegung}
+					\label{my-label}
+					\begin{tabular}{l|l}
+						Taster & Aktion                                  \\
+						\hline
+						SW4    & Reset                                   \\
+						SW5    & Modus auswählen (+1 mod 4 in Tabelle 1) \\
+						SW6    & Richtung wechseln                       \\
+						SW7    & Geschwindigkeit verringern              \\
+						SW8    & Geschwindigkeit erhöhen                
+					\end{tabular}
+				\end{table}
+			
+			\subsection{exklusive Features der Schaltung von Aufgabe 7}
+				Die Schaltung der Aufgabe 7 ist eine Erweiterung der Schaltung aus Aufgabe 6. Insbesondere funktionieren also alle Features der Schaltung aus Aufgabe 6 auch bei der Schaltung für Aufgabe 7.
+				Bei letzterer ist es zusätzlich möglich über die DIP-Schalter SW3.1 bis SW3.8 eine Eingabe zu tätigen. Hierbei leuchtet jede LED, dessen Position im DIP-Schalter auf "ON" gestellt ist bei Muster 3 unabhängig vom aktuellen Zustand der Leuchtsequenz.
+	
+\end{document}

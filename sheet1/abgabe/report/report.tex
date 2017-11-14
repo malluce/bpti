@@ -65,7 +65,7 @@
 		\subsection{Auswertung}
 			\begin{table}[H]
 				\centering
-				\begin{tabular}{lll}
+				\begin{tabular}{l|ll}
 					& Vorteile & Nachteile \\
 					\hline
 					GHDL + GTKWave & -leichtgewichtig & \begin{tabular}[c]{@{}l@{}}-keine GUI (GHDL) \\ -wird nicht mehr entwickelt\\ -nicht in offiziellen Paketquellen\end{tabular} \\
@@ -81,9 +81,15 @@
 		\setcounter{subsection}{0}
 		Bei dieser Aufgabe haben wir den Fehler (erfolgreiches Kompilieren, erfolgreiche Synthese, aber die LED blinkte nicht) lange Zeit nicht gefunden. Der grundlegende Aufbau unserer Schaltung war Board-Clock -> DCM -> Counter -> LED-Pin. Das Problem war, dass wir für die LED das Ausgangssignal des Counters benutzt haben. Dieser ist auf 1, nachdem der vom DCM ausgehende Takt (ca. 7MHz) 15625000 im Counter angekommen ist. So ist der Ausgang vom Counter alle 2 Sekunden einmal auf 1. Das Problem war nun, dass wir den Ausgang des Counters direkt bei der nächsten eingehenden, aufsteigenden Taktflanke vom DCM auf 0 zurückgesetzt haben. Somit ist der Ausgang des Counters nur für einen DCM-Takt auf 1. Da dies allerdings nur für $\frac{1}{7*10^6}s$ der Fall ist, blinkte die LED nicht (sichtbar). Die Lösung war eine Komponente (set\_led) zwischen Counter und LED zu setzen, die den LED-Zustand toggled, wenn der Ausgang des Counters 1 ist.
 	\section*{Aufgabe 6: Lauflicht}
-		%TODO
+		\setcounter{section}{6}
+		\setcounter{subsection}{0}
+		\subsection{Bericht}
+			Die einzigen Probleme bei dieser Aufgabe waren erstens ein falscher Portmap, der zu einer kurzen Verzögerung führte, und zweitens die Optimierung bei der Simulation in ModelSim, wodurch das Ausgangssignal des DCM in der Simulation nicht sichtbar ist.		
+		\subsection{Entwurf des Lauflichts}
+			\includegraphics[scale=0.1]{Bilder/runlight.jpeg} \newline
+			\includegraphics[scale=0.1]{Bilder/modi.jpeg} \newpage
+			\includegraphics[scale=0.1]{Bilder/ledent.jpeg}
 	\section*{Aufgabe 7: Bitmuster}
+		Nachdem wir bei dieser Aufgabe auf einen Ansatz für die Lösung kamen, gab es keine Probleme bei der Implementierung.
 	
-	
-\end{document}\grid
-\grid
+\end{document}
