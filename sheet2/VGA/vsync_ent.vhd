@@ -5,6 +5,7 @@ entity vsync_ent is
 	port(
 		hsync_in : in std_logic;
 		rst_vsync : in std_logic;
+		row_vsync : out std_logic_vector(8 downto 0);
 		vsync_out : out std_logic
 	);
 end vsync_ent;
