@@ -24,8 +24,8 @@ begin
 			col_int := to_integer(unsigned(col));
 			if(row_int = 1 or row_int = 480 or col_int = 1 or col_int = 640) then
 				-- white
-				red <= "1111";
-				green <= "1111";
+				red <= "0000";
+				green <= "0000";
 				blue <= "1111";
 			else
 				-- black
@@ -33,9 +33,11 @@ begin
 				green <= "0000";
 				blue <= "0000";
 			end if;
+		else 
+			red <= "1111";
+			green <= "1111";
+			blue <= "1111";
 		end if;
 	end process pixel_proc;
-
-
 end pixel_gen_behav;
 

@@ -45,7 +45,8 @@ begin
 				set_0 <= '0';
 				cnt_row <= 0;
 			end if;
+			-- problem: row setzen wir immer, ignorieren RGB-Setzphase
+			row_vsync <= std_logic_vector(to_unsigned(cnt_row, 9));
 		end if;
-		row_vsync <= std_logic_vector(to_unsigned(cnt_row, 9));
 	end process vsync_proc;
 end vsync_behav;

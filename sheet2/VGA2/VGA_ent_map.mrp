@@ -9,34 +9,33 @@ Target Device  : xc3sd1800a
 Target Package : fg676
 Target Speed   : -4
 Mapper Version : spartan3adsp -- $Revision: 1.55 $
-Mapped Date    : Thu Nov 16 15:10:46 2017
+Mapped Date    : Thu Nov 16 17:31:51 2017
 
 Design Summary
 --------------
 Number of errors:      0
-Number of warnings:    1
+Number of warnings:    0
 Logic Utilization:
-  Number of Slice Flip Flops:            69 out of  33,280    1%
-  Number of 4 input LUTs:                92 out of  33,280    1%
+  Number of Slice Flip Flops:            51 out of  33,280    1%
+  Number of 4 input LUTs:                75 out of  33,280    1%
 Logic Distribution:
-  Number of occupied Slices:             79 out of  16,640    1%
-    Number of Slices containing only related logic:      79 out of      79 100%
-    Number of Slices containing unrelated logic:          0 out of      79   0%
+  Number of occupied Slices:             58 out of  16,640    1%
+    Number of Slices containing only related logic:      58 out of      58 100%
+    Number of Slices containing unrelated logic:          0 out of      58   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         135 out of  33,280    1%
-    Number used as logic:                92
-    Number used as a route-thru:         43
+  Total Number of 4 input LUTs:         102 out of  33,280    1%
+    Number used as logic:                75
+    Number used as a route-thru:         27
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
 
   Number of bonded IOBs:                 16 out of     519    3%
-    IOB Latches:                          8
-  Number of BUFGMUXs:                     2 out of      24    8%
+  Number of BUFGMUXs:                     1 out of      24    4%
 
-Average Fanout of Non-Clock Nets:                2.85
+Average Fanout of Non-Clock Nets:                2.82
 
-Peak Memory Usage:  251 MB
+Peak Memory Usage:  250 MB
 Total REAL time to MAP completion:  8 secs 
 Total CPU time to MAP completion:   8 secs 
 
@@ -85,9 +84,6 @@ WARNING:Security:44 - Since no license file was found,
 WARNING:Security:42 - Your software subscription period has lapsed. Your current
 version of Xilinx tools will continue to function, but you no longer qualify for
 Xilinx software updates or new releases.
-WARNING:PhysDesignRules:372 - Gated clock. Clock net pixel/blue_not0000 is
-   sourced by a combinatorial pin. This is not good design practice. Use the CE
-   pin to control the loading of data into the flip-flop.
 
 Section 3 - Informational
 -------------------------
@@ -122,15 +118,15 @@ Section 6 - IOB Properties
 | IOB Name                           | Type             | Direction | IO Standard | Drive    | Slew    | Reg (s)      | Resistor | IBUF/IFD | SUSPEND          |
 |                                    |                  |           |             | Strength | Rate    |              |          | Delay    |                  |
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| blue_0                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
-| blue_1                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
-| blue_2                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
-| blue_3                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
+| blue_0                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| blue_1                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| blue_2                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| blue_3                             | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | clk                                | IBUF             | INPUT     | LVCMOS25             |          |         |              |          | 0 / 0    |                  |
-| green_0                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
-| green_1                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
-| green_2                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
-| green_3                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    | OFF1         |          | 0 / 0    | 3STATE           |
+| green_0                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| green_1                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| green_2                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
+| green_3                            | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | hsync                              | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | red_0                              | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |
 | red_1                              | IOB              | OUTPUT    | LVCMOS25             | 12       | SLOW    |              |          | 0 / 0    | 3STATE           |

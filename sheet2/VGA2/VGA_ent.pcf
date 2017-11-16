@@ -1,9 +1,8 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Thu Nov 16 15:10:52 2017
+// Written by: Map P.20131013 on Thu Nov 16 17:31:57 2017
 //! **************************************************************************
 
 SCHEMATIC START;
-NET "clk_BUFGP/IBUFG" BEL "clk_BUFGP/BUFG.GCLKMUX" USELOCALCONNECT;
 COMP "green_0" LOCATE = SITE "M19" LEVEL 1;
 COMP "green_1" LOCATE = SITE "M18" LEVEL 1;
 COMP "green_2" LOCATE = SITE "J23" LEVEL 1;
