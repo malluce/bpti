@@ -1,0 +1,13 @@
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA_ent.xst" -ofn "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA_ent.syr" 
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA_ent.xst" -ofn "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA_ent.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc VGA_pins.ucf -p xc3sd1800a-fg676-4 VGA_ent.ngc VGA_ent.ngd  
+map -intstyle ise -p xc3sd1800a-fg676-4 -cm area -ir off -pr off -c 100 -o VGA_ent_map.ncd VGA_ent.ngd VGA_ent.pcf 
+par -w -intstyle ise -ol high -t 1 VGA_ent_map.ncd VGA_ent.ncd VGA_ent.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml VGA_ent.twx VGA_ent.ncd -o VGA_ent.twr VGA_ent.pcf -ucf VGA_pins.ucf 
+bitgen -intstyle ise -f VGA_ent.ut VGA_ent.ncd 
+xst -intstyle ise -ifn "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA_ent.xst" -ofn "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA_ent.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc VGA_pins.ucf -p xc3sd1800a-fg676-4 VGA_ent.ngc VGA_ent.ngd  
+map -intstyle ise -p xc3sd1800a-fg676-4 -cm area -ir off -pr off -c 100 -o VGA_ent_map.ncd VGA_ent.ngd VGA_ent.pcf 
+par -w -intstyle ise -ol high -t 1 VGA_ent_map.ncd VGA_ent.ncd VGA_ent.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml VGA_ent.twx VGA_ent.ncd -o VGA_ent.twr VGA_ent.pcf -ucf VGA_pins.ucf 
+bitgen -intstyle ise -f VGA_ent.ut VGA_ent.ncd 

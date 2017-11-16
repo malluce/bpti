@@ -1,0 +1,6 @@
+vhdl work "vsync_ent.vhd"
+vhdl work "hsync_ent.vhd"
+vhdl work "sync_gen.vhd"
+vhdl work "rgb_assign_ent.vhd"
+vhdl work "pixel_gen.vhd"
+vhdl work "VGA.vhd"

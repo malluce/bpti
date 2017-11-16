@@ -27,12 +27,15 @@ begin
 			cnt_high := 1;
 			cnt_low := 1;
 			hsync_out <= '1';
-			col_hsync <= "0000000000";
+			col_hsync <= "0000000001";
 		elsif(clk_hsync'event and clk_hsync = '1') then
 			if(toggle_cnt = '0') then
 				hsync_out <= '1';
-				if(cnt_high > 45 and cnt_high <= 684) then
+				if(cnt_high > 45 and cnt_high < 685) then
 					cnt_col := cnt_col + 1;
+					col_hsync <= std_logic_vector(to_unsigned(cnt_col, 10));
+				else
+					col_hsync <= "0000000000";
 				end if;
 				if(cnt_high = 685) then
 					cnt_col := 1;
@@ -51,7 +54,6 @@ begin
 					cnt_low := cnt_low + 1;
 				end if;
 			end if;
-			col_hsync <= std_logic_vector(to_unsigned(cnt_col, 10));
 		end if;
 	end process hsync_proc;
 
