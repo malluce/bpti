@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2017-11-16T14:35:15</DateModified>
+  <DateModified>2017-11-17T09:53:37</DateModified>
   <ModuleName>VGA_ent</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/iseconfig/VGA_ent.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/capplab10/Schreibtisch/bpti/sheet2/VGA2</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/</ImplementationReportsDirectory>
   <DateInitialized>2017-11-16T14:35:14</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

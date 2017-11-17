@@ -45,7 +45,7 @@ Setup/Hold to clock clk
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-rst         |    7.422(R)|   -5.014(R)|clk_BUFGP         |   0.000|
+rst         |   10.305(R)|   -7.239(R)|clk_BUFGP         |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Clock clk to Pad
@@ -53,15 +53,19 @@ Clock clk to Pad
             | clk (edge) |                  | Clock  |
 Destination |   to PAD   |Internal Clock(s) | Phase  |
 ------------+------------+------------------+--------+
-blue_0      |   12.726(R)|clk_BUFGP         |   0.000|
-blue_1      |   13.015(R)|clk_BUFGP         |   0.000|
-blue_2      |   12.180(R)|clk_BUFGP         |   0.000|
-blue_3      |   12.729(R)|clk_BUFGP         |   0.000|
-green_0     |   11.638(R)|clk_BUFGP         |   0.000|
-green_1     |   12.169(R)|clk_BUFGP         |   0.000|
-green_2     |   11.911(R)|clk_BUFGP         |   0.000|
-green_3     |   12.459(R)|clk_BUFGP         |   0.000|
-hsync       |    9.702(R)|clk_BUFGP         |   0.000|
+blue_0      |   14.177(R)|clk_BUFGP         |   0.000|
+blue_1      |   13.106(R)|clk_BUFGP         |   0.000|
+blue_2      |   14.176(R)|clk_BUFGP         |   0.000|
+blue_3      |   13.106(R)|clk_BUFGP         |   0.000|
+green_0     |   13.069(R)|clk_BUFGP         |   0.000|
+green_1     |   13.633(R)|clk_BUFGP         |   0.000|
+green_2     |   13.906(R)|clk_BUFGP         |   0.000|
+green_3     |   13.911(R)|clk_BUFGP         |   0.000|
+hsync       |    8.028(R)|clk_BUFGP         |   0.000|
+red_0       |   11.645(R)|clk_BUFGP         |   0.000|
+red_1       |   11.912(R)|clk_BUFGP         |   0.000|
+red_2       |   11.914(R)|clk_BUFGP         |   0.000|
+red_3       |   11.912(R)|clk_BUFGP         |   0.000|
 ------------+------------+------------------+--------+
 
 Clock to Setup on destination clock clk
@@ -69,11 +73,11 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |    6.552|         |         |         |
+clk            |    6.033|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Thu Nov 16 17:33:12 2017 
+Analysis completed Fri Nov 17 12:50:23 2017 
 --------------------------------------------------------------------------------
 
 Trace Settings:

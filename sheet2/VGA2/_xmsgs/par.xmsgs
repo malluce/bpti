@@ -11,7 +11,7 @@
 <msg type="warning" file="Place" num="619" delta="old" >This design is using a Side-BUFG site due to placement constraints on a BUFG, DCM, clock IOB or the loads of these components. It is recommended that Top and Bottom BUFG sites be used instead of Side-BUFG sites whenever possible because they can reach every clock region on the device. Side-BUFG sites can reach only clock regions on the same side of the device and also preclude the use of certain Top and Bottom BUFGs in the same clock region.
 </msg>
 
-<msg type="warning" file="Route" num="455" delta="new" >CLK Net:<arg fmt="%s" index="1">sync/hsync/hsync_out</arg> may have excessive skew because 
+<msg type="warning" file="Route" num="455" delta="old" >CLK Net:<arg fmt="%s" index="1">sync/hsync/hsync_out</arg> may have excessive skew because 
    <arg fmt="%d" index="2">0</arg> CLK pins and <arg fmt="%d" index="3">1</arg> NON_CLK pins failed to route using a CLK template.
 </msg>
 
