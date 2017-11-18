@@ -69,6 +69,7 @@ begin
 					if(cnt_high = 684) then -- set column counter and output in range
 						cnt_col <= 0;
 					-- !!problem hier irgendwo: setzen letzte row nicht!!
+					-- lösung vlt den fall aufspalten (einmal col erhöhen, einmal row und col-ausgänge setzen) -> dannn kein overflow beim hochzählen von col, trotzdem wird letzte row gesetzt?
 					elsif(cnt_high >= 44 and cnt_high < 684 and cnt_times >= 30 and cnt_times < 510) then
 						cnt_col <= cnt_col + 1;
 						row_hsync <= std_logic_vector(to_unsigned(cnt_row, 9));
