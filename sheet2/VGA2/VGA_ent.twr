@@ -45,7 +45,7 @@ Setup/Hold to clock clk
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-rst         |   10.305(R)|   -7.239(R)|clk_BUFGP         |   0.000|
+rst         |    4.650(R)|   -2.503(R)|clk_BUFGP         |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Clock clk to Pad
@@ -53,19 +53,11 @@ Clock clk to Pad
             | clk (edge) |                  | Clock  |
 Destination |   to PAD   |Internal Clock(s) | Phase  |
 ------------+------------+------------------+--------+
-blue_0      |   14.177(R)|clk_BUFGP         |   0.000|
-blue_1      |   13.106(R)|clk_BUFGP         |   0.000|
-blue_2      |   14.176(R)|clk_BUFGP         |   0.000|
-blue_3      |   13.106(R)|clk_BUFGP         |   0.000|
-green_0     |   13.069(R)|clk_BUFGP         |   0.000|
-green_1     |   13.633(R)|clk_BUFGP         |   0.000|
-green_2     |   13.906(R)|clk_BUFGP         |   0.000|
-green_3     |   13.911(R)|clk_BUFGP         |   0.000|
-hsync       |    8.028(R)|clk_BUFGP         |   0.000|
-red_0       |   11.645(R)|clk_BUFGP         |   0.000|
-red_1       |   11.912(R)|clk_BUFGP         |   0.000|
-red_2       |   11.914(R)|clk_BUFGP         |   0.000|
-red_3       |   11.912(R)|clk_BUFGP         |   0.000|
+hsync       |    9.858(R)|clk_BUFGP         |   0.000|
+red_0       |   15.215(R)|clk_BUFGP         |   0.000|
+red_1       |   15.215(R)|clk_BUFGP         |   0.000|
+red_2       |   15.215(R)|clk_BUFGP         |   0.000|
+red_3       |   15.215(R)|clk_BUFGP         |   0.000|
 ------------+------------+------------------+--------+
 
 Clock to Setup on destination clock clk
@@ -73,11 +65,11 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |    6.033|         |         |         |
+clk            |    6.295|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Fri Nov 17 12:50:23 2017 
+Analysis completed Tue Nov 21 16:04:01 2017 
 --------------------------------------------------------------------------------
 
 Trace Settings:

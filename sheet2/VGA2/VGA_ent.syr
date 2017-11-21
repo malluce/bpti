@@ -4,15 +4,15 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.20 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.12 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.20 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.13 secs
  
 --> 
 Reading design: VGA_ent.prj
@@ -109,14 +109,14 @@ Slice Utilization Ratio Delta      : 5
 *                          HDL Compilation                              *
 =========================================================================
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/hsync_ent.vhd" in Library work.
-Entity <hsync_ent> compiled.
-Entity <hsync_ent> (Architecture <hsync_behav>) compiled.
+Architecture hsync_behav of Entity hsync_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/vsync_ent.vhd" in Library work.
 Architecture vsync_behav of Entity vsync_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/sync_gen.vhd" in Library work.
 Architecture sync_gen_struct of Entity sync_gen_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/pixel_gen.vhd" in Library work.
-Architecture pixel_gen_behav of Entity pixel_gen_ent is up to date.
+Entity <pixel_gen_ent> compiled.
+Entity <pixel_gen_ent> (Architecture <pixel_gen_behav>) compiled.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/rgb_assign_ent.vhd" in Library work.
 Architecture rgb_assign_behav of Entity rgb_assign_ent is up to date.
 Compiling vhdl file "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA.vhd" in Library work.
@@ -129,7 +129,9 @@ Analyzing hierarchy for entity <VGA_ent> in library <work> (architecture <vga_st
 
 Analyzing hierarchy for entity <sync_gen_ent> in library <work> (architecture <sync_gen_struct>).
 
-Analyzing hierarchy for entity <pixel_gen_ent> in library <work> (architecture <pixel_gen_behav>).
+Analyzing hierarchy for entity <pixel_gen_ent> in library <work> (architecture <pixel_gen_behav>) with generics.
+	height_rect = 100
+	width_rect = 100
 
 Analyzing hierarchy for entity <rgb_assign_ent> in library <work> (architecture <rgb_assign_behav>).
 
@@ -153,9 +155,9 @@ Entity <hsync_ent> analyzed. Unit <hsync_ent> generated.
 Analyzing Entity <vsync_ent> in library <work> (Architecture <vsync_behav>).
 Entity <vsync_ent> analyzed. Unit <vsync_ent> generated.
 
-Analyzing Entity <pixel_gen_ent> in library <work> (Architecture <pixel_gen_behav>).
-INFO:Xst:1749 - "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/pixel_gen.vhd" line 27: report: Report statement with non static report message
-INFO:Xst:1749 - "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/pixel_gen.vhd" line 28: report: Report statement with non static report message
+Analyzing generic Entity <pixel_gen_ent> in library <work> (Architecture <pixel_gen_behav>).
+	height_rect = 100
+	width_rect = 100
 Entity <pixel_gen_ent> analyzed. Unit <pixel_gen_ent> generated.
 
 Analyzing Entity <rgb_assign_ent> in library <work> (Architecture <rgb_assign_behav>).
@@ -182,6 +184,15 @@ WARNING:Xst:51 - Detected potential name conflict between port <red_assign> and 
 
 Synthesizing Unit <pixel_gen_ent>.
     Related source file is "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/pixel_gen.vhd".
+    Found 10-bit adder for signal <red$addsub0000> created at line 36.
+    Found 11-bit adder for signal <red$addsub0001> created at line 36.
+    Found 9-bit comparator greatequal for signal <red$cmp_ge0000> created at line 36.
+    Found 10-bit comparator greatequal for signal <red$cmp_ge0001> created at line 36.
+    Found 10-bit comparator less for signal <red$cmp_lt0000> created at line 36.
+    Found 11-bit comparator less for signal <red$cmp_lt0001> created at line 36.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred   4 Comparator(s).
 Unit <pixel_gen_ent> synthesized.
 
 
@@ -196,26 +207,27 @@ Synthesizing Unit <hsync_ent>.
     Found 9-bit register for signal <row_hsync>.
     Found 1-bit register for signal <hsync_out>.
     Found 10-bit up counter for signal <cnt_col>.
-    Found 10-bit comparator greatequal for signal <cnt_col$cmp_ge0000> created at line 66.
-    Found 10-bit comparator greatequal for signal <cnt_col$cmp_ge0001> created at line 66.
-    Found 10-bit comparator less for signal <cnt_col$cmp_lt0000> created at line 66.
-    Found 10-bit comparator less for signal <cnt_col$cmp_lt0001> created at line 66.
+    Found 10-bit comparator greatequal for signal <cnt_col$cmp_ge0000> created at line 70.
+    Found 10-bit comparator greater for signal <cnt_col$cmp_gt0000> created at line 70.
+    Found 10-bit comparator less for signal <cnt_col$cmp_lt0000> created at line 70.
+    Found 10-bit comparator less for signal <cnt_col$cmp_lt0001> created at line 70.
     Found 10-bit up counter for signal <cnt_high>.
     Found 7-bit up counter for signal <cnt_low>.
     Found 9-bit up counter for signal <cnt_row>.
+    Found 10-bit comparator greatequal for signal <cnt_row$cmp_ge0000> created at line 51.
     Found 10-bit register for signal <cnt_times>.
-    Found 10-bit adder for signal <cnt_times$addsub0000> created at line 59.
-    Found 10-bit adder for signal <col_hsync$addsub0000> created at line 70.
-    Found 10-bit comparator greatequal for signal <row_hsync$cmp_ge0000> created at line 66.
-    Found 10-bit comparator greatequal for signal <row_hsync$cmp_ge0001> created at line 66.
-    Found 10-bit comparator less for signal <row_hsync$cmp_lt0000> created at line 66.
-    Found 10-bit comparator less for signal <row_hsync$cmp_lt0001> created at line 66.
+    Found 10-bit adder for signal <cnt_times$addsub0000> created at line 61.
+    Found 10-bit adder for signal <col_hsync$addsub0000> created at line 75.
+    Found 10-bit comparator greatequal for signal <row_hsync$cmp_ge0000> created at line 73.
+    Found 10-bit comparator greatequal for signal <row_hsync$cmp_ge0001> created at line 73.
+    Found 10-bit comparator lessequal for signal <row_hsync$cmp_le0000> created at line 73.
+    Found 10-bit comparator lessequal for signal <row_hsync$cmp_le0001> created at line 73.
     Found 1-bit register for signal <set_0>.
     Summary:
 	inferred   4 Counter(s).
 	inferred  11 D-type flip-flop(s).
 	inferred   2 Adder/Subtractor(s).
-	inferred   8 Comparator(s).
+	inferred   9 Comparator(s).
 Unit <hsync_ent> synthesized.
 
 
@@ -237,6 +249,8 @@ Unit <sync_gen_ent> synthesized.
 
 Synthesizing Unit <VGA_ent>.
     Related source file is "/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/VGA.vhd".
+WARNING:Xst:653 - Signal <y_rect_fwd> is used but never assigned. This sourceless signal will be automatically connected to value 000000000.
+WARNING:Xst:653 - Signal <x_rect_fwd> is used but never assigned. This sourceless signal will be automatically connected to value 0000000000.
 Unit <VGA_ent> synthesized.
 
 
@@ -244,8 +258,9 @@ Unit <VGA_ent> synthesized.
 HDL Synthesis Report
 
 Macro Statistics
-# Adders/Subtractors                                   : 2
- 10-bit adder                                          : 2
+# Adders/Subtractors                                   : 4
+ 10-bit adder                                          : 3
+ 11-bit adder                                          : 1
 # Counters                                             : 5
  10-bit up counter                                     : 3
  7-bit up counter                                      : 1
@@ -254,9 +269,13 @@ Macro Statistics
  1-bit register                                        : 4
  10-bit register                                       : 2
  9-bit register                                        : 1
-# Comparators                                          : 8
- 10-bit comparator greatequal                          : 4
- 10-bit comparator less                                : 4
+# Comparators                                          : 13
+ 10-bit comparator greatequal                          : 5
+ 10-bit comparator greater                             : 1
+ 10-bit comparator less                                : 3
+ 10-bit comparator lessequal                           : 2
+ 11-bit comparator less                                : 1
+ 9-bit comparator greatequal                           : 1
 
 =========================================================================
 
@@ -269,17 +288,22 @@ Macro Statistics
 Advanced HDL Synthesis Report
 
 Macro Statistics
-# Adders/Subtractors                                   : 2
- 10-bit adder                                          : 2
+# Adders/Subtractors                                   : 4
+ 10-bit adder                                          : 3
+ 11-bit adder                                          : 1
 # Counters                                             : 5
  10-bit up counter                                     : 3
  7-bit up counter                                      : 1
  9-bit up counter                                      : 1
 # Registers                                            : 33
  Flip-Flops                                            : 33
-# Comparators                                          : 8
- 10-bit comparator greatequal                          : 4
- 10-bit comparator less                                : 4
+# Comparators                                          : 13
+ 10-bit comparator greatequal                          : 5
+ 10-bit comparator greater                             : 1
+ 10-bit comparator less                                : 3
+ 10-bit comparator lessequal                           : 2
+ 11-bit comparator less                                : 1
+ 9-bit comparator greatequal                           : 1
 
 =========================================================================
 
@@ -333,18 +357,20 @@ Design Statistics
 # IOs                              : 16
 
 Cell Usage :
-# BELS                             : 308
+# BELS                             : 314
 #      GND                         : 1
 #      INV                         : 10
 #      LUT1                        : 53
-#      LUT2                        : 72
-#      LUT3                        : 9
-#      LUT3_D                      : 2
-#      LUT4                        : 31
-#      LUT4_D                      : 8
-#      LUT4_L                      : 7
+#      LUT2                        : 42
+#      LUT2_L                      : 3
+#      LUT3                        : 22
+#      LUT3_D                      : 1
+#      LUT3_L                      : 1
+#      LUT4                        : 50
+#      LUT4_D                      : 12
+#      LUT4_L                      : 3
 #      MUXCY                       : 53
-#      MUXF5                       : 2
+#      MUXF5                       : 3
 #      VCC                         : 1
 #      XORCY                       : 59
 # FlipFlops/Latches                : 79
@@ -364,9 +390,9 @@ Device utilization summary:
 
 Selected Device : 3sd1800afg676-4 
 
- Number of Slices:                      107  out of  16640     0%  
+ Number of Slices:                      110  out of  16640     0%  
  Number of Slice Flip Flops:             79  out of  33280     0%  
- Number of 4 input LUTs:                192  out of  33280     0%  
+ Number of 4 input LUTs:                197  out of  33280     0%  
  Number of IOs:                          16
  Number of bonded IOBs:                  16  out of    519     3%  
  Number of GCLKs:                         1  out of     24     4%  
@@ -409,9 +435,9 @@ Timing Summary:
 ---------------
 Speed Grade: -4
 
-   Minimum period: 7.247ns (Maximum Frequency: 137.988MHz)
+   Minimum period: 6.360ns (Maximum Frequency: 157.233MHz)
    Minimum input arrival time before clock: 3.219ns
-   Maximum output required time after clock: 10.744ns
+   Maximum output required time after clock: 9.455ns
    Maximum combinational path delay: No path found
 
 Timing Detail:
@@ -420,10 +446,10 @@ All values displayed in nanoseconds (ns)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'sync/hsync/hsync_out'
-  Clock period: 5.223ns (frequency: 191.461MHz)
+  Clock period: 5.155ns (frequency: 193.986MHz)
   Total number of paths / destination ports: 178 / 23
 -------------------------------------------------------------------------
-Delay:               5.223ns (Levels of Logic = 11)
+Delay:               5.155ns (Levels of Logic = 11)
   Source:            sync/vsync/cnt_high_1 (FF)
   Destination:       sync/vsync/cnt_high_9 (FF)
   Source Clock:      sync/hsync/hsync_out rising
@@ -443,37 +469,36 @@ Delay:               5.223ns (Levels of Logic = 11)
      MUXCY:CI->O           1   0.065   0.000  sync/vsync/Mcount_cnt_high_cy<6> (sync/vsync/Mcount_cnt_high_cy<6>)
      MUXCY:CI->O           1   0.065   0.000  sync/vsync/Mcount_cnt_high_cy<7> (sync/vsync/Mcount_cnt_high_cy<7>)
      MUXCY:CI->O           0   0.065   0.000  sync/vsync/Mcount_cnt_high_cy<8> (sync/vsync/Mcount_cnt_high_cy<8>)
-     XORCY:CI->O           1   0.844   0.563  sync/vsync/Mcount_cnt_high_xor<9> (sync/vsync/Result<9>)
-     LUT2:I0->O            1   0.648   0.000  sync/vsync/Mcount_cnt_high_eqn_91 (sync/vsync/Mcount_cnt_high_eqn_9)
+     XORCY:CI->O           1   0.844   0.500  sync/vsync/Mcount_cnt_high_xor<9> (sync/vsync/Result<9>)
+     LUT2:I1->O            1   0.643   0.000  sync/vsync/Mcount_cnt_high_eqn_91 (sync/vsync/Mcount_cnt_high_eqn_9)
      FDCE:D                    0.252          sync/vsync/cnt_high_9
     ----------------------------------------
-    Total                      5.223ns (4.070ns logic, 1.153ns route)
-                                       (77.9% logic, 22.1% route)
+    Total                      5.155ns (4.065ns logic, 1.090ns route)
+                                       (78.9% logic, 21.1% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clk'
-  Clock period: 7.247ns (frequency: 137.988MHz)
-  Total number of paths / destination ports: 2807 / 133
+  Clock period: 6.360ns (frequency: 157.233MHz)
+  Total number of paths / destination ports: 3064 / 133
 -------------------------------------------------------------------------
-Delay:               7.247ns (Levels of Logic = 4)
-  Source:            sync/hsync/cnt_high_2 (FF)
-  Destination:       sync/hsync/row_hsync_8 (FF)
+Delay:               6.360ns (Levels of Logic = 3)
+  Source:            sync/hsync/cnt_high_0 (FF)
+  Destination:       sync/hsync/cnt_col_9 (FF)
   Source Clock:      clk rising
   Destination Clock: clk rising
 
-  Data Path: sync/hsync/cnt_high_2 to sync/hsync/row_hsync_8
+  Data Path: sync/hsync/cnt_high_0 to sync/hsync/cnt_col_9
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDCE:C->Q             4   0.591   0.730  sync/hsync/cnt_high_2 (sync/hsync/cnt_high_2)
-     LUT4_D:I0->O          2   0.648   0.527  sync/hsync/cnt_col_cmp_eq0000115 (sync/hsync/cnt_col_cmp_eq0000115)
-     LUT2:I1->O            6   0.643   0.672  sync/hsync/cnt_col_cmp_eq0000116 (sync/hsync/N6)
-     LUT4:I3->O           11   0.648   1.013  sync/hsync/row_hsync_and000011 (sync/hsync/col_hsync_not0001)
-     LUT2:I1->O            9   0.643   0.820  sync/hsync/row_hsync_and00002 (sync/hsync/row_hsync_and0000)
-     FDE:CE                    0.312          sync/hsync/row_hsync_0
+     FDPE:C->Q             5   0.591   0.776  sync/hsync/cnt_high_0 (sync/hsync/cnt_high_0)
+     LUT4:I0->O            1   0.648   0.452  sync/hsync/cnt_row_not00013_SW1 (N14)
+     LUT4:I2->O           25   0.648   1.403  sync/hsync/cnt_high_cmp_eq00001 (sync/hsync/cnt_high_cmp_eq0000)
+     LUT4:I0->O           10   0.648   0.882  sync/hsync/cnt_col_not0001128 (sync/hsync/cnt_col_not0001)
+     FDCE:CE                   0.312          sync/hsync/cnt_col_0
     ----------------------------------------
-    Total                      7.247ns (3.485ns logic, 3.762ns route)
-                                       (48.1% logic, 51.9% route)
+    Total                      6.360ns (2.847ns logic, 3.513ns route)
+                                       (44.8% logic, 55.2% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
@@ -489,7 +514,7 @@ Offset:              3.219ns (Levels of Logic = 2)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      IBUF:I->O             2   0.849   0.590  rst_IBUF (rst_IBUF)
-     LUT2:I0->O            9   0.648   0.820  sync/hsync/row_hsync_and00002 (sync/hsync/row_hsync_and0000)
+     LUT4:I0->O            9   0.648   0.820  sync/hsync/row_hsync_and00002 (sync/hsync/row_hsync_and0000)
      FDE:CE                    0.312          sync/hsync/row_hsync_0
     ----------------------------------------
     Total                      3.219ns (1.809ns logic, 1.410ns route)
@@ -516,39 +541,39 @@ Offset:              5.531ns (Levels of Logic = 1)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
-  Total number of paths / destination ports: 445 / 13
+  Total number of paths / destination ports: 137 / 5
 -------------------------------------------------------------------------
-Offset:              10.744ns (Levels of Logic = 5)
-  Source:            sync/hsync/col_hsync_3 (FF)
-  Destination:       blue_0 (PAD)
+Offset:              9.455ns (Levels of Logic = 5)
+  Source:            sync/hsync/col_hsync_2 (FF)
+  Destination:       red_0 (PAD)
   Source Clock:      clk rising
 
-  Data Path: sync/hsync/col_hsync_3 to blue_0
+  Data Path: sync/hsync/col_hsync_2 to red_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDCE:C->Q             2   0.591   0.590  sync/hsync/col_hsync_3 (sync/hsync/col_hsync_3)
-     LUT3:I0->O            1   0.648   0.423  pixel/blue_and000034_SW0 (N19)
-     LUT4:I3->O            1   0.648   0.563  pixel/blue_and000034 (pixel/blue_and000034)
-     LUT4:I0->O            5   0.648   0.713  pixel/blue_and000048 (red_fwd<0>)
-     LUT3:I1->O            8   0.643   0.757  pixel/blue<1>156 (blue_fwd<0>)
-     OBUF:I->O                 4.520          blue_0_OBUF (blue_0)
+     FDCE:C->Q             2   0.591   0.590  sync/hsync/col_hsync_2 (sync/hsync/col_hsync_2)
+     LUT4:I0->O            1   0.648   0.000  pixel/red<1>951 (pixel/red<1>951)
+     MUXF5:I1->O           1   0.276   0.500  pixel/red<1>95_f5 (pixel/red<1>95)
+     LUT4:I1->O            1   0.643   0.452  pixel/red<1>100 (pixel/red<1>100)
+     LUT4:I2->O            4   0.648   0.587  pixel/red<1>145 (red_fwd<0>)
+     OBUF:I->O                 4.520          red_0_OBUF (red_0)
     ----------------------------------------
-    Total                     10.744ns (7.698ns logic, 3.046ns route)
-                                       (71.6% logic, 28.4% route)
+    Total                      9.455ns (7.326ns logic, 2.129ns route)
+                                       (77.5% logic, 22.5% route)
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 18.00 secs
-Total CPU time to Xst completion: 16.24 secs
+Total REAL time to Xst completion: 17.00 secs
+Total CPU time to Xst completion: 16.48 secs
  
 --> 
 
 
-Total memory usage is 173612 kilobytes
+Total memory usage is 173848 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :   12 (   0 filtered)
-Number of infos    :    3 (   0 filtered)
+Number of warnings :   14 (   0 filtered)
+Number of infos    :    1 (   0 filtered)
 

@@ -5,12 +5,6 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="info" file="Xst" num="1749" delta="old" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/pixel_gen.vhd</arg>&quot; line <arg fmt="%d" index="2">27</arg>: <arg fmt="%s" index="3">report</arg>: <arg fmt="%s" index="4">Report statement with non static report message</arg>
-</msg>
-
-<msg type="info" file="Xst" num="1749" delta="old" >&quot;<arg fmt="%s" index="1">/home/capplab10/Schreibtisch/bpti/sheet2/VGA2/pixel_gen.vhd</arg>&quot; line <arg fmt="%d" index="2">28</arg>: <arg fmt="%s" index="3">report</arg>: <arg fmt="%s" index="4">Report statement with non static report message</arg>
-</msg>
-
 <msg type="warning" file="Xst" num="51" delta="old" >Detected potential name conflict between port &lt;<arg fmt="%s" index="1">green_assign</arg>&gt; and port &lt;<arg fmt="%s" index="2">green_assign_0</arg>&gt; in unit &lt;<arg fmt="%s" index="3">rgb_assign_ent</arg>&gt;. Port &lt;<arg fmt="%s" index="4">green_assign_0</arg>&gt; is renamed to &lt;<arg fmt="%s" index="5">green_assign_0_ren</arg>&gt;, changing the interface of this block. Please update your source code accordingly or choose a different name.
 </msg>
 
@@ -45,6 +39,12 @@
 </msg>
 
 <msg type="warning" file="Xst" num="51" delta="old" >Detected potential name conflict between port &lt;<arg fmt="%s" index="1">red_assign</arg>&gt; and port &lt;<arg fmt="%s" index="2">red_assign_3</arg>&gt; in unit &lt;<arg fmt="%s" index="3">rgb_assign_ent</arg>&gt;. Port &lt;<arg fmt="%s" index="4">red_assign_3</arg>&gt; is renamed to &lt;<arg fmt="%s" index="5">red_assign_3_ren</arg>&gt;, changing the interface of this block. Please update your source code accordingly or choose a different name.
+</msg>
+
+<msg type="warning" file="Xst" num="653" delta="old" >Signal &lt;<arg fmt="%s" index="1">y_rect_fwd</arg>&gt; is used but never assigned. This sourceless signal will be automatically connected to value <arg fmt="%s" index="2">000000000</arg>.
+</msg>
+
+<msg type="warning" file="Xst" num="653" delta="old" >Signal &lt;<arg fmt="%s" index="1">x_rect_fwd</arg>&gt; is used but never assigned. This sourceless signal will be automatically connected to value <arg fmt="%s" index="2">0000000000</arg>.
 </msg>
 
 <msg type="info" file="Xst" num="2169" delta="old" >HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
