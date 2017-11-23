@@ -18,10 +18,6 @@ begin
 	pixel_proc : process(row, col)
 		variable row_int : integer range 0 to 480 := 1;
 		variable col_int : integer range 0 to 640 := 1;
-		variable red_int : integer range 0 to 15 := 0;
-		variable green_int : integer range 0 to 15 := 0;
-		variable blue_int : integer range 0 to 15 := 0;
-		variable cnt : integer range 0 to 31 := 0;
 	begin
 		if(col /= "0000000000" and row /= "000000000") then
 			row_int := to_integer(unsigned(row));
@@ -31,33 +27,26 @@ begin
 				red <= "1111";
 				green <= "1111";
 				blue <= "1111";
-				red_int := 0;
-				green_int := 0;
-				blue_int := 0;
 			else
-				green_int := 0;
-				blue_int := 0;
-
-				if(cnt = 31) then
-					cnt := 0;
-					if(red_int <= 13) then
-						red_int := red_int + 2;
-					end if;
+				if(col_int <= 255) then
+					red <= "0000";
+					green <= "0000";
+					blue <= col(7 downto 4);
+				elsif(col_int <= 511) then
+					red <= "0000";
+					green <= col(7 downto 4);
+					blue <= not (col(7 downto 4));
 				else 
-					cnt := cnt + 1;
+					red <= col(6 downto 3);
+					green <= not (col(6 downto 3));
+					blue <= "0000";	
 				end if;
-				red <= std_logic_vector(to_unsigned(red_int, 4));
-				green <= std_logic_vector(to_unsigned(green_int, 4));
-				blue <= std_logic_vector(to_unsigned(blue_int, 4));
 			end if;
 		else 
 			-- black (not allowed to set RGB here)
-			red_int := 0;
-			green_int := 0;
-			blue_int := 0;
-			red <= std_logic_vector(to_unsigned(red_int, 4));
-			green <= std_logic_vector(to_unsigned(green_int, 4));
-			blue <= std_logic_vector(to_unsigned(blue_int, 4));
+			red <= "0000";
+			green <= "0000";
+			blue <= "0000";
 		end if;
 	end process pixel_proc;
 end pixel_gen_behav;

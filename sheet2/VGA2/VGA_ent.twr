@@ -45,11 +45,7 @@ Setup/Hold to clock clk
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-rst         |    5.633(R)|   -0.891(R)|clk_BUFGP         |   0.000|
-vga_down    |    8.104(R)|   -1.426(R)|clk_BUFGP         |   0.000|
-vga_left    |    8.694(R)|   -1.905(R)|clk_BUFGP         |   0.000|
-vga_right   |    9.227(R)|   -2.727(R)|clk_BUFGP         |   0.000|
-vga_up      |    6.550(R)|   -0.636(R)|clk_BUFGP         |   0.000|
+rst         |    6.115(R)|   -3.584(R)|clk_BUFGP         |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Clock clk to Pad
@@ -57,11 +53,19 @@ Clock clk to Pad
             | clk (edge) |                  | Clock  |
 Destination |   to PAD   |Internal Clock(s) | Phase  |
 ------------+------------+------------------+--------+
-hsync       |   10.385(R)|clk_BUFGP         |   0.000|
-red_0       |   21.361(R)|clk_BUFGP         |   0.000|
-red_1       |   21.100(R)|clk_BUFGP         |   0.000|
-red_2       |   21.369(R)|clk_BUFGP         |   0.000|
-red_3       |   21.369(R)|clk_BUFGP         |   0.000|
+blue_0      |   14.291(R)|clk_BUFGP         |   0.000|
+blue_1      |   14.495(R)|clk_BUFGP         |   0.000|
+blue_2      |   13.997(R)|clk_BUFGP         |   0.000|
+blue_3      |   13.691(R)|clk_BUFGP         |   0.000|
+green_0     |   14.402(R)|clk_BUFGP         |   0.000|
+green_1     |   14.402(R)|clk_BUFGP         |   0.000|
+green_2     |   14.808(R)|clk_BUFGP         |   0.000|
+green_3     |   14.877(R)|clk_BUFGP         |   0.000|
+hsync       |    9.833(R)|clk_BUFGP         |   0.000|
+red_0       |   13.713(R)|clk_BUFGP         |   0.000|
+red_1       |   14.751(R)|clk_BUFGP         |   0.000|
+red_2       |   14.036(R)|clk_BUFGP         |   0.000|
+red_3       |   14.128(R)|clk_BUFGP         |   0.000|
 ------------+------------+------------------+--------+
 
 Clock to Setup on destination clock clk
@@ -69,18 +73,18 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |    7.177|         |         |         |
+clk            |    6.797|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Thu Nov 23 13:06:52 2017 
+Analysis completed Thu Nov 23 16:02:15 2017 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 171 MB
+Peak Memory Usage: 170 MB
 
 
 

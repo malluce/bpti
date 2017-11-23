@@ -1,7 +1,7 @@
 Release 14.7 - par P.20131013 (lin)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Thu Nov 23 13:06:41 2017
+Thu Nov 23 16:02:05 2017
 
 
 INFO: The IO information is provided in three file formats as part of the Place and Route (PAR) process.  These formats are:
@@ -393,14 +393,14 @@ Pinout by Pin Number:
 |J7        |           |DIFFMLR   |IO_L10P_3             |UNUSED   |           |3             |          |         |           |         |         |          |           |                |
 |J8        |           |DIFFMLR   |IO_L01P_3             |UNUSED   |           |3             |          |         |           |         |         |          |           |                |
 |J9        |           |DIFFSLR   |IO_L01N_3             |UNUSED   |           |3             |          |         |           |         |         |          |           |                |
-|J10       |vga_right  |IBUF      |IP_0                  |INPUT    |LVCMOS25*  |0             |          |         |           |IBUF     |         |LOCATED   |NO         |NONE            |
+|J10       |           |IBUF      |IP_0                  |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
 |J11       |           |DIFFMTB   |IO_L43P_0             |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
 |J12       |           |DIFFMTB   |IO_L39P_0             |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
-|J13       |vga_left   |IBUF      |IP_0                  |INPUT    |LVCMOS25*  |0             |          |         |           |IBUF     |         |LOCATED   |NO         |NONE            |
+|J13       |           |IBUF      |IP_0                  |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
 |J14       |           |DIFFSTB   |IO_L25N_0/GCLK5       |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
-|J15       |vga_down   |IBUF      |IP_0                  |INPUT    |LVCMOS25*  |0             |          |         |           |IBUF     |         |LOCATED   |NO         |NONE            |
+|J15       |           |IBUF      |IP_0                  |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
 |J16       |           |DIFFMTB   |IO_L12P_0             |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
-|J17       |vga_up     |IBUF      |IP_0/VREF_0           |INPUT    |LVCMOS25*  |0             |          |         |           |IBUF     |         |LOCATED   |NO         |NONE            |
+|J17       |           |IBUF      |IP_0/VREF_0           |UNUSED   |           |0             |          |         |           |         |         |          |           |                |
 |J18       |           |          |VCCAUX                |         |           |              |          |         |           |         |2.5      |          |           |                |
 |J19       |           |DIFFMLR   |IO_L59P_1             |UNUSED   |           |1             |          |         |           |         |         |          |           |                |
 |J20       |           |DIFFSLR   |IO_L59N_1             |UNUSED   |           |1             |          |         |           |         |         |          |           |                |
