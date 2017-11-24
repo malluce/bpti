@@ -10,6 +10,7 @@
 \usepackage{graphicx}       % provides commands for including figures
 \usepackage{csquotes}       % provides \enquote{} macro for "quotes"
 \usepackage{scrpage2}
+\usepackage{caption}
 \pagestyle{scrheadings}
 \usepackage{float}
 
@@ -27,11 +28,18 @@
 			\includegraphics[scale=0.1]{Bilder/Sync_gen.jpeg}
 			
 		\subsection{Screenshots}
-			\includegraphics[scale=0.27]{Bilder/sync.png} \newline
-			\includegraphics[scale=0.27]{Bilder/edge_white_rest_black.png}
+			\begin{figure}[H]
+				\includegraphics[scale=0.27]{Bilder/sync.png} 
+				\caption*{clk, rst , hsync und vsync}
+			\end{figure}
+			\begin{figure}[H]
+				\includegraphics[scale=0.27]{Bilder/edge_white_rest_black.png}
+				\caption*{Setzen der RGB-Werte am Rand (weiß), sonst schwarz}
+			\end{figure}
 
 	\section{Farbverlauf}
-		
+		Diese Aufgabe hat uns am meisten Zeit gekostet. Ein Problem, das wir lange Zeit übersehen hatten war, dass wir in unserem Prozess im \enquote{pixel\_gen}  einen \enquote{combanitorial loop} hatten. Wir nutzten zum Zählen der RGB-Werte eine Variable und hatten eine Zuweisung \enquote{rgb := rgb + const} im Code. Dies führte zu unerwartetem Verhalten, da es sich um einen kombinatorischen Prozess (abhängig von col und row des sync\_gen) handelt.
+		Als wir diesen Fehler behoben hatten, waren wir der Meinung der Code funktioniert in der Simulation wie gewollt, das Bild hatte jedoch eine unerwartete Blockstruktur, bei der sich die RGB-Werte nach einigen Spalten des Bildes zurücksetzten. Dies war jedoch auf eine falsche Überlegung zurückzuführen, da wir die Bits für Blau und Grün nicht auf 1 ließen, obwohl beide Vektoren schon auf den Wert \enquote{1111} hochgezählt wurden.
 	\section{Rechteck}
 		Die Ausgabe des Rechtecks stellte uns vor keine große Herausforderung. Ein Problem war, dass wir mehrfache Zuweisungen der Ausgänge hatten und somit kein rechter Rand des Rechtecks zu sehen war, sondern das Rechteck endlos nach rechts verlief.
 	
