@@ -19,7 +19,6 @@ bpti_ise/
 ## ISE
 # intermediate build files
 *.bgn
-*.bit
 *.bld
 *.cmd_log
 *.drc
@@ -60,6 +59,7 @@ bpti_ise/
 *_summary.xml
 *_usage.xml
 *_xst.xrpt
+*.html
 
 # iMPACT generated files
 _impactbatch.log
