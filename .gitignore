@@ -18,6 +18,9 @@ transcript
 bpti_ise/
 ## ISE
 # intermediate build files
+*.cf
+*.xise
+*.cmd
 *.bgn
 *.bld
 *.cmd_log
