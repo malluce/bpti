@@ -18,6 +18,8 @@ transcript
 bpti_ise/
 ## ISE
 # intermediate build files
+*.do
+*.udo
 *.ipf
 *.bak
 *.cf
