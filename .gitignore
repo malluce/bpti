@@ -20,6 +20,7 @@ bpti_ise/
 # intermediate build files
 *.udo
 *.ipf
+*.tcl
 *.bak
 *.cf
 *.xise
