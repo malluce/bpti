@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.ncd
-OUTFILE=/home/capplab10/Schreibtisch/bpti/bpti_ise2/nand_ent.bit
-FAMILY=Spartan-3A DSP
-PART=xc3sd1800a-4fg676
-WORKINGDIR=/home/capplab10/Schreibtisch/bpti/bpti_ise2
-LICENSE=ISE
-USER_INFO=174111760_174111761_210611273_307

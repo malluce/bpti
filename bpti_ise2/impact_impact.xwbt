@@ -1,8 +1,0 @@
-INTSTYLE=impact
-INFILE=/home/capplab10/Schreibtisch/bpti/bpti_ise2/impact.xsl
-OUTFILE=/home/capplab10/Schreibtisch/bpti/bpti_ise2/impact.xsl
-FAMILY=Single
-PART=Single
-WORKINGDIR=/home/capplab10/Schreibtisch/bpti/bpti_ise2
-LICENSE=iMPACT
-USER_INFO=iMPACT

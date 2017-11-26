@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=/home/capplab10/Schreibtisch/bpti/sheet2/VGA/VGA_ent.ncd
-OUTFILE=/home/capplab10/Schreibtisch/bpti/sheet2/VGA/VGA_ent.bit
-FAMILY=Spartan-3A DSP
-PART=xc3sd1800a-4fg676
-WORKINGDIR=/home/capplab10/Schreibtisch/bpti/sheet2/VGA
-LICENSE=ISE
-USER_INFO=174111760_174111761_210611273_307

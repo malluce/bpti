@@ -1,6 +1,0 @@
-vhdl work "../abgabe/task2/vsync_ent.vhd"
-vhdl work "../abgabe/task2/hsync_ent.vhd"
-vhdl work "../abgabe/task2/sync_gen.vhd"
-vhdl work "../abgabe/task2/rgb_assign_ent.vhd"
-vhdl work "../abgabe/task2/pixel_gen.vhd"
-vhdl work "../abgabe/task2/VGA.vhd"
