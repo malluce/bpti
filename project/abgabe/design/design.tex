@@ -11,6 +11,7 @@
 \usepackage{csquotes}       % provides \enquote{} macro for "quotes"
 \usepackage{scrpage2}
 \usepackage{caption}
+\usepackage{enumitem}
 \pagestyle{scrheadings}
 \usepackage{float}
 
@@ -19,14 +20,55 @@
 
 \begin{document}
 	\section{Idee}
-		%TODO ~ 1/2 Seite
+		Unsere Idee besteht darin, ein Bomberman-Spiel zu implementieren. Inspiriert wurden wir durch das Spielprinzip des gleichnamigen Titels von Hudson Soft, herausgegeben 1983 von Nintendo. In unserer Version fokussieren wir uns vorerst auf den Mehrspieler-Modus. 
+		Jeder Spieler hat eine Bombe, die er auf freien Felder platzieren kann. Diese explodiert nach einer gewissen Zeit, woraufhin die Bombe wieder für den Spieler zur Verfügung steht.
+		Das Spielziel besteht darin, den Gegenspieler durch das strategische Platzieren von Bomben auszuschalten. \newline
+		Hierbei wird in einer Arena gespielt, die nach außen hin durch unzerstörbare Blöcke abgegrenzt ist. Im Inneren der Arena existieren sowohl durch Bomben zerstörbare Blöcke als auch unzerstörbare Blöcke. Die unzerstörbaren Blöcke dienen zum Schutz der Spieler vor Explosionen. \newline
+		Jeder Spieler hat eine gewisse Anzahl an Leben. Das Spiel ist beendet, wenn nur noch ein Spieler Leben übrig hat.
 		%TODO Screenshot vom nachgemachten Spiel
 	
 	\section{Ziele}
-		%TODO Ziele / Teilzeile
 		\subsection{Musskriterien}
+			\subsubsection{Darstellung}
+				\begin{itemize}[noitemsep]
+					\item zwei rechteckige Spielfiguren (einfarbig)
+					\item zwei verschiedene Block-Arten (einfarbig)
+					\item Explosionen (einfarbig)
+					\item tickende Bomben (Farbwechsel)
+				\end{itemize}
+				
+			\subsubsection{Benutzer-Interaktion}
+				\begin{itemize}[noitemsep]
+					\item Bewegung der zwei Spielfiguren durch ein Eingabegerät
+					\item Platzieren von Bomben
+				\end{itemize}
+				
+			\subsubsection{Spielmechanik}
+				\begin{itemize}[noitemsep]
+					\item Start eines neuen Spieldurchgangs (durch Reset-Knopf und bei Spielstart automatisch)
+					\item Spielfiguren können sich nicht durch Blöcke hindurch bewegen
+					\item Bomben explodieren nach einer gewissen Zeit
+					\item zerstörbare Blöcke verschwinden nach einer Explosion, die sich an einem angrenzenden Feld des Blockes ereignet
+					\item unzerstörbare Blöcke werden von einer angrenzenden Explosion nicht beeinflusst
+					\item Spielfiguren, die sich in einer Explosion befinden, verschwinden und verlieren das Spiel
+				\end{itemize}
 		
 		\subsection{Wunschkriterien}
+			\subsubsection{Darstellung}
+			\begin{itemize}[noitemsep]
+				\item Sprites für Spielfiguren, Bomben, Explosionen, Blöcke und Powerups 
+				\item Status-Anzeige (Leben, Anzahl Bomben etc.)
+				\item Titelbildschirm
+			\end{itemize}
+			
+			\subsubsection{Spielmechanik}
+			\begin{itemize}[noitemsep]
+				\item verschiedene zufällig platzierte Powerups (Erhöhung der Bomben-Anzahl etc.)
+				\item mehrere Leben pro Spieler
+				\item automatischer Neustart nach Spielende
+				\item bis zu vier Spieler
+				\item KI-Gegner zum Auffüllen der vier Spieler
+			\end{itemize}
 	
 	\section{Projektplan}
 		%TODO Aufgaben + Zeit ~ 1 Seite
