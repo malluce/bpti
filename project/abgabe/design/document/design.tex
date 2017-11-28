@@ -25,7 +25,13 @@
 		Das Spielziel besteht darin, den Gegenspieler durch das strategische Platzieren von Bomben auszuschalten. \newline
 		Hierbei wird in einer Arena gespielt, die nach außen hin durch unzerstörbare Blöcke abgegrenzt ist. Im Inneren der Arena existieren sowohl durch Bomben zerstörbare Blöcke als auch unzerstörbare Blöcke. Die unzerstörbaren Blöcke dienen zum Schutz der Spieler vor Explosionen. \newline
 		Jeder Spieler hat eine gewisse Anzahl an Leben. Das Spiel ist beendet, wenn nur noch ein Spieler Leben übrig hat.
-		%TODO Screenshot vom nachgemachten Spiel
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.6]{../bomberman.png}
+			\centering
+			\caption*{Super Bomberman, SNES \newline Quelle: \url{http://hero.wikia.com/wiki/File:Super-bomberman-1-02.png} }
+		\end{figure}
+		
 	
 	\section{Ziele}
 		\subsection{Musskriterien}
@@ -69,10 +75,30 @@
 				\item bis zu vier Spieler
 				\item KI-Gegner zum Auffüllen der vier Spieler
 			\end{itemize}
-	
+	\newpage
 	\section{Projektplan}
-		%TODO Aufgaben + Zeit ~ 1 Seite
-		%TODO Was, wer, bis wann?
+		Wir haben uns dazu entschieden den Schaltungsentwurf, sowie die Test-Phase nicht einer einzelnen Person zuzuteilen. \newline
+		Der Schaltungsentwurf ist für den weiteren Verlauf des Projektes richtungsweisend, da der logische Aufbau des Systems maßgeblich für die Implementierung der einzelnen Komponenten ist. \newline
+		In der Test-Phase wird das Gesamtsystem, also die Verschaltung der Unterkomponenten, auf Korrektheit überprüft und gegebenenfalls erweitert. Da hierfür eine direkte Kommunikation der Implementierenden erforderlich ist, entschieden wir uns dazu die Phase gemeinsam durchzuführen.
+		
+		\begin{table}[H]
+			\centering
+			\label{my-label}
+			\begin{tabular}{l|l|l}
+				Ziel                                      & Verantworliche(r) & Zeitvorgabe  \\
+				\hline
+				Schaltungsentwurf                         & beide           & bis 15.12.17 \\
+				Darstellung des Spielfelds                & Niklas          & bis 22.12.17 \\
+				Blockverteilung auf Spielfeld             & Felix           & bis 22.12.17 \\
+				Spielfigur - Darstellen, Bewegen          & Felix           & bis 08.01.18 \\
+				Spielfigur - Kollision                    & Niklas          & bis 15.01.18 \\
+				Platzieren von Bomben                     & Niklas          & bis 15.01.18 \\
+				Ticken der Bombe                          & Felix           & bis 18.01.18 \\
+				Explosionen - Darstellung                 & Niklas          & bis 26.01.18 \\
+				Explosionen - Kollision (Spieler, Blöcke) & Felix           & bis 01.02.18 \\
+				Testen, Debugging, Wunschkriterien        & beide           & bis 08.02.18
+			\end{tabular}
+		\end{table}
 
 				
 \end{document}
