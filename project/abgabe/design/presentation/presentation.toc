@@ -1,0 +1,15 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\beamer@endinputifotherversion {3.36pt}
+\defcounter {refsection}{0}\relax 
+\select@language {ngerman}
+\defcounter {refsection}{0}\relax 
+\select@language {ngerman}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {1}{Idee}{2}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {1}{1}{Vorstellung}{2}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {2}{Planung}{5}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {2}{1}{Zeitplan}{5}{0}{2}
