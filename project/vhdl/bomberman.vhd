@@ -21,14 +21,14 @@ entity bomberman_ent is
 		red_1 : out std_logic;
 		red_2 : out std_logic;
 		red_3 : out std_logic;
+        green_0 : out std_logic;
+		green_1 : out std_logic;
+		green_2 : out std_logic;
+		green_3 : out std_logic;
 		blue_0 : out std_logic;
 		blue_1 : out std_logic;
 		blue_2 : out std_logic;
-		blue_3 : out std_logic;
-		green_0 : out std_logic;
-		green_1 : out std_logic;
-		green_2 : out std_logic;
-		green_3 : out std_logic
+		blue_3 : out std_logic
     );
 end bomberman_ent;
 
@@ -59,10 +59,10 @@ architecture bomberman_struct of bomberman_ent is
             p2_right_mech : in std_logic;
             p2_bomb_mech : in std_logic;
             p1_x_coord_mech : out std_logic_vector(9 downto 0);
-            p1_y_coord_mech : out std_logic_vector(9 downto 0);
+            p1_y_coord_mech : out std_logic_vector(8 downto 0);
             p1_enable_mech : out std_logic;
             p2_x_coord_mech : out std_logic_vector(9 downto 0);
-            p2_y_coord_mech : out std_logic_vector(9 downto 0);
+            p2_y_coord_mech : out std_logic_vector(8 downto 0);
             p2_enable_mech : out std_logic;
             row0_mech : out std_logic_vector(47 downto 0);
             row1_mech : out std_logic_vector(47 downto 0);
@@ -81,24 +81,26 @@ architecture bomberman_struct of bomberman_ent is
 
     component pixel_gen_ent
         port(
-            p1_x_coord_pixel : out std_logic_vector(9 downto 0);
-            p1_y_coord_pixel : out std_logic_vector(9 downto 0);
-            p1_enable_pixel : out std_logic;
-            p2_x_coord_pixel : out std_logic_vector(9 downto 0);
-            p2_y_coord_pixel : out std_logic_vector(9 downto 0);
-            p2_enable_pixel : out std_logic;
-            row0_pixel : out std_logic_vector(47 downto 0);
-            row1_pixel : out std_logic_vector(47 downto 0);
-            row2_pixel : out std_logic_vector(47 downto 0);
-            row3_pixel : out std_logic_vector(47 downto 0);
-            row4_pixel : out std_logic_vector(47 downto 0);
-            row5_pixel : out std_logic_vector(47 downto 0);
-            row6_pixel : out std_logic_vector(47 downto 0);
-            row7_pixel : out std_logic_vector(47 downto 0);
-            row8_pixel : out std_logic_vector(47 downto 0);
-            row9_pixel : out std_logic_vector(47 downto 0);
-            row10_pixel : out std_logic_vector(47 downto 0);
-            row11_pixel : out std_logic_vector(47 downto 0)
+            row_pixel : in std_logic_vector(8 downto 0);
+            col_pixel : in std_logic_vector(9 downto 0);
+            p1_x_coord_pixel : in std_logic_vector(9 downto 0);
+            p1_y_coord_pixel : in std_logic_vector(8 downto 0);
+            p1_enable_pixel : in std_logic;
+            p2_x_coord_pixel : in std_logic_vector(9 downto 0);
+            p2_y_coord_pixel : in std_logic_vector(8 downto 0);
+            p2_enable_pixel : in std_logic;
+            row0_pixel : in std_logic_vector(47 downto 0);
+            row1_pixel : in std_logic_vector(47 downto 0);
+            row2_pixel : in std_logic_vector(47 downto 0);
+            row3_pixel : in std_logic_vector(47 downto 0);
+            row4_pixel : in std_logic_vector(47 downto 0);
+            row5_pixel : in std_logic_vector(47 downto 0);
+            row6_pixel : in std_logic_vector(47 downto 0);
+            row7_pixel : in std_logic_vector(47 downto 0);
+            row8_pixel : in std_logic_vector(47 downto 0);
+            row9_pixel : in std_logic_vector(47 downto 0);
+            row10_pixel : in std_logic_vector(47 downto 0);
+            row11_pixel : in std_logic_vector(47 downto 0)
             red_pixel : out std_logic_vector(3 downto 0);
             green_pixel : out std_logic_vector(3 downto 0);
             blue_pixel : out std_logic_vector(3 downto 0)
@@ -114,15 +116,126 @@ architecture bomberman_struct of bomberman_ent is
             red_assign_1 : out std_logic;
             red_assign_2 : out std_logic;
             red_assign_3 : out std_logic;
-            blue_assign_0 : out std_logic;
-            blue_assign_1 : out std_logic;
-            blue_assign_2 : out std_logic;
-            blue_assign_3 : out std_logic;
             green_assign_0 : out std_logic;
             green_assign_1 : out std_logic;
             green_assign_2 : out std_logic;
-            green_assign_3 : out std_logic
+            green_assign_3 : out std_logic;
+            blue_assign_0 : out std_logic;
+            blue_assign_1 : out std_logic;
+            blue_assign_2 : out std_logic;
+            blue_assign_3 : out std_logic
         );
     end component;
+
+    signal row_fwd : std_logic_vector(8 downto 0);
+    signal col_fwd : std_logic_vector(9 downto 0);
+    signal p1_x_coord_fwd : std_logic_vector(9 downto 0);
+    signal p1_y_coord_fwd : std_logic_vector(8 downto 0);
+    signal p1_enable_fwd : std_logic;
+    signal p2_x_coord_fwd : std_logic_vector(9 downto 0);
+    signal p2_y_coord_fwd : std_logic_vector(8 downto 0);
+    signal p2_enable_fwd : std_logic;
+    signal row0_fwd : std_logic_vector(47 downto 0);
+    signal row1_fwd : std_logic_vector(47 downto 0);
+    signal row2_fwd : std_logic_vector(47 downto 0);
+    signal row3_fwd : std_logic_vector(47 downto 0);
+    signal row4_fwd : std_logic_vector(47 downto 0);
+    signal row5_fwd : std_logic_vector(47 downto 0);
+    signal row6_fwd : std_logic_vector(47 downto 0);
+    signal row7_fwd : std_logic_vector(47 downto 0);
+    signal row8_fwd : std_logic_vector(47 downto 0);
+    signal row9_fwd : std_logic_vector(47 downto 0);
+    signal row10_fwd : std_logic_vector(47 downto 0);
+    signal row11_fwd : std_logic_vector(47 downto 0);
+    signal red_fwd : std_logic_vector(3 downto 0);
+    signal green_fwd : std_logic_vector(3 downto 0);
+    signal blue_fwd : std_logic_vector(3 downto 0);
+
+begin
+    sync : sync_gen_ent port map(
+        clk,
+        rst,
+        hsync,
+        vsync,
+        row_fwd,
+        col_fwd
+    );
+
+    game : game_mechanic_ent port map(
+        clk, --which clock should we use here?
+        rst,
+        p1_up,
+        p1_down,
+        p1_left,
+        p1_right,
+        p1_bomb,
+        p2_up,
+        p2_down,
+        p2_left,
+        p2_right,
+        p2_bomb,
+        p1_x_coord_fwd,
+        p1_y_coord_fwd,
+        p1_enable_fwd,
+        p2_x_coord_fwd,
+        p2_y_coord_fwd,
+        p2_enable_fwd,
+        row0_fwd,
+        row1_fwd,
+        row2_fwd,
+        row3_fwd,
+        row4_fwd,
+        row5_fwd,
+        row6_fwd,
+        row7_fwd,
+        row8_fwd,
+        row9_fwd,
+        row10_fwd,
+        row11_fwd
+    );
+
+    pixel : pixel_gen_ent port map(
+        row_fwd,
+        col_fwd,
+        p1_x_coord_fwd,
+        p1_y_coord_fwd,
+        p1_enable_fwd,
+        p2_x_coord_fwd,
+        p2_y_coord_fwd,
+        p2_enable_fwd,
+        row0_fwd,
+        row1_fwd,
+        row2_fwd,
+        row3_fwd,
+        row4_fwd,
+        row5_fwd,
+        row6_fwd,
+        row7_fwd,
+        row8_fwd,
+        row9_fwd,
+        row10_fwd,
+        row11_fwd,
+        red_fwd,
+        green_fwd,
+        blue_fwd
+    );
+
+    rgb_assign : rgb_assign_ent port map(
+        red_fwd,
+        green_fwd,
+        blue_fwd,
+        red_0,
+        red_1,
+        red_2,
+        red_3,
+        green_0,
+        green_1,
+        green_2,
+        green_3,
+        blue_0,
+        blue_1,
+        blue_2,
+        blue_3
+    );
 
 end bomberman_struct;

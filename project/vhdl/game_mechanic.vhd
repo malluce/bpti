@@ -16,10 +16,10 @@ entity game_mechanic_ent is
         p2_right_mech : in std_logic;
         p2_bomb_mech : in std_logic;
         p1_x_coord_mech : out std_logic_vector(9 downto 0);
-        p1_y_coord_mech : out std_logic_vector(9 downto 0);
+        p1_y_coord_mech : out std_logic_vector(8 downto 0);
         p1_enable_mech : out std_logic;
         p2_x_coord_mech : out std_logic_vector(9 downto 0);
-        p2_y_coord_mech : out std_logic_vector(9 downto 0);
+        p2_y_coord_mech : out std_logic_vector(8 downto 0);
         p2_enable_mech : out std_logic;
         row0_mech : out std_logic_vector(47 downto 0);
         row1_mech : out std_logic_vector(47 downto 0);
@@ -37,5 +37,7 @@ entity game_mechanic_ent is
 end game_mechanic_ent;
 
 architecture game_mechanic_struct of game_mechanic_ent is
+
+begin
 
 end game_mechanic_struct;

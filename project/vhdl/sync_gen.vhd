@@ -22,7 +22,7 @@ architecture sync_gen_struct of sync_gen_ent is
 			row_hsync : out std_logic_vector(8 downto 0)
 		);
 	end component;
-	
+
 	component vsync_ent
 		port(
 			hsync_in : in std_logic;
@@ -30,9 +30,9 @@ architecture sync_gen_struct of sync_gen_ent is
 			vsync_out : out std_logic
 		);
 	end component;
-	
+
 	signal hsync_fwd : std_logic;
-	
+
 begin
 	hsync : hsync_ent port map(
 		clk_sync,
@@ -41,14 +41,13 @@ begin
 		col_sync,
 		row_sync
 	);
-	
+
 	vsync : vsync_ent port map(
 		hsync_fwd,
 		rst_sync,
 		vsync_gen
 	);
-	
+
 	hsync_gen <= hsync_fwd;
 
 end sync_gen_struct;
-
