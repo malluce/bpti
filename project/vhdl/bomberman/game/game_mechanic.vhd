@@ -73,11 +73,11 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		port(
 			clk_state : in std_logic;
 			rst_state : in std_logic;
-			x_player1_state : in std_logic_vector(3 downto 0);
-			y_player1_state : in std_logic_vector(3 downto 0);
+			x_player1_state : in std_logic_vector(9 downto 0);
+			y_player1_state : in std_logic_vector(8 downto 0);
 			enable_player1_state : in std_logic;
-			x_player2_state : in std_logic_vector(3 downto 0);
-			y_player2_state : in std_logic_vector(3 downto 0);
+			x_player2_state : in std_logic_vector(9 downto 0);
+			y_player2_state : in std_logic_vector(8 downto 0);
 			enable_player2_state : in std_logic;
 			row_bomb1_state : in std_logic_vector(3 downto 0);
 			col_bomb1_state : in std_logic_vector(3 downto 0);
