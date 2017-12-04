@@ -5,7 +5,11 @@ entity player_ent is
 	port(
 		clk_player : in std_logic;
 		rst_player : in std_logic;
-		player_input : in std_logic; -- TODO which kind of input?
+		up_player : in std_logic;
+		down_player : in std_logic;
+		left_player : in std_logic;
+		right_player : in std_logic;
+		plant_player : in std_logic;
 		enable_player : in std_logic;
 		row0_player : in std_logic_vector(47 downto 0);
 		row1_player : in std_logic_vector(47 downto 0);
@@ -32,16 +36,6 @@ entity player_ent is
 end player_ent;
 
 architecture player_struct of player_ent is
-	component input_converter_ent
-		port(
-			player_input_converter : in std_logic;
-			up_converter : out std_logic;
-			down_converter : out std_logic;
-			left_converter : out std_logic;
-			right_converter : out std_logic;
-			plant_converter : out std_logic
-	);
-	end component;
 	
 	component movement_ent
 		port(
@@ -103,34 +97,19 @@ architecture player_struct of player_ent is
 		);
 	end component;
 	
-	signal up_fwd : std_logic;
-	signal down_fwd : std_logic;
-	signal left_fwd : std_logic;
-	signal right_fwd : std_logic;
-	signal plant_fwd : std_logic;
 	signal x_fwd : std_logic_vector(9 downto 0);
 	signal y_fwd : std_logic_vector(8 downto 0);
 	signal row_fwd : std_logic_vector(3 downto 0);
 	signal col_fwd : std_logic_vector(3 downto 0);
 	
-	
-begin 
-	input_converter : input_converter_ent port map(
-		player_input,
-		up_fwd,
-		down_fwd,
-		left_fwd,
-		right_fwd,
-		plant_fwd
-	);
-	
+begin
 	movement : movement_ent port map(
 		clk_player,
 		rst_player,
-		up_fwd,
-		down_fwd,
-		left_fwd,
-		right_fwd,
+		up_player,
+		down_player,
+		left_player,
+		right_player,
 		row0_player,
 		row1_player,
 		row2_player,
@@ -159,7 +138,7 @@ begin
 		rst_player,
 		col_fwd,
 		row_fwd,
-		plant_fwd,
+		plant_player,
 		row0_player,
 		row1_player,
 		row2_player,
