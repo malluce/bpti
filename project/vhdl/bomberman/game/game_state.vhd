@@ -5,11 +5,11 @@ entity game_state_ent is
 	port(
 		clk_state : in std_logic;
 		rst_state : in std_logic;
-		row_player1_state : in std_logic_vector(3 downto 0);
-		col_player1_state : in std_logic_vector(3 downto 0);
+		x_player1_state : in std_logic_vector(3 downto 0);
+		y_player1_state : in std_logic_vector(3 downto 0);
 		enable_player1_state : in std_logic;
-		row_player2_state : in std_logic_vector(3 downto 0);
-		col_player2_state : in std_logic_vector(3 downto 0);
+		x_player2_state : in std_logic_vector(3 downto 0);
+		y_player2_state : in std_logic_vector(3 downto 0);
 		enable_player2_state : in std_logic;
 		row_bomb1_state : in std_logic_vector(3 downto 0);
 		col_bomb1_state : in std_logic_vector(3 downto 0);

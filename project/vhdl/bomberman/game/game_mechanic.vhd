@@ -61,8 +61,6 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		row11_player : in std_logic_vector(47 downto 0);
 		x_player : out std_logic_vector(9 downto 0);
 		y_player : out std_logic_vector(8 downto 0);
-		row_player : out std_logic_vector(3 downto 0);
-		col_player : out std_logic_vector(3 downto 0);
 		row_bomb_player : out std_logic_vector(3 downto 0);
 		col_bomb_player : out std_logic_vector(3 downto 0);
 		enable_bomb_player : out std_logic;
@@ -75,11 +73,11 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		port(
 			clk_state : in std_logic;
 			rst_state : in std_logic;
-			row_player1_state : in std_logic_vector(3 downto 0);
-			col_player1_state : in std_logic_vector(3 downto 0);
+			x_player1_state : in std_logic_vector(3 downto 0);
+			y_player1_state : in std_logic_vector(3 downto 0);
 			enable_player1_state : in std_logic;
-			row_player2_state : in std_logic_vector(3 downto 0);
-			col_player2_state : in std_logic_vector(3 downto 0);
+			x_player2_state : in std_logic_vector(3 downto 0);
+			y_player2_state : in std_logic_vector(3 downto 0);
 			enable_player2_state : in std_logic;
 			row_bomb1_state : in std_logic_vector(3 downto 0);
 			col_bomb1_state : in std_logic_vector(3 downto 0);
@@ -106,11 +104,11 @@ architecture game_mechanic_struct of game_mechanic_ent is
 			row11_state : out std_logic_vector(47 downto 0)
 		);
 	end component;
-
-	signal row_player1_fwd : std_logic_vector(3 downto 0);
-	signal col_player1_fwd : std_logic_vector(3 downto 0);
-	signal row_player2_fwd : std_logic_vector(3 downto 0);
-	signal col_player2_fwd : std_logic_vector(3 downto 0);
+	
+	signal x_player1_fwd : std_logic_vector(9 downto 0);
+	signal y_player1_fwd : std_logic_vector(8 downto 0);
+	signal x_player2_fwd : std_logic_vector(9 downto 0);
+	signal y_player2_fwd : std_logic_vector(8 downto 0);
 	signal enable_player1_to_state : std_logic;
 	signal enable_player2_to_state : std_logic;
 	signal enable_player1_to_player : std_logic;
@@ -158,10 +156,8 @@ begin
 		row9_fwd,
 		row10_fwd,
 		row11_fwd,
-		p1_x_coord_mech,
-		p1_y_coord_mech,
-		row_player1_fwd,
-		col_player1_fwd,
+		x_player1_fwd,
+		y_player1_fwd,
 		row_bomb1_fwd,
 		col_bomb1_fwd,
 		enable_bomb1_fwd,
@@ -190,10 +186,8 @@ begin
 		row9_fwd,
 		row10_fwd,
 		row11_fwd,
-		p2_x_coord_mech,
-		p2_y_coord_mech,
-		row_player2_fwd,
-		col_player2_fwd,
+		x_player2_fwd,
+		y_player2_fwd,
 		row_bomb2_fwd,
 		col_bomb2_fwd,
 		enable_bomb2_fwd,
@@ -204,11 +198,11 @@ begin
 	state : game_state_ent port map(
 		clk_mech,
 		rst_mech,
-		row_player1_fwd,
-		col_player1_fwd,
+		x_player1_fwd,
+		y_player1_fwd,
 		enable_player1_to_state,
-		row_player2_fwd,
-		col_player2_fwd,
+		x_player2_fwd,
+		y_player2_fwd,
 		enable_player2_to_state,
 		row_bomb1_fwd,
 		col_bomb1_fwd,
@@ -234,6 +228,11 @@ begin
 		row11_fwd
 	);
 
+	
+	p1_x_coord_mech <= x_player1_fwd;
+	p1_y_coord_mech <= y_player1_fwd;
+	p2_x_coord_mech <= x_player2_fwd;
+	p2_y_coord_mech <= y_player2_fwd;
 	p1_enable_mech <= enable_player1_to_player;
 	p2_enable_mech <= enable_player2_to_player;
 	row0_mech <= row0_fwd;
