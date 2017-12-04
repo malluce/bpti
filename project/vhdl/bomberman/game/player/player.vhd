@@ -21,6 +21,8 @@ entity player_ent is
 		row11_player : in std_logic_vector(47 downto 0);
 		x_player : out std_logic_vector(9 downto 0);
 		y_player : out std_logic_vector(8 downto 0);
+		row_player : out std_logic_vector(3 downto 0);
+		col_player : out std_logic_vector(3 downto 0);
 		row_bomb_player : out std_logic_vector(3 downto 0);
 		col_bomb_player : out std_logic_vector(3 downto 0);
 		enable_bomb_player : out std_logic;
@@ -176,6 +178,8 @@ begin
 		explode_bomb_player
 	);
 	
+	row_player <= row_fwd;
+	col_player <= col_fwd;
 	x_player <= x_fwd;
 	y_player <= y_fwd;
 	enable_player_out <= enable_player;
