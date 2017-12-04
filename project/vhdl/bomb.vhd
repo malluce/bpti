@@ -6,19 +6,14 @@ entity bomb is
 	port(
 		clk_bomb : in std_logic;
 		rst_bomb : in std_logic;
-		row0_bomb : std_logic_vector(47 downto 0);
-		row1_bomb : std_logic_vector(47 downto 0);
-		row2_bomb : std_logic_vector(47 downto 0);
-		row3_bomb : std_logic_vector(47 downto 0);
-		row4_bomb : std_logic_vector(47 downto 0);
-		row5_bomb : std_logic_vector(47 downto 0);
-		row6_bomb : std_logic_vector(47 downto 0);
-		row7_bomb : std_logic_vector(47 downto 0);
-		row8_bomb : std_logic_vector(47 downto 0);
-		row9_bomb : std_logic_vector(47 downto 0);
-		row10_bomb : std_logic_vector(47 downto 0);
-		row11_bomb : std_logic_vector(47 downto 0)
-	);
+		x_player : in std_logic_vector(9 downto 0);
+		y_player : in std_logic_vector(8 downto 0);
+		input : in std_logic; -- TODO: what do we get as input?
+		row : out std_logic_vector(3 downto 0);
+		col : out std_logic_vector(3 downto 0);
+		enable_bomb : out std_logic;
+		explode : out std_logic
+		);
 end bomb;
 
 architecture bomb_behav of bomb is
