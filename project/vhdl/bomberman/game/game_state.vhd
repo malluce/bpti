@@ -15,6 +15,10 @@ entity game_state_ent is
 		col_bomb1_state : in std_logic_vector(3 downto 0);
 		explode_bomb1_state : in std_logic;
 		enable_bomb1_state : in std_logic;
+		row_bomb2_state : in std_logic_vector(3 downto 0);
+		col_bomb2_state : in std_logic_vector(3 downto 0);
+		explode_bomb2_state : in std_logic;
+		enable_bomb2_state : in std_logic;
 		
 		enable_player1_state_out : out std_logic;
 		enable_player2_state_out : out std_logic;
