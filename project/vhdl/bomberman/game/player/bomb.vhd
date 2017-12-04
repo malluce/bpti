@@ -26,7 +26,7 @@ entity bomb_ent is
 		enable_bomb : out std_logic;
 		explode_bomb : out std_logic
 		);
-end bomb;
+end bomb_ent;
 
 architecture bomb_behav of bomb_ent is
 
