@@ -32,5 +32,30 @@ end pixel_gen_ent;
 
 architecture pixel_gen_behav of pixel_gen_ent is
 begin
-
+	pixel_proc : process(row_pixel, col_pixel, p1_x_coord_pixel, p1_y_coord_pixel, p1_enable_pixel, p2_x_coord_pixel, p2_y_coord_pixel, p2_enable_pixel, 
+							row0_pixel, row1_pixel, row2_pixel, row3_pixel, row4_pixel, row5_pixel, row6_pixel, row7_pixel, row8_pixel, row9_pixel, row10_pixel, row11_pixel)
+		variable row_int : integer range 0 to 480 := 1;
+		variable col_int : integer range 0 to 640 := 1;
+		variable x_rect_int : integer range 1 to 640 := 1;
+		variable y_rect_int : integer range 1 to 480 := 1;
+		variable red_int : integer range 0 to 15 := 0;
+		variable green_int : integer range 0 to 15 := 0;
+		variable blue_int : integer range 0 to 15 := 0;
+	begin
+		row_int := to_integer(unsigned(row_pixel));
+		col_int := to_integer(unsigned(col_pixel));
+		if(col_int /= 0 and row /= 0) then	
+			if(row_pixel <= 120) then
+				red_pixel <= x"F";
+				green_pixel <= x"F";
+				blue_pixel <= x"F";
+			else
+			-- TODO player
+				case (row_int / 12) is -- can div 12 be synthesized?
+					when 0 => ; -- lookup in row0_pixel
+					-- etc.
+				end case;
+			end if;
+		end if;
+	end process border;
 end pixel_gen_behav;
