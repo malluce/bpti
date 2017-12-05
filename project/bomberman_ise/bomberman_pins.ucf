@@ -1,0 +1,16 @@
+NET "clk" LOC = P26;
+NET "rst" LOC = Y16;
+NET "hsync" LOC = K26;
+NET "vsync" LOC = K25;
+NET "red_0" LOC = L20;
+NET "red_1" LOC = K20;
+NET "red_2" LOC = F25;
+NET "red_3" LOC = F24;
+NET "green_0" LOC = M19;
+NET "green_1" LOC = M18;
+NET "green_2" LOC = J23;
+NET "green_3" LOC = J22;
+NET "blue_0" LOC = L22;
+NET "blue_1" LOC = K21;
+NET "blue_2" LOC = G23;
+NET "blue_3" LOC = G24;
