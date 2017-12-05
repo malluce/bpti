@@ -57,7 +57,7 @@ begin
 				blue_pixel <= x"F";
 			else
 			-- TODO player
-				case (row_int / 32) is
+				case ((row_int - 1) / 32) is
 					when 0 => current_row := row0_pixel;
 					when 1 => current_row := row1_pixel;
 					when 2 => current_row := row2_pixel;
