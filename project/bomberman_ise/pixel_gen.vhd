@@ -51,7 +51,7 @@ begin
 		row_int := to_integer(unsigned(row_pixel));
 		col_int := to_integer(unsigned(col_pixel));
 		if(col_int /= 0 and row_int /= 0) then	
-			if(col_int <= 120) then
+			if(col_int <= 160) then
 				red_pixel <= x"F";
 				green_pixel <= x"F";
 				blue_pixel <= x"F";
@@ -75,13 +75,11 @@ begin
 					when 14 => current_row := row14_pixel;
 					when others => current_row := x"000000000000000";
 				end case;
-				--arrayAccess := (59 - ((col_int/80) * 7));
-				--arrayAccessLess := (56 - ((col_int/80) * 7));
-				--arrayElement := current_row(arrayAccess downto arrayAccessLess);
-				
-				arrayAccess := (59 - (((col_int - 121) / 32) * 4));
-				arrayAccessLess := (56 - (((col_int - 121) / 32) * 4));
+	
+				arrayAccess := (59 - (((col_int - 161) / 32) * 4));
+				arrayAccessLess := (56 - (((col_int - 161) / 32) * 4));
 				arrayElement := current_row(arrayAccess downto arrayAccessLess);
+				
 				case (arrayElement) is
 					when x"F" => red_pixel <= x"0"; -- undestroyable blocks = black
 									 green_pixel <= x"0";
