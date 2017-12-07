@@ -78,6 +78,8 @@ begin
 			row12_state <= row12;
 			row13_state <= row13;
 			row14_state <= row14;
+			enable_player1_state_out <= '1';
+			enable_player2_state_out <= '1';
 		end if;
 	end process bomb_explode;
 end game_state_behav;

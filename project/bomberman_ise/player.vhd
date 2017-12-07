@@ -2,6 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity player_ent is
+	generic(x_init_player, y_init_player : positive);
 	port(
 		clk_player : in std_logic;
 		rst_player : in std_logic;
@@ -39,6 +40,7 @@ end player_ent;
 architecture player_struct of player_ent is
 	
 	component movement_ent
+		generic(x_init, y_init : positive); 
 		port(
 			clk_move : in std_logic;
 			rst_move : in std_logic;
@@ -110,7 +112,9 @@ architecture player_struct of player_ent is
 	signal col_fwd : std_logic_vector(3 downto 0);
 	
 begin
-	movement : movement_ent port map(
+	movement : movement_ent 
+	generic map(x_init_player, y_init_player)
+	port map(
 		clk_player,
 		rst_player,
 		up_player,

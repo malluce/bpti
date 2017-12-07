@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity movement_ent is
+	generic(x_init, y_init : positive); 
 	port(
 		clk_move : in std_logic;
 		rst_move : in std_logic;
@@ -31,16 +32,16 @@ entity movement_ent is
 end movement_ent;
 
 architecture movement_behav of movement_ent is
-	variable x_int : integer range 0 to 480 := 1;
-	variable y_int : integer range 0 to 480 := 1;
 begin
-
 	collission : process(clk_move, rst_move)
+	
+	variable x_int : integer range 0 to 480 := x_init;
+	variable y_int : integer range 0 to 480 := y_init;
 	
 	begin
 		-- TODO
 		
 		x_move <= std_logic_vector(to_unsigned(x_int, 9));
-		y_move <= std_logic_vector(to_unsigned(x_int, 9));
+		y_move <= std_logic_vector(to_unsigned(y_int, 9));
 	end process collission;
 end movement_behav;

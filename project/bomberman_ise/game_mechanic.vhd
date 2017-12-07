@@ -15,10 +15,10 @@ entity game_mechanic_ent is
         p2_left_mech : in std_logic;
         p2_right_mech : in std_logic;
         p2_bomb_mech : in std_logic;
-        p1_x_coord_mech : out std_logic_vector(9 downto 0);
+        p1_x_coord_mech : out std_logic_vector(8 downto 0);
         p1_y_coord_mech : out std_logic_vector(8 downto 0);
         p1_enable_mech : out std_logic;
-        p2_x_coord_mech : out std_logic_vector(9 downto 0);
+        p2_x_coord_mech : out std_logic_vector(8 downto 0);
         p2_y_coord_mech : out std_logic_vector(8 downto 0);
         p2_enable_mech : out std_logic;
         row0_mech : out std_logic_vector(59 downto 0);
@@ -41,6 +41,7 @@ end game_mechanic_ent;
 
 architecture game_mechanic_struct of game_mechanic_ent is
 	component player_ent 
+		generic(x_init_player, y_init_player : positive);
 		port(
 		clk_player : in std_logic;
 		rst_player : in std_logic;
@@ -148,7 +149,9 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	
 	
 begin
-	player_1: player_ent port map(
+	player_1: player_ent 
+	generic map(33, 33)
+	port map(
 		clk_mech,
 		rst_mech,
 		p1_up_mech,
@@ -181,7 +184,9 @@ begin
 		enable_player1_to_state
 	);
 	
-	player_2: player_ent port map(
+	player_2: player_ent 
+	generic map(417, 417)
+	port map(
 		clk_mech,
 		rst_mech,
 		p2_up_mech,

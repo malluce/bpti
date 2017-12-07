@@ -40,7 +40,7 @@ architecture bomberman_struct of bomberman_ent is
             hsync_gen : out std_logic;
             vsync_gen : out std_logic;
             row_sync : out std_logic_vector(8 downto 0);
-            col_sync : out std_logic_vector(8 downto 0)
+            col_sync : out std_logic_vector(9 downto 0)
         );
     end component;
 
