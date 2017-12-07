@@ -63,16 +63,16 @@ begin
 				green_pixel <= x"F";
 				blue_pixel <= x"F";
 			else
-				if(p1_enable_pixel = '1'  and row_int >= p1_x_int
-					and col_int >= (p1_y_int + 160) and row_int < (p1_x_int + SIZE)
-					and col_int < (p1_y_int + 160 + SIZE)) then
+				if(p1_enable_pixel = '1'  and row_int >= p1_y_int
+					and col_int >= (p1_x_int + 160) and row_int < (p1_y_int + SIZE)
+					and col_int < (p1_x_int + 160 + SIZE)) then
 					-- draw player1
 						red_pixel <= x"F";
 						green_pixel <= x"0";
 						blue_pixel <= x"0";
-				elsif(p2_enable_pixel = '1'  and row_int >= p2_x_int
-					and col_int >= (p2_y_int + 160) and row_int < (p2_x_int + SIZE)
-					and col_int < (p2_y_int + 160 + SIZE)) then
+				elsif(p2_enable_pixel = '1'  and row_int >= p2_y_int
+					and col_int >= (p2_x_int + 160) and row_int < (p2_y_int + SIZE)
+					and col_int < (p2_x_int + 160 + SIZE)) then
 					-- draw player2
 						red_pixel <= x"F";
 						green_pixel <= x"0";
