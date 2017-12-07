@@ -44,8 +44,6 @@ begin
 		variable green_int : integer range 0 to 15 := 0;
 		variable blue_int : integer range 0 to 15 := 0;
 		variable current_row : std_logic_vector(59 downto 0);
-		variable arrayAccess : integer range 0 to 59 := 0;
-		variable arrayAccessLess : integer range 0 to 59 := 0;
 		variable arrayElement : std_logic_vector(3 downto 0);
 	begin
 		row_int := to_integer(unsigned(row_pixel));
@@ -75,10 +73,9 @@ begin
 					when 14 => current_row := row14_pixel;
 					when others => current_row := x"000000000000000";
 				end case;
-	
-				arrayAccess := (59 - (((col_int - 161) / 32) * 4));
-				arrayAccessLess := (56 - (((col_int - 161) / 32) * 4));
-				arrayElement := current_row(arrayAccess downto arrayAccessLess);
+
+				arrayElement := current_row((59 - (((col_int - 161) / 32) * 4)) downto
+															(56 - (((col_int - 161) / 32) * 4)));
 				
 				case (arrayElement) is
 					when x"F" => red_pixel <= x"0"; -- undestroyable blocks = black
