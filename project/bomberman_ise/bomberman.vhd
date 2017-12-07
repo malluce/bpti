@@ -40,7 +40,7 @@ architecture bomberman_struct of bomberman_ent is
             hsync_gen : out std_logic;
             vsync_gen : out std_logic;
             row_sync : out std_logic_vector(8 downto 0);
-            col_sync : out std_logic_vector(9 downto 0)
+            col_sync : out std_logic_vector(8 downto 0)
         );
     end component;
 
@@ -58,10 +58,10 @@ architecture bomberman_struct of bomberman_ent is
             p2_left_mech : in std_logic;
             p2_right_mech : in std_logic;
             p2_bomb_mech : in std_logic;
-            p1_x_coord_mech : out std_logic_vector(9 downto 0);
+            p1_x_coord_mech : out std_logic_vector(8 downto 0);
             p1_y_coord_mech : out std_logic_vector(8 downto 0);
             p1_enable_mech : out std_logic;
-            p2_x_coord_mech : out std_logic_vector(9 downto 0);
+            p2_x_coord_mech : out std_logic_vector(8 downto 0);
             p2_y_coord_mech : out std_logic_vector(8 downto 0);
             p2_enable_mech : out std_logic;
             row0_mech : out std_logic_vector(59 downto 0);
@@ -86,10 +86,10 @@ architecture bomberman_struct of bomberman_ent is
         port(
             row_pixel : in std_logic_vector(8 downto 0);
             col_pixel : in std_logic_vector(9 downto 0);
-            p1_x_coord_pixel : in std_logic_vector(9 downto 0);
+            p1_x_coord_pixel : in std_logic_vector(8 downto 0);
             p1_y_coord_pixel : in std_logic_vector(8 downto 0);
             p1_enable_pixel : in std_logic;
-            p2_x_coord_pixel : in std_logic_vector(9 downto 0);
+            p2_x_coord_pixel : in std_logic_vector(8 downto 0);
             p2_y_coord_pixel : in std_logic_vector(8 downto 0);
             p2_enable_pixel : in std_logic;
             row0_pixel : in std_logic_vector(59 downto 0);
@@ -135,10 +135,10 @@ architecture bomberman_struct of bomberman_ent is
 
     signal row_fwd : std_logic_vector(8 downto 0);
     signal col_fwd : std_logic_vector(9 downto 0);
-    signal p1_x_coord_fwd : std_logic_vector(9 downto 0);
+    signal p1_x_coord_fwd : std_logic_vector(8 downto 0);
     signal p1_y_coord_fwd : std_logic_vector(8 downto 0);
     signal p1_enable_fwd : std_logic;
-    signal p2_x_coord_fwd : std_logic_vector(9 downto 0);
+    signal p2_x_coord_fwd : std_logic_vector(8 downto 0);
     signal p2_y_coord_fwd : std_logic_vector(8 downto 0);
     signal p2_enable_fwd : std_logic;
     signal row0_fwd : std_logic_vector(59 downto 0);

@@ -26,7 +26,7 @@ entity player_ent is
 		row12_player : in std_logic_vector(59 downto 0);
 		row13_player : in std_logic_vector(59 downto 0);
 		row14_player : in std_logic_vector(59 downto 0);
-		x_player : out std_logic_vector(9 downto 0);
+		x_player : out std_logic_vector(8 downto 0);
 		y_player : out std_logic_vector(8 downto 0);
 		row_bomb_player : out std_logic_vector(3 downto 0);
 		col_bomb_player : out std_logic_vector(3 downto 0);
@@ -61,14 +61,14 @@ architecture player_struct of player_ent is
 			row12_move : in std_logic_vector(59 downto 0);
 			row13_move : in std_logic_vector(59 downto 0);
 			row14_move : in std_logic_vector(59 downto 0);
-			x_move : out std_logic_vector(9 downto 0);
+			x_move : out std_logic_vector(8 downto 0);
 			y_move : out std_logic_vector(8 downto 0)
 	);
 	end component;
 	
 	component xy_to_rowcol_ent
 		port(
-			x_convert : in std_logic_vector(9 downto 0);
+			x_convert : in std_logic_vector(8 downto 0);
 			y_convert : in std_logic_vector(8 downto 0);
 			row_convert : out std_logic_vector(3 downto 0);
 			col_convert : out std_logic_vector(3 downto 0)
@@ -104,7 +104,7 @@ architecture player_struct of player_ent is
 		);
 	end component;
 	
-	signal x_fwd : std_logic_vector(9 downto 0);
+	signal x_fwd : std_logic_vector(8 downto 0);
 	signal y_fwd : std_logic_vector(8 downto 0);
 	signal row_fwd : std_logic_vector(3 downto 0);
 	signal col_fwd : std_logic_vector(3 downto 0);

@@ -25,17 +25,22 @@ entity movement_ent is
 		row12_move : in std_logic_vector(59 downto 0);
 		row13_move : in std_logic_vector(59 downto 0);
 		row14_move : in std_logic_vector(59 downto 0);
-		x_move : out std_logic_vector(9 downto 0);
+		x_move : out std_logic_vector(8 downto 0);
 		y_move : out std_logic_vector(8 downto 0)
 	);
 end movement_ent;
 
 architecture movement_behav of movement_ent is
-
+	variable x_int : integer range 0 to 480 := 1;
+	variable y_int : integer range 0 to 480 := 1;
 begin
+
 	collission : process(clk_move, rst_move)
 	
 	begin
 		-- TODO
+		
+		x_move <= std_logic_vector(to_unsigned(x_int, 9));
+		y_move <= std_logic_vector(to_unsigned(x_int, 9));
 	end process collission;
 end movement_behav;

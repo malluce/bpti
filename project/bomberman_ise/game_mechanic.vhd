@@ -65,7 +65,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		row12_player : in std_logic_vector(59 downto 0);
 		row13_player : in std_logic_vector(59 downto 0);
 		row14_player : in std_logic_vector(59 downto 0);
-		x_player : out std_logic_vector(9 downto 0);
+		x_player : out std_logic_vector(8 downto 0);
 		y_player : out std_logic_vector(8 downto 0);
 		row_bomb_player : out std_logic_vector(3 downto 0);
 		col_bomb_player : out std_logic_vector(3 downto 0);
@@ -79,10 +79,10 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		port(
 			clk_state : in std_logic;
 			rst_state : in std_logic;
-			x_player1_state : in std_logic_vector(9 downto 0);
+			x_player1_state : in std_logic_vector(8 downto 0);
 			y_player1_state : in std_logic_vector(8 downto 0);
 			enable_player1_state : in std_logic;
-			x_player2_state : in std_logic_vector(9 downto 0);
+			x_player2_state : in std_logic_vector(8 downto 0);
 			y_player2_state : in std_logic_vector(8 downto 0);
 			enable_player2_state : in std_logic;
 			row_bomb1_state : in std_logic_vector(3 downto 0);
@@ -114,9 +114,9 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		);
 	end component;
 	
-	signal x_player1_fwd : std_logic_vector(9 downto 0);
+	signal x_player1_fwd : std_logic_vector(8 downto 0);
 	signal y_player1_fwd : std_logic_vector(8 downto 0);
-	signal x_player2_fwd : std_logic_vector(9 downto 0);
+	signal x_player2_fwd : std_logic_vector(8 downto 0);
 	signal y_player2_fwd : std_logic_vector(8 downto 0);
 	signal enable_player1_to_state : std_logic;
 	signal enable_player2_to_state : std_logic;

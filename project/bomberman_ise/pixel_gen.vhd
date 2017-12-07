@@ -6,10 +6,10 @@ entity pixel_gen_ent is
 	port(
         row_pixel : in std_logic_vector(8 downto 0);
         col_pixel : in std_logic_vector(9 downto 0);
-        p1_x_coord_pixel : in std_logic_vector(9 downto 0);
+        p1_x_coord_pixel : in std_logic_vector(8 downto 0);
         p1_y_coord_pixel : in std_logic_vector(8 downto 0);
         p1_enable_pixel : in std_logic;
-        p2_x_coord_pixel : in std_logic_vector(9 downto 0);
+        p2_x_coord_pixel : in std_logic_vector(8 downto 0);
         p2_y_coord_pixel : in std_logic_vector(8 downto 0);
         p2_enable_pixel : in std_logic;
         row0_pixel : in std_logic_vector(59 downto 0);
