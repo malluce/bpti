@@ -32,22 +32,85 @@ entity movement_ent is
 end movement_ent;
 
 architecture movement_behav of movement_ent is
+
+	function X_TO_COL (X : integer) return integer is
+	begin
+		return (X - 1) / 32;
+	end X_TO_COL;
+
+	function Y_TO_ROW (Y : integer) return std_logic_vector(59 downto 0) is
+	begin
+		case ((Y - 1) / 32) is
+			when 0 => return row0_move;
+			when 1 => return row1_move;
+			when 2 => return row2_move;
+			when 3 => return row3_move;
+			when 4 => return row4_move;
+			when 5 => return row5_move;
+			when 6 => return row6_move;
+			when 7 => return row7_move;
+			when 8 => return row8_move;
+			when 9 => return row9_move;
+			when 10 => return row10_move;
+			when 11 => return row11_move;
+			when 12 => return row12_move;
+			when 13 => return row13_move;
+			when 14 => return row14_move;
+			when others => return x"000000000000000";
+		end case;
+	end Y_TO_ROW;
+
 begin
 	collission : process(clk_move, rst_move)
 	
+	constant SIZE : integer range 0 to 32 := 32
 	variable x_int : integer range 0 to 480 := x_init;
 	variable y_int : integer range 0 to 480 := y_init;
+	variable x_right_bottom : integer range 0 to 480 := x_init + SIZE - 1;
+	variable y_right_bottom : integer range 0 to 480 := y_init + SIZE - 1;
+	variable col_left : integer range 0 to 14;
+	variable col_right : integer range 0 to 14;
+	variable row_player : std_logic_vector(59 downto 0);
+	variable row_next : std_logic_vector(59 downto 0);
 	variable speed : integer range 0 to 5 := 1;
-	
+		
+
+
 	begin
 		if(clk_move'event and clk_move = '1') then
 			if(up_move='1') then
-				y_int := y_int - speed;
+				if(y_int mod 32 /= 1) then -- no row change
+					y_int := y_int - speed;
+				else
+					col_left := X_TO_COL(x_int);
+					col_right := X_TO_COL(x_right_bottom);
+					row_next := Y_TO_ROW(y_int - 1);
+					if(row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"F" and -- next row is allowed
+				   		row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"1" and 
+						row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"2" and
+						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"F" and 
+				   		row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"1" and 
+						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"2") then
+						y_int := y_int - speed;
+					end if;
+				end if;
 			elsif(down_move= '1') then
-				y_int := y_int + speed;
-			end if;
-
-			if(left_move='1') then
+				if(y_int mod 32 /= 0) then
+					y_int := y_int + speed;
+				else
+					col_left := X_TO_COL(x_int);
+					col_right := X_TO_COL(x_right_bottom);
+					row_next := Y_TO_ROW(y_int + 1);
+					if(row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"F" and -- next row is allowed
+				   		row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"1" and 
+						row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"2" and
+						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"F" and 
+				   		row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"1" and 
+						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"2") then
+						y_int := y_int + speed;
+					end if;
+				end if;
+			elsif(left_move='1') then
 				x_int := x_int - speed;
 			elsif(right_move= '1') then
 				x_int := x_int + speed;
