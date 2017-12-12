@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity movement_ent is
+	generic(x_init, y_init : positive);
 	port(
 		clk_move : in std_logic;
 		rst_move : in std_logic;

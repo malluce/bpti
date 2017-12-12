@@ -37,9 +37,22 @@ begin
 	
 	variable x_int : integer range 0 to 480 := x_init;
 	variable y_int : integer range 0 to 480 := y_init;
+	variable speed : integer range 0 to 5 := 1;
 	
 	begin
-		-- TODO
+		if(clk_move'event and clk_move = '1') then
+			if(up_move='1') then
+				y_int := y_int - speed;
+			elsif(down_move= '1') then
+				y_int := y_int + speed;
+			end if;
+
+			if(left_move='1') then
+				x_int := x_int - speed;
+			elsif(right_move= '1') then
+				x_int := x_int + speed;
+			end if;
+		end if;
 		
 		x_move <= std_logic_vector(to_unsigned(x_int, 9));
 		y_move <= std_logic_vector(to_unsigned(y_int, 9));
