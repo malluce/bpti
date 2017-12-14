@@ -80,7 +80,7 @@ begin
 
 	begin
 		if(clk_move'event and clk_move = '1') then
-			if(up_move='1') then
+			if(up_move='0') then
 				if((y_int - 1) mod 32 /= 0) then -- no row change
 					y_int := y_int - speed;
 				else
@@ -96,7 +96,7 @@ begin
 						y_int := y_int - speed;
 					end if;
 				end if;
-			elsif(down_move= '1') then
+			elsif(down_move= '0') then
 				if((y_int + SIZE - 1) mod 32 /= 0) then
 					y_int := y_int + speed;
 				else
@@ -112,7 +112,7 @@ begin
 						y_int := y_int + speed;
 					end if;
 				end if;
-			elsif(left_move='1') then
+			elsif(left_move='0') then
 				if((x_int - 1) mod 32 /= 0) then
 					x_int := x_int - speed;
 				else
@@ -128,7 +128,7 @@ begin
 						x_int := x_int - speed;
 					end if;
 				end if;
-			elsif(right_move= '1') then
+			elsif(right_move= '0') then
 				if((x_int + SIZE - 1) mod 32 /= 0) then
 					x_int := x_int + speed;
 				else
