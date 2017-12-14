@@ -1,5 +1,15 @@
 NET "clk" LOC = P26;
 NET "rst" LOC = Y16;
+NET "p1_up" LOC = D4;
+NET "p1_down" LOC = D3;
+NET "p1_left" LOC = D2;
+NET "p1_right" LOC = D1;
+NET "p1_bomb" LOC = D6;
+NET "p2_up" LOC = D10;
+NET "p2_down" LOC = D9;
+NET "p2_left" LOC = D8;
+NET "p2_right" LOC = D7;
+NET "p2_bomb" LOC = D12;
 NET "hsync" LOC = K26;
 NET "vsync" LOC = K25;
 NET "red_0" LOC = L20;

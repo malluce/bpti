@@ -63,7 +63,7 @@ architecture movement_behav of movement_ent is
 begin
 	collission : process(clk_move, rst_move)
 	
-	constant SIZE : integer range 0 to 32 := 32
+	constant SIZE : integer range 0 to 32 := 32;
 	variable x_int : integer range 0 to 480 := x_init;
 	variable y_int : integer range 0 to 480 := y_init;
 	variable x_right_bottom : integer range 0 to 480 := x_init + SIZE - 1;
