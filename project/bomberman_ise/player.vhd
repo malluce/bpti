@@ -39,7 +39,7 @@ end player_ent;
 
 architecture player_struct of player_ent is
 	
-	component clk_movement
+	component clk_movement_ent
 		port (
 			clk_in : in std_logic;
 			clk_out : out std_logic 
@@ -121,7 +121,7 @@ architecture player_struct of player_ent is
 	
 begin
 
-	mov_clk : clk_movement
+	mov_clk : clk_movement_ent
 	port map(
 		clk_player,
 		mov_clk_fwd

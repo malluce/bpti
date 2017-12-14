@@ -37,7 +37,11 @@ begin
 
 	set_bomb : process(clk_bomb, rst_bomb)
 	begin
-		-- TODO
+		if(rst_bomb = '0') then
+			
+		elsif(clk_bomb'event and clk_bomb = '1') then
+		
+		end if;
 	end process set_bomb;
 	
 	bomb_tick : process(clk_bomb, rst_bomb)

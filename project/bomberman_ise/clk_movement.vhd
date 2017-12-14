@@ -14,9 +14,9 @@ architecture counter_behav of clk_movement_ent is
     signal temp : std_logic := '0';
     
 begin
-	count : process(clk)
+	count : process(clk_in)
 	begin
-		if clk'event and clk = '1' then
+		if clk_in'event and clk_in = '1' then
 			if cnt = MAX then
 				cnt <= 0;
 				temp <= not temp;
