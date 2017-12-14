@@ -59,9 +59,14 @@ architecture game_state_behav of game_state_ent is
 	signal row14 : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
 	
 begin
+	player_collision : process(clk_state, rst_state)
+	begin
+		-- TODO : player collission, change player_enable
+	end process player_collision;
+
 	bomb_explode : process(clk_state, rst_state)
 	begin
-		-- TODO : player and block collision, change rows and player_enable
+		-- TODO : block collision, change rows
 		if(clk_state'event and clk_state = '1') then
 			row0_state <= row0;
 			row1_state <= row1;
