@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity movement_ent is
-	generic(x_init, y_init : positive); 
+	generic(x_init, y_init : positive);
 	port(
 		clk_move : in std_logic;
 		rst_move : in std_logic;
@@ -38,31 +38,36 @@ architecture movement_behav of movement_ent is
 		return (X - 1) / 32;
 	end X_TO_COL;
 
-	impure function Y_TO_ROW (Y : integer) return std_logic_vector is
+	impure function GET_TILE (X,Y : integer) return std_logic_vector is
+		variable col : integer range 0 to 14;
+		variable row : std_logic_vector(59 downto 0);
 	begin
 		case ((Y - 1) / 32) is
-			when 0 => return row0_move;
-			when 1 => return row1_move;
-			when 2 => return row2_move;
-			when 3 => return row3_move;
-			when 4 => return row4_move;
-			when 5 => return row5_move;
-			when 6 => return row6_move;
-			when 7 => return row7_move;
-			when 8 => return row8_move;
-			when 9 => return row9_move;
-			when 10 => return row10_move;
-			when 11 => return row11_move;
-			when 12 => return row12_move;
-			when 13 => return row13_move;
-			when 14 => return row14_move;
-			when others => return x"000000000000000";
+			when 0 => row := row0_move;
+			when 1 => row := row1_move;
+			when 2 => row := row2_move;
+			when 3 => row := row3_move;
+			when 4 => row := row4_move;
+			when 5 => row := row5_move;
+			when 6 => row := row6_move;
+			when 7 => row := row7_move;
+			when 8 => row := row8_move;
+			when 9 => row := row9_move;
+			when 10 => row := row10_move;
+			when 11 => row := row11_move;
+			when 12 => row := row12_move;
+			when 13 => row := row13_move;
+			when 14 => row := row14_move;
+			when others => row := x"000000000000000";
 		end case;
-	end Y_TO_ROW;
+
+		col := X_TO_COL(X);
+		return row(59 - col * 4 downto 56 - col * 4);
+	end GET_TILE;
 
 begin
 	collission : process(clk_move, rst_move)
-	
+
 	constant SIZE : integer range 0 to 32 := 32;
 	variable x_int : integer range 0 to 480 := x_init;
 	variable y_int : integer range 0 to 480 := y_init;
@@ -74,8 +79,12 @@ begin
 	variable row_upper : std_logic_vector(59 downto 0);
 	variable row_lower : std_logic_vector(59 downto 0);
 	variable row_next : std_logic_vector(59 downto 0);
+	variable left_tile : std_logic_vector(3 downto 0);
+	variable right_tile : std_logic_vector(3 downto 0);
+	variable upper_tile : std_logic_vector(3 downto 0);
+	variable lower_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
-		
+
 
 
 	begin
@@ -84,15 +93,14 @@ begin
 				if((y_int - 1) mod 32 /= 0) then -- no row change
 					y_int := y_int - speed;
 				else
-					col_left := X_TO_COL(x_int);
-					col_right := X_TO_COL(x_right_bottom);
-					row_next := Y_TO_ROW(y_int - 1);
-					if(row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"F" and -- next row is allowed
-				   		row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"1" and 
-						row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"2" and
-						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"F" and 
-				   		row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"1" and 
-						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"2") then
+					left_tile := GET_TILE(x_int, y_int - 1);
+					right_tile := GET_TILE(x_right_bottom, y_int - 1);
+					if(	left_tile  /= x"F" and -- next row is allowed
+				   		left_tile  /= x"1" and
+						left_tile  /= x"2" and
+						right_tile  /= x"F" and
+				   		right_tile  /= x"1" and
+						right_tile  /= x"2") then
 						y_int := y_int - speed;
 					end if;
 				end if;
@@ -103,12 +111,14 @@ begin
 					col_left := X_TO_COL(x_int);
 					col_right := X_TO_COL(x_right_bottom);
 					row_next := Y_TO_ROW(y_int + 1 + SIZE - 1);
-					if(row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"F" and -- next row is allowed
-				   		row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"1" and 
-						row_next(59 - col_left * 4 downto 56 - col_left * 4)  /= x"2" and
-						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"F" and 
-				   		row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"1" and 
-						row_next(59 - col_right * 4 downto 56 - col_right * 4)  /= x"2") then
+					left_tile := GET_TILE(x_int, y_int + 1 + SIZE - 1);
+					right_tile := GET_TILE(x_right_bottom, y_int + 1 + SIZE - 1);
+					if(	left_tile  /= x"F" and -- next row is allowed
+				   		left_tile  /= x"1" and
+						left_tile  /= x"2" and
+						right_tile  /= x"F" and
+				   		right_tile  /= x"1" and
+						right_tile  /= x"2") then
 						y_int := y_int + speed;
 					end if;
 				end if;
@@ -116,15 +126,14 @@ begin
 				if((x_int - 1) mod 32 /= 0) then
 					x_int := x_int - speed;
 				else
-					row_upper := Y_TO_ROW(y_int);
-					row_lower := Y_TO_ROW(y_int + SIZE - 1);
-					col_left := X_TO_COL(x_int - 1);
-					if(row_upper(59 - col_left * 4 downto 56 - col_left * 4) /= x"F" and
-						row_upper(59 - col_left * 4 downto 56 - col_left * 4) /= x"1" and
-						row_upper(59 - col_left * 4 downto 56 - col_left * 4) /= x"2" and
-						row_lower(59 - col_left * 4 downto 56 - col_left * 4) /= x"F" and
-						row_lower(59 - col_left * 4 downto 56 - col_left * 4) /= x"1" and
-						row_lower(59 - col_left * 4 downto 56 - col_left * 4) /= x"2") then
+					upper_tile := GET_TILE(x_int - 1, y_int);
+					lower_tile := GET_TILE(x_int - 1, y_int + SIZE - 1);
+					if(	upper_tile /= x"F" and
+						upper_tile /= x"1" and
+						upper_tile /= x"2" and
+						lower_tile /= x"F" and
+						lower_tile /= x"1" and
+						lower_tile /= x"2") then
 						x_int := x_int - speed;
 					end if;
 				end if;
@@ -132,21 +141,20 @@ begin
 				if((x_int + SIZE - 1) mod 32 /= 0) then
 					x_int := x_int + speed;
 				else
-					row_upper := Y_TO_ROW(y_int);
-					row_lower := Y_TO_ROW(y_int + SIZE - 1);
-					col_left := X_TO_COL(x_int + SIZE - 1 + 1);
-					if(row_upper(59 - col_left * 4 downto 56 - col_left * 4) /= x"F" and
-						row_upper(59 - col_left * 4 downto 56 - col_left * 4) /= x"1" and
-						row_upper(59 - col_left * 4 downto 56 - col_left * 4) /= x"2" and
-						row_lower(59 - col_left * 4 downto 56 - col_left * 4) /= x"F" and
-						row_lower(59 - col_left * 4 downto 56 - col_left * 4) /= x"1" and
-						row_lower(59 - col_left * 4 downto 56 - col_left * 4) /= x"2") then
+					upper_tile := GET_TILE(x_int + SIZE - 1 + 1, y_int);
+					lower_tile := GET_TILE(x_int + SIZE - 1 + 1, y_int + SIZE - 1);
+					if(	upper_tile /= x"F" and
+						upper_tile /= x"1" and
+						upper_tile /= x"2" and
+						lower_tile /= x"F" and
+						lower_tile /= x"1" and
+						lower_tile /= x"2") then
 						x_int := x_int + speed;
 					end if;
 				end if;
 			end if;
 		end if;
-		
+
 		x_move <= std_logic_vector(to_unsigned(x_int, 9));
 		y_move <= std_logic_vector(to_unsigned(y_int, 9));
 	end process collission;
