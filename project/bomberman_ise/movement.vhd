@@ -38,6 +38,7 @@ architecture movement_behav of movement_ent is
 		return (X - 1) / 32;
 	end X_TO_COL;
 
+	--directly return the tile at the position (X,Y)
 	impure function GET_TILE (X,Y : integer) return std_logic_vector is
 		variable col : integer range 0 to 14;
 		variable row : std_logic_vector(59 downto 0);
@@ -66,23 +67,15 @@ architecture movement_behav of movement_ent is
 	end GET_TILE;
 
 begin
-	collission : process(clk_move, rst_move)
+	move_up_down : process(clk_move, rst_move)
 
 	constant SIZE : integer range 0 to 32 := 32;
 	variable x_int : integer range 0 to 480 := x_init;
 	variable y_int : integer range 0 to 480 := y_init;
 	variable x_right_bottom : integer range 0 to 480 := x_init + SIZE - 1;
 	variable y_right_bottom : integer range 0 to 480 := y_init + SIZE - 1;
-	variable col_left : integer range 0 to 14;
-	variable col_right : integer range 0 to 14;
-	variable row_player : std_logic_vector(59 downto 0);
-	variable row_upper : std_logic_vector(59 downto 0);
-	variable row_lower : std_logic_vector(59 downto 0);
-	variable row_next : std_logic_vector(59 downto 0);
 	variable left_tile : std_logic_vector(3 downto 0);
 	variable right_tile : std_logic_vector(3 downto 0);
-	variable upper_tile : std_logic_vector(3 downto 0);
-	variable lower_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
 
 
@@ -108,9 +101,6 @@ begin
 				if((y_int + SIZE - 1) mod 32 /= 0) then
 					y_int := y_int + speed;
 				else
-					col_left := X_TO_COL(x_int);
-					col_right := X_TO_COL(x_right_bottom);
-					row_next := Y_TO_ROW(y_int + 1 + SIZE - 1);
 					left_tile := GET_TILE(x_int, y_int + 1 + SIZE - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int + 1 + SIZE - 1);
 					if(	left_tile  /= x"F" and -- next row is allowed
@@ -122,7 +112,28 @@ begin
 						y_int := y_int + speed;
 					end if;
 				end if;
-			elsif(left_move='0') then
+			end if;
+		end if;
+
+		y_move <= std_logic_vector(to_unsigned(y_int, 9));
+	end process move_up_down;
+
+
+	move_left_right : process(clk_move, rst_move)
+
+	constant SIZE : integer range 0 to 32 := 32;
+	variable x_int : integer range 0 to 480 := x_init;
+	variable y_int : integer range 0 to 480 := y_init;
+	variable x_right_bottom : integer range 0 to 480 := x_init + SIZE - 1;
+	variable y_right_bottom : integer range 0 to 480 := y_init + SIZE - 1;
+	variable upper_tile : std_logic_vector(3 downto 0);
+	variable lower_tile : std_logic_vector(3 downto 0);
+	variable speed : integer range 0 to 5 := 1;
+
+	begin
+
+		if(clk_move'event and clk_move = '1') then
+			if(left_move='0') then
 				if((x_int - 1) mod 32 /= 0) then
 					x_int := x_int - speed;
 				else
@@ -154,8 +165,7 @@ begin
 				end if;
 			end if;
 		end if;
-
 		x_move <= std_logic_vector(to_unsigned(x_int, 9));
-		y_move <= std_logic_vector(to_unsigned(y_int, 9));
-	end process collission;
+
+	end process move_left_right
 end movement_behav;
