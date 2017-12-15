@@ -24,9 +24,9 @@ entity pixel_gen_ent is
         row9_pixel : in std_logic_vector(59 downto 0);
         row10_pixel : in std_logic_vector(59 downto 0);
         row11_pixel : in std_logic_vector(59 downto 0);
-		  row12_pixel : in std_logic_vector(59 downto 0);
-		  row13_pixel : in std_logic_vector(59 downto 0);
-		  row14_pixel : in std_logic_vector(59 downto 0);
+		row12_pixel : in std_logic_vector(59 downto 0);
+		row13_pixel : in std_logic_vector(59 downto 0);
+		row14_pixel : in std_logic_vector(59 downto 0);
 		red_pixel : out std_logic_vector(3 downto 0);
 		green_pixel : out std_logic_vector(3 downto 0);
 		blue_pixel : out std_logic_vector(3 downto 0)
@@ -35,7 +35,7 @@ end pixel_gen_ent;
 
 architecture pixel_gen_behav of pixel_gen_ent is
 begin
-	pixel_proc : process(row_pixel, col_pixel, p1_x_coord_pixel, p1_y_coord_pixel, p1_enable_pixel, p2_x_coord_pixel, p2_y_coord_pixel, p2_enable_pixel, 
+	pixel_proc : process(row_pixel, col_pixel, p1_x_coord_pixel, p1_y_coord_pixel, p1_enable_pixel, p2_x_coord_pixel, p2_y_coord_pixel, p2_enable_pixel,
 							row0_pixel, row1_pixel, row2_pixel, row3_pixel, row4_pixel, row5_pixel, row6_pixel, row7_pixel, row8_pixel, row9_pixel,
 							row10_pixel, row11_pixel, row12_pixel, row13_pixel, row14_pixel)
 		variable row_int : integer range 0 to 480 := 1;
@@ -57,7 +57,7 @@ begin
 		p1_y_int := to_integer(unsigned(p1_y_coord_pixel));
 		p2_x_int := to_integer(unsigned(p2_x_coord_pixel));
 		p2_y_int := to_integer(unsigned(p2_y_coord_pixel));
-		if(col_int /= 0 and row_int /= 0) then	
+		if(col_int /= 0 and row_int /= 0) then
 			if(col_int <= 160) then
 				red_pixel <= x"F";
 				green_pixel <= x"F";
@@ -77,7 +77,7 @@ begin
 						red_pixel <= x"F";
 						green_pixel <= x"0";
 						blue_pixel <= x"0";
-				else 
+				else
 					-- draw arena
 					case ((row_int - 1) / 32) is
 						when 0 => current_row := row0_pixel;
@@ -100,7 +100,7 @@ begin
 
 					arrayElement := current_row((59 - (((col_int - 161) / 32) * 4)) downto
 																(56 - (((col_int - 161) / 32) * 4)));
-					
+
 					case (arrayElement) is
 						when x"F" => red_pixel <= x"0"; -- undestroyable blocks = black
 										 green_pixel <= x"0";
@@ -123,7 +123,7 @@ begin
 					end case;
 				end if;
 			end if;
-		else 
+		else
 			red_pixel <= x"0";
 			green_pixel <= x"0";
 			blue_pixel <= x"0";
