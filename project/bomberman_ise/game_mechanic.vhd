@@ -2,7 +2,8 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity game_mechanic_ent is
-    port(
+   generic(PLAYER_SIZE_MECH, TILE_SIZE_MECH : integer);
+   port(
         clk_mech : in std_logic;
         rst_mech : in std_logic;
         p1_up_mech : in std_logic;
@@ -41,7 +42,7 @@ end game_mechanic_ent;
 
 architecture game_mechanic_struct of game_mechanic_ent is
 	component player_ent 
-		generic(x_init_player, y_init_player : positive);
+		generic(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER : integer);
 		port(
 		clk_player : in std_logic;
 		rst_player : in std_logic;
@@ -77,6 +78,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	end component;
 	
 	component game_state_ent
+		generic(PLAYER_SIZE_STATE, TILE_SIZE_STATE : integer);
 		port(
 			clk_state : in std_logic;
 			rst_state : in std_logic;
@@ -115,6 +117,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		);
 	end component;
 	
+	
 	signal x_player1_fwd : std_logic_vector(8 downto 0);
 	signal y_player1_fwd : std_logic_vector(8 downto 0);
 	signal x_player2_fwd : std_logic_vector(8 downto 0);
@@ -150,7 +153,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	
 begin
 	player_1: player_ent 
-	generic map(33, 33)
+	generic map(33, 33, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
 		clk_mech,
 		rst_mech,
@@ -185,7 +188,7 @@ begin
 	);
 	
 	player_2: player_ent 
-	generic map(417, 417)
+	generic map(417, 417, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
 		clk_mech,
 		rst_mech,
@@ -219,7 +222,9 @@ begin
 		enable_player2_to_state
 	);
 	
-	state : game_state_ent port map(
+	state : game_state_ent 
+	generic map(PLAYER_SIZE_MECH, TILE_SIZE_MECH)
+	port map(
 		clk_mech,
 		rst_mech,
 		x_player1_fwd,

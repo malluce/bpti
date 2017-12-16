@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity pixel_gen_ent is
+	generic(PLAYER_SIZE_PIX, TILE_SIZE_PIX : integer);
 	port(
         row_pixel : in std_logic_vector(8 downto 0);
         col_pixel : in std_logic_vector(9 downto 0);
@@ -49,7 +50,7 @@ begin
 		variable p1_y_int : integer range 0 to 480 := 0;
 		variable p2_x_int : integer range 0 to 480 := 0;
 		variable p2_y_int : integer range 0 to 480 := 0;
-		constant SIZE : integer range 0 to 32 := 32;
+
 	begin
 		row_int := to_integer(unsigned(row_pixel));
 		col_int := to_integer(unsigned(col_pixel));
@@ -64,22 +65,22 @@ begin
 				blue_pixel <= x"F";
 			else
 				if(p1_enable_pixel = '1'  and row_int >= p1_y_int
-					and col_int >= (p1_x_int + 160) and row_int < (p1_y_int + SIZE)
-					and col_int < (p1_x_int + 160 + SIZE)) then
+					and col_int >= (p1_x_int + 160) and row_int < (p1_y_int + PLAYER_SIZE_PIX)
+					and col_int < (p1_x_int + 160 + PLAYER_SIZE_PIX)) then
 					-- draw player1
 						red_pixel <= x"F";
 						green_pixel <= x"0";
 						blue_pixel <= x"0";
 				elsif(p2_enable_pixel = '1'  and row_int >= p2_y_int
-					and col_int >= (p2_x_int + 160) and row_int < (p2_y_int + SIZE)
-					and col_int < (p2_x_int + 160 + SIZE)) then
+					and col_int >= (p2_x_int + 160) and row_int < (p2_y_int + PLAYER_SIZE_PIX)
+					and col_int < (p2_x_int + 160 + PLAYER_SIZE_PIX)) then
 					-- draw player2
 						red_pixel <= x"F";
 						green_pixel <= x"0";
 						blue_pixel <= x"0";
 				else
 					-- draw arena
-					case ((row_int - 1) / 32) is
+					case ((row_int - 1) / TILE_SIZE_PIX) is
 						when 0 => current_row := row0_pixel;
 						when 1 => current_row := row1_pixel;
 						when 2 => current_row := row2_pixel;
@@ -98,8 +99,8 @@ begin
 						when others => current_row := x"000000000000000";
 					end case;
 
-					arrayElement := current_row((59 - (((col_int - 161) / 32) * 4)) downto
-																(56 - (((col_int - 161) / 32) * 4)));
+					arrayElement := current_row((59 - (((col_int - 161) / TILE_SIZE_PIX) * 4)) downto
+																(56 - (((col_int - 161) / TILE_SIZE_PIX) * 4)));
 
 					case (arrayElement) is
 						when x"F" => red_pixel <= x"0"; -- undestroyable blocks = black

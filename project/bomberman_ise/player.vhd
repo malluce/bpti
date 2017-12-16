@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity player_ent is
-	generic(x_init_player, y_init_player : positive);
+	generic(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER : integer);
 	port(
 		clk_player : in std_logic;
 		rst_player : in std_logic;
@@ -47,7 +47,7 @@ architecture player_struct of player_ent is
 	end component;
 
 	component movement_ent
-		generic(x_init, y_init : positive); 
+		generic(X_INIT_MOVE, Y_INIT_MOVE, PLAYER_SIZE_MOVE, TILE_SIZE_MOVE : integer); 
 		port(
 			clk_move : in std_logic;
 			rst_move : in std_logic;
@@ -76,6 +76,7 @@ architecture player_struct of player_ent is
 	end component;
 	
 	component xy_to_rowcol_ent
+		generic(PLAYER_SIZE_CONV, TILE_SIZE_CONV : integer);
 		port(
 			x_convert : in std_logic_vector(8 downto 0);
 			y_convert : in std_logic_vector(8 downto 0);
@@ -85,6 +86,7 @@ architecture player_struct of player_ent is
 	end component;
 	
 	component bomb_ent
+		generic(TILE_SIZE_BOMB : integer);
 		port(
 			clk_bomb : in std_logic;
 			rst_bomb : in std_logic;
@@ -127,8 +129,8 @@ begin
 		mov_clk_fwd
 	);
 
-	movement : movement_ent 
-	generic map(x_init_player, y_init_player)
+	movement : movement_ent  
+	generic map(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER);
 	port map(
 		mov_clk_fwd,
 		rst_player,
@@ -155,14 +157,18 @@ begin
 		y_fwd
 	);
 	
-	xy_to_rowcol : xy_to_rowcol_ent port map(
+	xy_to_rowcol : xy_to_rowcol_ent 
+	generic map(PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER);
+	port map(
 		x_fwd,
 		y_fwd,
 		row_fwd,
 		col_fwd
 	);
 	
-	bomb : bomb_ent port map(
+	bomb : bomb_ent 
+	generic map(TILE_SIZE_PLAYER);
+	port map(
 		clk_player,
 		rst_player,
 		col_fwd,

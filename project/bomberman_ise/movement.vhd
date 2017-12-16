@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity movement_ent is
-	generic(x_init, y_init : positive);
+	generic(X_INIT_MOVE, Y_INIT_MOVE, PLAYER_SIZE_MOVE, TILE_SIZE_MOVE : integer);
 	port(
 		clk_move : in std_logic;
 		rst_move : in std_logic;
@@ -33,9 +33,10 @@ end movement_ent;
 
 architecture movement_behav of movement_ent is
 
-	function X_TO_COL (X : integer) return integer is
+	-- return the column of the grid in which the X coordinate is
+	impure function X_TO_COL (X : integer) return integer is
 	begin
-		return (X - 1) / 32;
+		return (X - 1) / TILE_SIZE_MOVE;
 	end X_TO_COL;
 
 	--directly return the tile at the position (X,Y)
@@ -43,7 +44,7 @@ architecture movement_behav of movement_ent is
 		variable col : integer range 0 to 14;
 		variable row : std_logic_vector(59 downto 0);
 	begin
-		case ((Y - 1) / 32) is
+		case ((Y - 1) / TILE_SIZE_MOVE) is
 			when 0 => row := row0_move;
 			when 1 => row := row1_move;
 			when 2 => row := row2_move;
@@ -69,11 +70,10 @@ architecture movement_behav of movement_ent is
 begin
 	move_up_down : process(clk_move, rst_move)
 
-	constant SIZE : integer range 0 to 32 := 32;
-	variable x_int : integer range 0 to 480 := x_init;
-	variable y_int : integer range 0 to 480 := y_init;
-	variable x_right_bottom : integer range 0 to 480 := x_init + SIZE - 1;
-	variable y_right_bottom : integer range 0 to 480 := y_init + SIZE - 1;
+	variable x_int : integer range 0 to 480 := X_INIT_MOVE;
+	variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
+	variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+	variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 	variable left_tile : std_logic_vector(3 downto 0);
 	variable right_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
@@ -83,7 +83,7 @@ begin
 	begin
 		if(clk_move'event and clk_move = '1') then
 			if(up_move='0') then
-				if((y_int - 1) mod 32 /= 0) then -- no row change
+				if((y_int - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change
 					y_int := y_int - speed;
 				else
 					left_tile := GET_TILE(x_int, y_int - 1);
@@ -98,11 +98,11 @@ begin
 					end if;
 				end if;
 			elsif(down_move= '0') then
-				if((y_int + SIZE - 1) mod 32 /= 0) then
+				if((y_int + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then
 					y_int := y_int + speed;
 				else
-					left_tile := GET_TILE(x_int, y_int + 1 + SIZE - 1);
-					right_tile := GET_TILE(x_right_bottom, y_int + 1 + SIZE - 1);
+					left_tile := GET_TILE(x_int, y_int + 1 + PLAYER_SIZE_MOVE - 1);
+					right_tile := GET_TILE(x_right_bottom, y_int + 1 + PLAYER_SIZE_MOVE - 1);
 					if(	left_tile  /= x"F" and -- next row is allowed
 				   		left_tile  /= x"1" and
 						left_tile  /= x"2" and
@@ -121,11 +121,10 @@ begin
 
 	move_left_right : process(clk_move, rst_move)
 
-	constant SIZE : integer range 0 to 32 := 32;
-	variable x_int : integer range 0 to 480 := x_init;
-	variable y_int : integer range 0 to 480 := y_init;
-	variable x_right_bottom : integer range 0 to 480 := x_init + SIZE - 1;
-	variable y_right_bottom : integer range 0 to 480 := y_init + SIZE - 1;
+	variable x_int : integer range 0 to 480 := X_INIT_MOVE;
+	variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
+	variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+	variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 	variable upper_tile : std_logic_vector(3 downto 0);
 	variable lower_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
@@ -134,11 +133,11 @@ begin
 
 		if(clk_move'event and clk_move = '1') then
 			if(left_move='0') then
-				if((x_int - 1) mod 32 /= 0) then
+				if((x_int - 1) mod TILE_SIZE_MOVE /= 0) then
 					x_int := x_int - speed;
 				else
 					upper_tile := GET_TILE(x_int - 1, y_int);
-					lower_tile := GET_TILE(x_int - 1, y_int + SIZE - 1);
+					lower_tile := GET_TILE(x_int - 1, y_int + PLAYER_SIZE_MOVE - 1);
 					if(	upper_tile /= x"F" and
 						upper_tile /= x"1" and
 						upper_tile /= x"2" and
@@ -149,11 +148,11 @@ begin
 					end if;
 				end if;
 			elsif(right_move= '0') then
-				if((x_int + SIZE - 1) mod 32 /= 0) then
+				if((x_int + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then
 					x_int := x_int + speed;
 				else
-					upper_tile := GET_TILE(x_int + SIZE - 1 + 1, y_int);
-					lower_tile := GET_TILE(x_int + SIZE - 1 + 1, y_int + SIZE - 1);
+					upper_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int);
+					lower_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int + PLAYER_SIZE_MOVE - 1);
 					if(	upper_tile /= x"F" and
 						upper_tile /= x"1" and
 						upper_tile /= x"2" and

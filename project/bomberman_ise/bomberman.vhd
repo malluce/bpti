@@ -45,6 +45,7 @@ architecture bomberman_struct of bomberman_ent is
     end component;
 
     component game_mechanic_ent
+		generic(PLAYER_SIZE_MECH, TILE_SIZE_MECH : integer);
         port(
             clk_mech : in std_logic;
             rst_mech : in std_logic;
@@ -83,6 +84,7 @@ architecture bomberman_struct of bomberman_ent is
     end component;
 
     component pixel_gen_ent
+		generic(PLAYER_SIZE_PIX, TILE_SIZE_PIX : integer);
         port(
             row_pixel : in std_logic_vector(8 downto 0);
             col_pixel : in std_logic_vector(9 downto 0);
@@ -133,6 +135,9 @@ architecture bomberman_struct of bomberman_ent is
         );
     end component;
 
+	constant TILE_SIZE : integer range 0 to 32 := 32; -- do NOT change this!!
+	constant PLAYER_SIZE : integer range 0 to TILE_SIZE := 32;
+	
     signal row_fwd : std_logic_vector(8 downto 0);
     signal col_fwd : std_logic_vector(9 downto 0);
     signal p1_x_coord_fwd : std_logic_vector(8 downto 0);
@@ -170,7 +175,9 @@ begin
         col_fwd
     );
 
-    game : game_mechanic_ent port map(
+    game : game_mechanic_ent 
+	generic map(PLAYER_SIZE, TILE_SIZE)
+	port map(
         clk,
         rst,
         p1_up,
@@ -206,7 +213,9 @@ begin
 		  row14_fwd
     );
 
-    pixel : pixel_gen_ent port map(
+    pixel : pixel_gen_ent 
+	generic map(PLAYER_SIZE, TILE_SIZE)
+	port map(
         row_fwd,
         col_fwd,
         p1_x_coord_fwd,

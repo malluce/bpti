@@ -2,6 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity game_state_ent is
+	generic(PLAYER_SIZE_STATE, TILE_SIZE_STATE : integer);
 	port(
 		clk_state : in std_logic;
 		rst_state : in std_logic;
