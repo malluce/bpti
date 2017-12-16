@@ -33,21 +33,32 @@ entity bomb_ent is
 end bomb_ent;
 
 architecture bomb_behav of bomb_ent is
-
+	shared variable bomb_set : std_logic := '0';
 begin
 
 	set_bomb : process(clk_bomb, rst_bomb)
+	variable row_of_bomb : integer range 0 to 14 := 0;
+	variable col_of_bomb : integer range 0 to 14 := 0;
 	begin
 		if(rst_bomb = '0') then
-			
+			bomb_set := '0';
+			row_of_bomb := 0;
+			col_of_bomb := 0;
 		elsif(clk_bomb'event and clk_bomb = '1') then
-		
+			if(plant_bomb = '0') then
+				bomb_set := '1';
+				row_of_bomb := row_player;
+				col_of_bomb := col_player;
+			end if;
+			enable_bomb <= bomb_set;
+			row_bomb <= row_of_bomb;
+			col_bomb <= col_of_bomb;
 		end if;
 	end process set_bomb;
-	
+
 	bomb_tick : process(clk_bomb, rst_bomb)
 	begin
 		-- TODO
 	end process bomb_tick;
-	
+
 end bomb_behav;

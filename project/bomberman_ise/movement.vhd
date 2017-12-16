@@ -33,12 +33,6 @@ end movement_ent;
 
 architecture movement_behav of movement_ent is
 
-	-- return the column of the grid in which the X coordinate is
-	impure function X_TO_COL (X : integer) return integer is
-	begin
-		return (X - 1) / TILE_SIZE_MOVE;
-	end X_TO_COL;
-
 	--directly return the tile at the position (X,Y)
 	impure function GET_TILE (X,Y : integer) return std_logic_vector is
 		variable col : integer range 0 to 14;
@@ -63,7 +57,7 @@ architecture movement_behav of movement_ent is
 			when others => row := x"000000000000000";
 		end case;
 
-		col := X_TO_COL(X);
+		col := (X - 1) / TILE_SIZE_MOVE;
 		return row(59 - col * 4 downto 56 - col * 4);
 	end GET_TILE;
 
