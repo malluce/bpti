@@ -20,16 +20,14 @@ begin
 		if rst_clk = '0' then
 			cnt <= 0;
 			temp <= '0';
-		else 
-			if clk_in'event and clk_in = '1' then
-				if cnt = MAX then
-					cnt <= 0;
-					temp <= not temp;
-				else
-					cnt <= cnt + 1;
-				end if;
-				clk_out <= temp;
-			end if; 
-		end if;
+		elsif clk_in'event and clk_in = '1' then
+			if cnt = MAX then
+				cnt <= 0;
+				temp <= not temp;
+			else
+				cnt <= cnt + 1;
+			end if;
+			clk_out <= temp;
+		end if; 
 	end process count;
 end counter_behav;
