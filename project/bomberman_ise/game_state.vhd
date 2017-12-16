@@ -44,19 +44,19 @@ end game_state_ent;
 architecture game_state_behav of game_state_ent is
 	-- TODO initial blocks INSIDE arena
 	signal row0 : std_logic_vector(59 downto 0)  := x"FFFFFFFFFFFFFFF";
-	signal row1 : std_logic_vector(59 downto 0)  := x"F0011111111100F";
+	signal row1 : std_logic_vector(59 downto 0)  := x"F00EEEEEEEEE00F";
 	signal row2 : std_logic_vector(59 downto 0)  := x"F0F0F0F0F0F0F0F";
-	signal row3 : std_logic_vector(59 downto 0)  := x"F1010101010101F";
-	signal row4 : std_logic_vector(59 downto 0)  := x"F1F0F0F0F0F0F1F";
-	signal row5 : std_logic_vector(59 downto 0)  := x"F1101010101011F";
-	signal row6 : std_logic_vector(59 downto 0)  := x"F1F0F0F0F0F0F1F";
-	signal row7 : std_logic_vector(59 downto 0)  := x"F1010101010101F";
-	signal row8 : std_logic_vector(59 downto 0)  := x"F1F0F0F0F0F0F1F";
-	signal row9 : std_logic_vector(59 downto 0)  := x"F1101010101011F";
-	signal row10 : std_logic_vector(59 downto 0) := x"F1F0F0F0F0F0F1F";
-	signal row11 : std_logic_vector(59 downto 0) := x"F1010101010101F";
+	signal row3 : std_logic_vector(59 downto 0)  := x"FE0E0E0E0E0E0EF";
+	signal row4 : std_logic_vector(59 downto 0)  := x"FEF0F0F0F0F0FEF";
+	signal row5 : std_logic_vector(59 downto 0)  := x"FEE0E0E0E0E0EEF";
+	signal row6 : std_logic_vector(59 downto 0)  := x"FEF0F0F0F0F0FEF";
+	signal row7 : std_logic_vector(59 downto 0)  := x"FE0E0E0E0E0E0EF";
+	signal row8 : std_logic_vector(59 downto 0)  := x"FEF0F0F0F0F0FEF";
+	signal row9 : std_logic_vector(59 downto 0)  := x"FEE0E0E0E0E0EEF";
+	signal row10 : std_logic_vector(59 downto 0) := x"FEF0F0F0F0F0FEF";
+	signal row11 : std_logic_vector(59 downto 0) := x"FE0E0E0E0E0E0EF";
 	signal row12 : std_logic_vector(59 downto 0) := x"F0F0F0F0F0F0F0F";
-	signal row13 : std_logic_vector(59 downto 0) := x"F0011111111100F";
+	signal row13 : std_logic_vector(59 downto 0) := x"F00EEEEEEEEE00F";
 	signal row14 : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
 	
 begin

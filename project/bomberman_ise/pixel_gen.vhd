@@ -103,19 +103,19 @@ begin
 																(56 - (((col_int - 161) / TILE_SIZE_PIX) * 4)));
 
 					case (arrayElement) is
-						when x"F" => red_pixel <= x"0"; -- undestroyable blocks = black
-										 green_pixel <= x"0";
-										 blue_pixel <= x"0";
 						when x"0" => red_pixel <= x"F"; -- empty blocks = white
 										 green_pixel <= x"F";
-										 blue_pixel <= x"F";
-						when x"1" => red_pixel <= x"0"; -- destroyable blocks = green
-										 green_pixel <= x"F";
+										 blue_pixel <= x"F";				
+						when x"1" => red_pixel <= x"F"; -- explosion = red
+										 green_pixel <= x"0";
 										 blue_pixel <= x"0";
-						when x"2" => red_pixel <= x"0"; -- bomb = blue
+						when x"D" => red_pixel <= x"0"; -- bomb = blue
 										 green_pixel <= x"0";
 										 blue_pixel <= x"F";
-						when x"4" => red_pixel <= x"F"; -- explosion = red
+						when x"E" => red_pixel <= x"0"; -- destroyable blocks = green
+										 green_pixel <= x"F";
+										 blue_pixel <= x"0";
+						when x"F" => red_pixel <= x"0"; -- undestroyable blocks = black
 										 green_pixel <= x"0";
 										 blue_pixel <= x"0";
 						when others => red_pixel <= x"A"; -- everything random
