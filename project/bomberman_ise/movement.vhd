@@ -75,9 +75,7 @@ begin
 	variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 	variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 	variable left_tile : std_logic_vector(3 downto 0);
-	variable left_tile_int : integer range 0 to 15;
 	variable right_tile : std_logic_vector(3 downto 0);
-	variable right_tile_int : integer range 0 to 15;
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -94,9 +92,7 @@ begin
 				else
 					left_tile := GET_TILE(x_int, y_int - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int - 1);
-					left_tile_int := to_integer(unsigned(left_tile));
-					right_tile_int := to_integer(unsigned(right_tile));
-					if(left_tile_int  < x"D" and right_tile  < x"D") then -- next tile is allowed
+					if(unsigned(left_tile)  < x"D" and unsigned(right_tile)  < x"D") then -- next tile is allowed
 						y_int := y_int - speed;
 					end if;
 				end if;
@@ -106,9 +102,7 @@ begin
 				else
 					left_tile := GET_TILE(x_int, y_int + 1 + PLAYER_SIZE_MOVE - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int + 1 + PLAYER_SIZE_MOVE - 1);
-					left_tile_int := to_integer(unsigned(left_tile));
-					right_tile_int := to_integer(unsigned(right_tile));
-					if(left_tile_int  < x"D" and right_tile_int < x"D") then
+					if(unsigned(left_tile)  < x"D" and unsigned(right_tile) < x"D") then
 						y_int := y_int + speed;
 					end if;
 				end if;
@@ -125,9 +119,7 @@ begin
 	variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 	variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 	variable upper_tile : std_logic_vector(3 downto 0);
-	variable upper_tile_int : integer range 0 to 15;
 	variable lower_tile : std_logic_vector(3 downto 0);
-	variable lower_tile_int : integer range 0 to 15;
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -144,9 +136,7 @@ begin
 				else
 					upper_tile := GET_TILE(x_int - 1, y_int);
 					lower_tile := GET_TILE(x_int - 1, y_int + PLAYER_SIZE_MOVE - 1);
-					upper_tile_int := to_integer(unsigned(upper_tile));
-					lower_tile_int := to_integer(unsigned(lower_tile));
-					if(upper_tile_int < x"D" and lower_tile_int < x"D") then
+					if(unsigned(upper_tile) < x"D" and unsigned(lower_tile) < x"D") then
 						x_int := x_int - speed;
 					end if;
 				end if;
@@ -156,9 +146,7 @@ begin
 				else
 					upper_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int);
 					lower_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int + PLAYER_SIZE_MOVE - 1);
-					upper_tile_int := to_integer(unsigned(upper_tile));
-					lower_tile_int := to_integer(unsigned(lower_tile));
-					if(upper_tile_int < x"D" and lower_tile_int < x"D") then
+					if(unsigned(upper_tile) < x"D" and unsigned(lower_tile) < x"D") then
 						x_int := x_int + speed;
 					end if;
 				end if;
