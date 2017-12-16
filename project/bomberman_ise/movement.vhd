@@ -81,7 +81,13 @@ begin
 
 
 	begin
-		if(clk_move'event and clk_move = '1') then
+		if(rst_move = '0') then
+			x_int := X_INIT_MOVE;
+			y_int := Y_INIT_MOVE;
+			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+			y_right_bottom := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+			speed := 1;
+		elsif(clk_move'event and clk_move = '1') then
 			if(up_move='0') then
 				if((y_int - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change
 					y_int := y_int - speed;
@@ -89,10 +95,10 @@ begin
 					left_tile := GET_TILE(x_int, y_int - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int - 1);
 					if(	left_tile  /= x"F" and -- next row is allowed
-				   		left_tile  /= x"1" and
+						left_tile  /= x"1" and
 						left_tile  /= x"2" and
 						right_tile  /= x"F" and
-				   		right_tile  /= x"1" and
+						right_tile  /= x"1" and
 						right_tile  /= x"2") then
 						y_int := y_int - speed;
 					end if;
@@ -104,17 +110,16 @@ begin
 					left_tile := GET_TILE(x_int, y_int + 1 + PLAYER_SIZE_MOVE - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int + 1 + PLAYER_SIZE_MOVE - 1);
 					if(	left_tile  /= x"F" and -- next row is allowed
-				   		left_tile  /= x"1" and
+						left_tile  /= x"1" and
 						left_tile  /= x"2" and
 						right_tile  /= x"F" and
-				   		right_tile  /= x"1" and
+						right_tile  /= x"1" and
 						right_tile  /= x"2") then
 						y_int := y_int + speed;
 					end if;
 				end if;
 			end if;
 		end if;
-
 		y_move <= std_logic_vector(to_unsigned(y_int, 9));
 	end process move_up_down;
 
@@ -130,8 +135,13 @@ begin
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
-
-		if(clk_move'event and clk_move = '1') then
+		if(rst_move = '0') then
+			x_int := X_INIT_MOVE;
+			y_int := Y_INIT_MOVE;
+			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+			y_right_bottom := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+			speed := 1;
+		elsif(clk_move'event and clk_move = '1') then
 			if(left_move='0') then
 				if((x_int - 1) mod TILE_SIZE_MOVE /= 0) then
 					x_int := x_int - speed;
@@ -165,6 +175,5 @@ begin
 			end if;
 		end if;
 		x_move <= std_logic_vector(to_unsigned(x_int, 9));
-
 	end process move_left_right
 end movement_behav;

@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity clk_movement_ent is
 	port (
+		rst_clk : in std_logic;
 		clk_in : in std_logic;
 		clk_out : out std_logic 
 	);
@@ -14,16 +15,21 @@ architecture counter_behav of clk_movement_ent is
     signal temp : std_logic := '0';
     
 begin
-	count : process(clk_in)
+	count : process(clk_in, rst_clk)
 	begin
-		if clk_in'event and clk_in = '1' then
-			if cnt = MAX then
-				cnt <= 0;
-				temp <= not temp;
-			else
-				cnt <= cnt + 1;
-			end if;
-			clk_out <= temp;
-		end if; 
+		if rst_clk = '0' then
+			cnt <= 0;
+			temp <= '0';
+		else 
+			if clk_in'event and clk_in = '1' then
+				if cnt = MAX then
+					cnt <= 0;
+					temp <= not temp;
+				else
+					cnt <= cnt + 1;
+				end if;
+				clk_out <= temp;
+			end if; 
+		end if;
 	end process count;
 end counter_behav;
