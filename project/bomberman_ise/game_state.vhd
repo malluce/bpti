@@ -42,7 +42,6 @@ entity game_state_ent is
 end game_state_ent;
 
 architecture game_state_behav of game_state_ent is
-	-- TODO initial blocks INSIDE arena
 	signal row0 : std_logic_vector(59 downto 0)  := x"FFFFFFFFFFFFFFF";
 	signal row1 : std_logic_vector(59 downto 0)  := x"F00EEEEEEEEE00F";
 	signal row2 : std_logic_vector(59 downto 0)  := x"F0F0F0F0F0F0F0F";
@@ -64,6 +63,46 @@ begin
 	begin
 		-- TODO : player collission, change player_enable
 	end process player_collision;
+
+	-- the rows are changed here when a bomb is planted (or exploding?)
+	bomb_placement : process(clk_state, rst_state)
+		variable row_int : integer range 0 to 14 := 0;
+		variable row_bomb1 : std_logic_vector(59 downto 0) := x"000000000000000";
+	begin
+		if(rst_state = '0') then
+			-- TODO reset all variables
+		elsif(clk_state'event and clk_state = '1') then
+			if(enable_bomb1_state = '1') then -- bomb 1 is active
+				if(explode_bomb1_state = '1') then -- bomb 1 is exploding right now
+					-- TODO change rows (also do the explode logic)
+					-- NOTE: former bomb_explode process logic could also go here... 
+				else -- bomb 1 is just ticking right now
+					row_int := to_integer(row_bomb1_state, 4);
+					col_int_upper := 59 - (to_integer(col_bomb1_state, 4) * 4); -- upper bound for vector access
+					col_int_lower := 56 - (to_integer(col_bomb1_state, 4) * 4); -- lower bound for vector access
+					-- change one tile to bomb (bomb = x"D")
+					case row_int is
+						when 0 => row0(col_int_upper downto col_int_lower) <= x"D";
+						when 1 => row1(col_int_upper downto col_int_lower) <= x"D";
+						when 2 => row2(col_int_upper downto col_int_lower) <= x"D";
+						when 3 => row3(col_int_upper downto col_int_lower) <= x"D";
+						when 4 => row4(col_int_upper downto col_int_lower) <= x"D";
+						when 5 => row5(col_int_upper downto col_int_lower) <= x"D";
+						when 6 => row6(col_int_upper downto col_int_lower) <= x"D";
+						when 7 => row7(col_int_upper downto col_int_lower) <= x"D";
+						when 8 => row8(col_int_upper downto col_int_lower) <= x"D";
+						when 9 => row9(col_int_upper downto col_int_lower) <= x"D";
+						when 10 => row10(col_int_upper downto col_int_lower) <= x"D";
+						when 11 => row11(col_int_upper downto col_int_lower) <= x"D";
+						when 12 => row12(col_int_upper downto col_int_lower) <= x"D";
+						when 13 => row13(col_int_upper downto col_int_lower) <= x"D";
+						when 14 => row14(col_int_upper downto col_int_lower) <= x"D";
+						when others => ;
+					end case;
+				end if;
+			end if;
+		end if;
+	end process bomb_placement;
 
 	bomb_explode : process(clk_state, rst_state)
 	begin
