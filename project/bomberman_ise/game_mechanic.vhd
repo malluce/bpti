@@ -69,6 +69,8 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		row14_player : in std_logic_vector(59 downto 0);
 		x_player : out std_logic_vector(8 downto 0);
 		y_player : out std_logic_vector(8 downto 0);
+		row_player : out std_logic_vector(3 downto 0);
+		col_player : out std_logic_vector(3 downto 0);
 		row_bomb_player : out std_logic_vector(3 downto 0);
 		col_bomb_player : out std_logic_vector(3 downto 0);
 		enable_bomb_player : out std_logic;
@@ -84,9 +86,13 @@ architecture game_mechanic_struct of game_mechanic_ent is
 			rst_state : in std_logic;
 			x_player1_state : in std_logic_vector(8 downto 0);
 			y_player1_state : in std_logic_vector(8 downto 0);
+			row_player1_state : in std_logic_vector(3 downto 0);
+			col_player1_state : in std_logic_vector(3 downto 0);
 			enable_player1_state : in std_logic;
 			x_player2_state : in std_logic_vector(8 downto 0);
 			y_player2_state : in std_logic_vector(8 downto 0);
+			row_player2_state : in std_logic_vector(3 downto 0);
+			col_player2_state : in std_logic_vector(3 downto 0);
 			enable_player2_state : in std_logic;
 			row_bomb1_state : in std_logic_vector(3 downto 0);
 			col_bomb1_state : in std_logic_vector(3 downto 0);
@@ -180,6 +186,8 @@ begin
 		row14_fwd,
 		x_player1_fwd,
 		y_player1_fwd,
+		row_player1_fwd,
+		col_player1_fwd,
 		row_bomb1_fwd,
 		col_bomb1_fwd,
 		enable_bomb1_fwd,
@@ -215,6 +223,8 @@ begin
 		row14_fwd,
 		x_player2_fwd,
 		y_player2_fwd,
+		row_player2_fwd,
+		col_player2_fwd,
 		row_bomb2_fwd,
 		col_bomb2_fwd,
 		enable_bomb2_fwd,
@@ -229,9 +239,13 @@ begin
 		rst_mech,
 		x_player1_fwd,
 		y_player1_fwd,
+		row_player1_fwd,
+		col_player1_fwd,
 		enable_player1_to_state,
 		x_player2_fwd,
 		y_player2_fwd,
+		row_player2_fwd,
+		col_player2_fwd,
 		enable_player2_to_state,
 		row_bomb1_fwd,
 		col_bomb1_fwd,

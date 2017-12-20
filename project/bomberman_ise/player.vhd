@@ -29,6 +29,8 @@ entity player_ent is
 		row14_player : in std_logic_vector(59 downto 0);
 		x_player : out std_logic_vector(8 downto 0);
 		y_player : out std_logic_vector(8 downto 0);
+		row_player : out std_logic_vector(3 downto 0);
+		col_player : out std_logic_vector(3 downto 0);
 		row_bomb_player : out std_logic_vector(3 downto 0);
 		col_bomb_player : out std_logic_vector(3 downto 0);
 		enable_bomb_player : out std_logic;
@@ -199,5 +201,7 @@ begin
 	
 	x_player <= x_fwd;
 	y_player <= y_fwd;
+	row_player <= row_fwd;
+	col_player <= col_fwd;
 	enable_player_out <= enable_player;
 end player_struct;

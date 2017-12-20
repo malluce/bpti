@@ -8,9 +8,13 @@ entity game_state_ent is
 		rst_state : in std_logic;
 		x_player1_state : in std_logic_vector(8 downto 0);
 		y_player1_state : in std_logic_vector(8 downto 0);
+		row_player1_state : in std_logic_vector(3 downto 0);
+		col_player1_state : in std_logic_vector(3 downto 0);
 		enable_player1_state : in std_logic;
 		x_player2_state : in std_logic_vector(8 downto 0);
 		y_player2_state : in std_logic_vector(8 downto 0);
+		row_player2_state : in std_logic_vector(3 downto 0);
+		col_player2_state : in std_logic_vector(3 downto 0);
 		enable_player2_state : in std_logic;
 		row_bomb1_state : in std_logic_vector(3 downto 0);
 		col_bomb1_state : in std_logic_vector(3 downto 0);
@@ -59,9 +63,79 @@ architecture game_state_behav of game_state_ent is
 	signal row14 : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
 	
 begin
+	-- lookup player position in current row vectors. if player tile = explosion tile kill player (i.e set enable to '0')
 	player_collision : process(clk_state, rst_state)
+		variable vector_player1 : std_logic_vector(59 downto 0) := x"000000000000000";
+		variable vector_player2 : std_logic_vector(59 downto 0) := x"000000000000000";
+		variable player1_row_int : integer range 0 to 14 := 0;
+		variable player1_col_int : integer range 0 to 14 := 0;
+		variable player2_row_int : integer range 0 to 14 := 0;
+		variable player2_col_int : integer range 0 to 14 := 0;
 	begin
-		-- TODO : player collission, change player_enable
+		if(rst_state = '0') then
+			vector_player1 := x"000000000000000";
+			vector_player2 := x"000000000000000";
+			player1_row_int := 0;
+			player1_col_int := 0;
+			player2_row_int := 0;
+			player2_col_int := 0;
+		elsif(clk_state'event and clk_state = '1') then
+			if(enable_player1_state = '1') then -- action just needed when player is still alive
+				player1_row_int := to_integer(row_player1_state, 4);
+				player1_col_int := to_integer(col_player1_state, 4);
+				-- calculate the row in which the player is
+				case player1_row_int is
+					when 0 => vector_player1 := row0;
+					when 1 => vector_player1 := row1;
+					when 2 => vector_player1 := row2;
+					when 3 => vector_player1 := row3;
+					when 4 => vector_player1 := row4;
+					when 5 => vector_player1 := row5;
+					when 6 => vector_player1 := row6;
+					when 7 => vector_player1 := row7;
+					when 8 => vector_player1 := row8;
+					when 9 => vector_player1 := row9;
+					when 10 => vector_player1 := row10;
+					when 11 => vector_player1 := row11;
+					when 12 => vector_player1 := row12;
+					when 13 => vector_player1 := row13;
+					when 14 => vector_player1 := row14;
+					when others => ;
+				end case;
+				-- player tile is explosion tile -> kill player
+				if(vector_player1(59 - (player1_col_int * 4) downto 56 - (player1_col_int * 4)) = x"1") then
+					enable_player1_state_out <= '0';
+				end if;
+			end if;
+			
+			-- same for player2 
+			if(enable_player2_state = '1') then
+				player2_row_int := to_integer(row_player2_state, 4);
+				player2_col_int := to_integer(col_player2_state, 4);
+				case player2_row_int is
+					when 0 => vector_player2 := row0;
+					when 1 => vector_player2 := row1;
+					when 2 => vector_player2 := row2;
+					when 3 => vector_player2 := row3;
+					when 4 => vector_player2 := row4;
+					when 5 => vector_player2 := row5;
+					when 6 => vector_player2 := row6;
+					when 7 => vector_player2 := row7;
+					when 8 => vector_player2 := row8;
+					when 9 => vector_player2 := row9;
+					when 10 => vector_player2 := row10;
+					when 11 => vector_player2 := row11;
+					when 12 => vector_player2 := row12;
+					when 13 => vector_player2 := row13;
+					when 14 => vector_player2 := row14;
+					when others => ;
+				end case;
+
+				if(vector_player2(59 - (player2_col_int * 4) downto 56 - (player2_col_int * 4)) = x"1") then
+					enable_player2_state_out <= '0';
+				end if;
+			end if;
+		end if;
 	end process player_collision;
 
 	-- the rows are changed here when a bomb is planted (or exploding?)
