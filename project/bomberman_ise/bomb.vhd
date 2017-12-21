@@ -45,7 +45,7 @@ begin
 			row_of_bomb := 0;
 			col_of_bomb := 0;
 		elsif(clk_bomb'event and clk_bomb = '1') then
-			if(plant_bomb = '0') then
+			if(plant_bomb = '0' and bomb_set = '0') then -- just plant when no bomb is planted right now 
 				bomb_set := '1';
 				row_of_bomb := row_player;
 				col_of_bomb := col_player;
@@ -56,9 +56,39 @@ begin
 		end if;
 	end process set_bomb;
 
+	-- ticks down bomb and explosion when bomb is planted
 	bomb_tick : process(clk_bomb, rst_bomb)
+		constant TICK_MAX : integer range 0 to 72000000 := 72000000; -- time until explosion : 3 sec
+		constant EXPLOSION_MAX : integer range 0 to 12000000 := 12000000; -- duration of explosion : 0.5 sec
+		variable tick_cnt : integer range 0 to TICK_MAX := TICK_MAX;
+		variable explosion_cnt : integer range to EXPLOSION_MAX := EXPLOSION_MAX; 
+		variable is_exploding : std_logic := '0'; -- indicates whether the bomb is exploding or not
 	begin
-		-- TODO
+		if(rst_bomb = '0') then
+			tick_cnt := TICK_MAX;
+			explosion_cnt := EXPLOSION_MAX;
+			is_exploding := '0';
+		elsif(clk_bomb'event and clk_bomb = '1') then
+			explode_bomb <= is_exploding;
+			if(bomb_set = '1') then -- just need to do sth. if bomb is active
+				if(is_exploding = '0') then -- if bomb is not exploding, tick
+					if(tick_cnt > 0) then
+						tick_cnt := tick_cnt - 1;
+					elsif(tick_cnt = 0) then -- bomb ticked down, now explode
+						is_exploding := '1';
+						tick_cnt := TICK_MAX;
+					end if;
+				elsif(is_exploding = '1') then -- if bomb is exploding, let it explode for a while
+					if(explosion_cnt > 0) then
+						explosion_cnt := explosion_cnt - 1;
+					elsif(explosion_cnt = 0) then -- finished exploding
+						is_exploding := '0';
+						explosion_cnt := EXPLOSION_MAX;
+						bomb_set := '0';
+					end if;
+				end if;
+			end if;
+		end if;
 	end process bomb_tick;
 
 end bomb_behav;
