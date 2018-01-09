@@ -24,7 +24,7 @@ entity game_state_ent is
 		col_bomb2_state : in std_logic_vector(3 downto 0);
 		explode_bomb2_state : in std_logic;
 		enable_bomb2_state : in std_logic;
-		
+
 		enable_player1_state_out : out std_logic;
 		enable_player2_state_out : out std_logic;
 		row0_state : out std_logic_vector(59 downto 0);
@@ -61,7 +61,58 @@ architecture game_state_behav of game_state_ent is
 	signal row12 : std_logic_vector(59 downto 0) := x"F0F0F0F0F0F0F0F";
 	signal row13 : std_logic_vector(59 downto 0) := x"F00EEEEEEEEE00F";
 	signal row14 : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
-	
+
+
+	impure function SET_TILE (ROW_INT,COL_UPPER,COL_LOWER : integer, NEW_VALUE : std_logic_vector) return boolean is
+		variable col : integer range 0 to 14;
+		variable row : std_logic_vector(59 downto 0);
+	begin
+		case ROW_INT is
+			when 0 => row := row0;
+			when 1 => row := row1;
+			when 2 => row := row2;
+			when 3 => row := row3;
+			when 4 => row := row4;
+			when 5 => row := row5;
+			when 6 => row := row6;
+			when 7 => row := row7;
+			when 8 => row := row8;
+			when 9 => row := row9;
+			when 10 => row := row10;
+			when 11 => row := row11;
+			when 12 => row := row12;
+			when 13 => row := row13;
+			when 14 => row := row14;
+			when others => row := x"000000000000000";
+		end case;
+
+		if(row(COL_UPPER donwto COL_LOWER) /= x"F") then
+			row(COL_UPPER downto COL_LOWER) <= NEW_VALUE;
+		end if;
+
+		case ROW_INT is
+			when 0 => row0 <= row;
+			when 1 => row1 <= row;
+			when 2 => row2 <= row;
+			when 3 => row3 <= row;
+			when 4 => row4 <= row;
+			when 5 => row5 <= row;
+			when 6 => row6 <= row;
+			when 7 => row7 <= row;
+			when 8 => row8 <= row;
+			when 9 => row9 <= row;
+			when 10 => row10 <= row;
+			when 11 => row11 <= row;
+			when 12 => row12 <= row;
+			when 13 => row13 <= row;
+			when 14 => row14 <= row;
+			when others => return false;
+		end case;
+
+		return true;
+
+	end SET_TILE;
+
 begin
 	-- lookup player position in current row vectors. if player tile = explosion tile kill player (i.e set enable to '0')
 	player_collision : process(clk_state, rst_state)
@@ -107,8 +158,8 @@ begin
 					enable_player1_state_out <= '0';
 				end if;
 			end if;
-			
-			-- same for player2 
+
+			-- same for player2
 			if(enable_player2_state = '1') then
 				player2_row_int := to_integer(row_player2_state, 4);
 				player2_col_int := to_integer(col_player2_state, 4);
@@ -142,14 +193,47 @@ begin
 	bomb_placement : process(clk_state, rst_state)
 		variable row_int : integer range 0 to 14 := 0;
 		variable row_bomb1 : std_logic_vector(59 downto 0) := x"000000000000000";
+		variable was_explode1 : std_logic_vector := '0';
+		variable was_explode2 : std_logic_vector := '0';
 	begin
 		if(rst_state = '0') then
 			-- TODO reset all variables
 		elsif(clk_state'event and clk_state = '1') then
 			if(enable_bomb1_state = '1') then -- bomb 1 is active
-				if(explode_bomb1_state = '1') then -- bomb 1 is exploding right now
+				if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
 					-- TODO change rows (also do the explode logic)
-					-- NOTE: former bomb_explode process logic could also go here... 
+					-- NOTE: former bomb_explode process logic could also go here...
+					was_explode1 = '1';
+					SET_TILE(row_int, col_int_upper, col_int_lower, x"");
+					if(col_int_upper <= 55 and col_int_lower <= 52) then
+						SET_TILE(row_int, col_int_upper+4, col_int_lower+4, x"");
+					end if;
+					if(col_int_upper >= 7 and col_int_lower >= 4) then
+						SET_TILE(row_int, col_int_upper-4, col_int_lower-4, x"");
+					end if;
+					if(row_int >= 1) then
+						SET_TILE(row_int-1, col_int_upper, col_int_lower, x"");
+					end if;
+					if(row_int <= 13) then
+						SET_TILE(row_int+1, col_int_upper, col_int_lower, x"");
+					end if;
+
+				elsif(explode_bomb1_state = '0' and was_explode1 = '1') then
+					was_explode1 = '0';
+					SET_TILE(row_int, col_int_upper, col_int_lower, x"0");
+					if(col_int_upper <= 55 and col_int_lower <= 52) then
+						SET_TILE(row_int, col_int_upper+4, col_int_lower+4, x"0");
+					end if;
+					if(col_int_upper >= 7 and col_int_lower >= 4) then
+						SET_TILE(row_int, col_int_upper-4, col_int_lower-4, x"0");
+					end if;
+					if(row_int >= 1) then
+						SET_TILE(row_int-1, col_int_upper, col_int_lower, x"0");
+					end if;
+					if(row_int <= 13) then
+						SET_TILE(row_int+1, col_int_upper, col_int_lower, x"0");
+					end if;
+
 				else -- bomb 1 is just ticking right now
 					row_int := to_integer(row_bomb1_state, 4);
 					col_int_upper := 59 - (to_integer(col_bomb1_state, 4) * 4); -- upper bound for vector access
