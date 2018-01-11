@@ -61,22 +61,23 @@ architecture movement_behav of movement_ent is
 		return row(59 - col * 4 downto 56 - col * 4);
 	end GET_TILE;
 
+	constant BOMB_CODING : std_logic_vector(3 downto 0) := x"D";
+	shared variable x_int : integer range 0 to 480 := X_INIT_MOVE;
+	shared variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
+	shared variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+	shared variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+	
 begin
+	
 	move_up_down : process(clk_move, rst_move)
-
-	variable x_int : integer range 0 to 480 := X_INIT_MOVE;
-	variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
-	variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
-	variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+	
 	variable left_tile : std_logic_vector(3 downto 0);
 	variable right_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
 		if(rst_move = '0') then
-			x_int := X_INIT_MOVE;
 			y_int := Y_INIT_MOVE;
-			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 			y_right_bottom := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 			speed := 1;
 		elsif(clk_move'event and clk_move = '1') then
@@ -86,7 +87,7 @@ begin
 				else
 					left_tile := GET_TILE(x_int, y_int - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int - 1);
-					if(left_tile  < x"D" and right_tile  < x"D") then -- next tile is allowed
+					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- next tile is allowed
 						y_int := y_int - speed;
 					end if;
 				end if;
@@ -96,22 +97,19 @@ begin
 				else
 					left_tile := GET_TILE(x_int, y_int + 1 + PLAYER_SIZE_MOVE - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int + 1 + PLAYER_SIZE_MOVE - 1);
-					if(left_tile  < x"D" and right_tile < x"D") then
+					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile)) < to_integer(unsigned(BOMB_CODING))) then
 						y_int := y_int + speed;
 					end if;
 				end if;
 			end if;
+			y_right_bottom := y_int + PLAYER_SIZE_MOVE - 1;
 		end if;
 		y_move <= std_logic_vector(to_unsigned(y_int, 9));
 	end process move_up_down;
 
 
 	move_left_right : process(clk_move, rst_move)
-
-	variable x_int : integer range 0 to 480 := X_INIT_MOVE;
-	variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
-	variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
-	variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+	
 	variable upper_tile : std_logic_vector(3 downto 0);
 	variable lower_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
@@ -119,9 +117,7 @@ begin
 	begin
 		if(rst_move = '0') then
 			x_int := X_INIT_MOVE;
-			y_int := Y_INIT_MOVE;
 			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
-			y_right_bottom := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 			speed := 1;
 		elsif(clk_move'event and clk_move = '1') then
 			if(left_move='0') then
@@ -130,7 +126,7 @@ begin
 				else
 					upper_tile := GET_TILE(x_int - 1, y_int);
 					lower_tile := GET_TILE(x_int - 1, y_int + PLAYER_SIZE_MOVE - 1);
-					if(upper_tile < x"D" and lower_tile < x"D") then
+					if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
 						x_int := x_int - speed;
 					end if;
 				end if;
@@ -140,11 +136,12 @@ begin
 				else
 					upper_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int);
 					lower_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int + PLAYER_SIZE_MOVE - 1);
-					if(upper_tile < x"D" and lower_tile < x"D") then
+					if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
 						x_int := x_int + speed;
 					end if;
 				end if;
 			end if;
+			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 		end if;
 		x_move <= std_logic_vector(to_unsigned(x_int, 9));
 	end process move_left_right;
