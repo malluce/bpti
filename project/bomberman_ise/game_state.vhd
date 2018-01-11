@@ -197,15 +197,34 @@ begin
 		variable was_explode2 : std_logic := '0';
 	begin
 		if(rst_state = '0') then
-			-- TODO reset all variables
+			row_int := 0;
+			row_bomb1 := x"000000000000000";
+			col_int_upper := 59;
+			col_int_lower := 56;
+			was_explode1 := '0';
+			was_explode2 := '0';
+			row0 :=  x"FFFFFFFFFFFFFFF";
+			row1 :=  x"F00EEEEEEEEE00F";
+			row2 :=  x"F0F0F0F0F0F0F0F";
+			row3 :=  x"FE0E0E0E0E0E0EF";
+			row4 :=  x"FEF0F0F0F0F0FEF";
+			row5 :=  x"FEE0E0E0E0E0EEF";
+			row6 :=  x"FEF0F0F0F0F0FEF";
+			row7 :=	x"FE0E0E0E0E0E0EF";
+			row8 :=  x"FEF0F0F0F0F0FEF";
+			row9 :=  x"FEE0E0E0E0E0EEF";
+			row10 := x"FEF0F0F0F0F0FEF";
+			row11 := x"FE0E0E0E0E0E0EF";
+			row12 := x"F0F0F0F0F0F0F0F";
+			row13 := x"F00EEEEEEEEE00F";
+			row14 := x"FFFFFFFFFFFFFFF";
 		elsif(clk_state'event and clk_state = '1') then
 			if(enable_bomb1_state = '1') then -- bomb 1 is active
 				row_int := to_integer(unsigned(row_bomb1_state));
 				col_int_upper := 59 - (to_integer(unsigned(col_bomb1_state)) * 4); -- upper bound for vector access
 				col_int_lower := 56 - (to_integer(unsigned(col_bomb1_state)) * 4); -- lower bound for vector access
 				if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
-					-- TODO change rows (also do the explode logic)
-					-- NOTE: former bomb_explode process logic could also go here...
+
 					was_explode1 := '1';
 					SET_TILE(row_int, col_int_upper, col_int_lower, x"1");
 					if(col_int_upper <= 55 and col_int_lower <= 52) then
