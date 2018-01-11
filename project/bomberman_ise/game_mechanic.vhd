@@ -84,13 +84,9 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		port(
 			clk_state : in std_logic;
 			rst_state : in std_logic;
-			x_player1_state : in std_logic_vector(8 downto 0);
-			y_player1_state : in std_logic_vector(8 downto 0);
 			row_player1_state : in std_logic_vector(3 downto 0);
 			col_player1_state : in std_logic_vector(3 downto 0);
 			enable_player1_state : in std_logic;
-			x_player2_state : in std_logic_vector(8 downto 0);
-			y_player2_state : in std_logic_vector(8 downto 0);
 			row_player2_state : in std_logic_vector(3 downto 0);
 			col_player2_state : in std_logic_vector(3 downto 0);
 			enable_player2_state : in std_logic;
@@ -128,6 +124,10 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	signal y_player1_fwd : std_logic_vector(8 downto 0);
 	signal x_player2_fwd : std_logic_vector(8 downto 0);
 	signal y_player2_fwd : std_logic_vector(8 downto 0);
+	signal row_player1_fwd : std_logic_vector(3 downto 0);
+	signal col_player1_fwd : std_logic_vector(3 downto 0);
+	signal row_player2_fwd : std_logic_vector(3 downto 0);
+	signal col_player2_fwd : std_logic_vector(3 downto 0);
 	signal enable_player1_to_state : std_logic;
 	signal enable_player2_to_state : std_logic;
 	signal enable_player1_to_player : std_logic;
@@ -237,13 +237,9 @@ begin
 	port map(
 		clk_mech,
 		rst_mech,
-		x_player1_fwd,
-		y_player1_fwd,
 		row_player1_fwd,
 		col_player1_fwd,
 		enable_player1_to_state,
-		x_player2_fwd,
-		y_player2_fwd,
 		row_player2_fwd,
 		col_player2_fwd,
 		enable_player2_to_state,

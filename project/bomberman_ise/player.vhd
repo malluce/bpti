@@ -96,21 +96,6 @@ architecture player_struct of player_ent is
 			col_player : in std_logic_vector(3 downto 0);
 			row_player : in std_logic_vector(3 downto 0);
 			plant_bomb : in std_logic;
-			row0_bomb : in std_logic_vector(59 downto 0);
-			row1_bomb : in std_logic_vector(59 downto 0);
-			row2_bomb : in std_logic_vector(59 downto 0);
-			row3_bomb : in std_logic_vector(59 downto 0);
-			row4_bomb : in std_logic_vector(59 downto 0);
-			row5_bomb : in std_logic_vector(59 downto 0);
-			row6_bomb : in std_logic_vector(59 downto 0);
-			row7_bomb : in std_logic_vector(59 downto 0);
-			row8_bomb : in std_logic_vector(59 downto 0);
-			row9_bomb : in std_logic_vector(59 downto 0);
-			row10_bomb : in std_logic_vector(59 downto 0);
-			row11_bomb : in std_logic_vector(59 downto 0);
-			row12_bomb : in std_logic_vector(59 downto 0);
-			row13_bomb : in std_logic_vector(59 downto 0);
-			row14_bomb : in std_logic_vector(59 downto 0);
 			row_bomb : out std_logic_vector(3 downto 0);
 			col_bomb : out std_logic_vector(3 downto 0);
 			enable_bomb : out std_logic;
@@ -134,7 +119,7 @@ begin
 	);
 
 	movement : movement_ent  
-	generic map(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER);
+	generic map(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER)
 	port map(
 		mov_clk_fwd,
 		rst_player,
@@ -162,7 +147,7 @@ begin
 	);
 	
 	xy_to_rowcol : xy_to_rowcol_ent 
-	generic map(PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER);
+	generic map(PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER)
 	port map(
 		x_fwd,
 		y_fwd,
@@ -171,28 +156,13 @@ begin
 	);
 	
 	bomb : bomb_ent 
-	generic map(TILE_SIZE_PLAYER);
+	generic map(TILE_SIZE_PLAYER)
 	port map(
 		clk_player,
 		rst_player,
 		col_fwd,
 		row_fwd,
 		plant_player,
-		row0_player,
-		row1_player,
-		row2_player,
-		row3_player,
-		row4_player,
-		row5_player,
-		row6_player,
-		row7_player,
-		row8_player,
-		row9_player,
-		row10_player,
-		row11_player,
-		row12_player,
-		row13_player,
-		row14_player,
 		row_bomb_player,
 		col_bomb_player,
 		enable_bomb_player,

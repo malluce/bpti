@@ -20,7 +20,7 @@ begin
 		variable x_int : integer range 0 to 480;
 		variable y_int : integer range 0 to 480;
 		variable col_int : integer range 0 to ((480 / TILE_SIZE_CONV) - 1);
-		variable row_int : integer range 0 to ((480 / TILE_SIZE_CONV) - 1)
+		variable row_int : integer range 0 to ((480 / TILE_SIZE_CONV) - 1);
 	begin
 		x_int := to_integer(unsigned(x_convert));
 		y_int := to_integer(unsigned(y_convert));

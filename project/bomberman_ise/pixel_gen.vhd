@@ -69,7 +69,7 @@ begin
 					and col_int < (p1_x_int + 160 + PLAYER_SIZE_PIX)) then
 					-- draw player1
 						red_pixel <= x"F";
-						green_pixel <= x"0";
+						green_pixel <= x"F";
 						blue_pixel <= x"0";
 				elsif(p2_enable_pixel = '1'  and row_int >= p2_y_int
 					and col_int >= (p2_x_int + 160) and row_int < (p2_y_int + PLAYER_SIZE_PIX)
@@ -77,7 +77,7 @@ begin
 					-- draw player2
 						red_pixel <= x"F";
 						green_pixel <= x"0";
-						blue_pixel <= x"0";
+						blue_pixel <= x"F";
 				else
 					-- draw arena
 					case ((row_int - 1) / TILE_SIZE_PIX) is
