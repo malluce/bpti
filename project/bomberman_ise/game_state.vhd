@@ -266,7 +266,6 @@ begin
 
 	bomb_explode : process(clk_state, rst_state)
 	begin
-		-- TODO : block collision, change rows
 		if(clk_state'event and clk_state = '1') then
 			row0_state <= row0;
 			row1_state <= row1;
