@@ -42,21 +42,21 @@ architecture movement_testbench_behav of movement_testbench_ent is
     signal down_move : std_logic := '1' := '1';
     signal left_move : std_logic := '1';
     signal right_move : std_logic := '1';
-    signal row0_move : std_logic_vector(59 downto 0);
-    signal row1_move : std_logic_vector(59 downto 0);
-    signal row2_move : std_logic_vector(59 downto 0);
-    signal row3_move : std_logic_vector(59 downto 0);
-    signal row4_move : std_logic_vector(59 downto 0);
-    signal row5_move : std_logic_vector(59 downto 0);
-    signal row6_move : std_logic_vector(59 downto 0);
-    signal row7_move : std_logic_vector(59 downto 0);
-    signal row8_move : std_logic_vector(59 downto 0);
-    signal row9_move : std_logic_vector(59 downto 0);
-    signal row10_move : std_logic_vector(59 downto 0);
-    signal row11_move : std_logic_vector(59 downto 0);
-    signal row12_move : std_logic_vector(59 downto 0);
-    signal row13_move : std_logic_vector(59 downto 0);
-    signal row14_move : std_logic_vector(59 downto 0);
+    signal row0_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row1_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row2_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row3_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row4_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row5_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row6_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row7_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row8_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row9_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row10_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row11_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row12_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row13_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
+    signal row14_move : std_logic_vector(59 downto 0) := x"FFFFFFFFFFFFFFF";
 
     --Outputs
     signal x_move : std_logic_vector(8 downto 0);
@@ -96,15 +96,41 @@ begin
     collision_test : process
     begin
         row0 <= x"FFFFFFFFFFFFFFF";
-        row1 <= x"F0FFFFFFFFFFFFF";
-        row2 <= x"FFFFFFFFFFFFFFF";
+        row1 <= x"F0DFFFFFFFFFFFF";
+        row2 <= x"FEFFFFFFFFFFFFF";
         down_move <= '0';
         right_move <= '0';
         wait for 40 ns;
-        if to_integer(unsigned(y_move)) /= 33 then
-
-        elsif to_integer(unsigned(x_move)) /= 33 then
-
-        end if;
+        assert(to_integer(unsigned(y_move)) = 33) report "Y Koordinate hat sich verändert";
+        assert(to_integer(unsigned(x_move)) = 33) report "X Koordinate hat sich verändert";
+        up_move <= '0';
+        down_move <= '1';
+        right_move <= '1';
+        left_move <= '0';
+        wait for 40 ns;
+        assert(to_integer(unsigned(y_move)) = 33) report "Y Koordinate hat sich verändert";
+        assert(to_integer(unsigned(x_move)) = 33) report "X Koordinate hat sich verändert";
     end process collision_test;
+
+    move_test : process
+        row0 <= x"FFFFFFFFFFFFFFF";
+        row1 <= x"F00FFFFFFFFFFFF";
+        row2 <= x"F00FFFFFFFFFFFF";
+        row3 <= x"FFFFFFFFFFFFFFF";
+        up_move <= '1';
+        down_move <= '0';
+        right_move <= '0';
+        left_move <= '1';
+        wait for 120 ns;
+        assert(to_integer(unsigned(y_move)) > 33) report "Y Koordinate hat sich nicht geändert";
+        assert(to_integer(unsigned(x_move)) > 33) report "X Koordinate hat sich nicht geändert";
+
+        up_move <= '0';
+        down_move <= '1';
+        right_move <= '1';
+        left_move <= '0';
+        wait for 120 ns;
+        assert(to_integer(unsigned(y_move)) = 33) report "Y Koordinate hat sich nicht geändert";
+        assert(to_integer(unsigned(x_move)) = 33) report "X Koordinate hat sich nicht geändert";
+    end process move_test;
 end movement_testbench_behav;
