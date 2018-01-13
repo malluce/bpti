@@ -22,11 +22,11 @@ architecture bomb_testbench_behav of bomb_testbench_ent is
     end component;
 
     --Inputs
-    signal clk_bomb : std_logic;
-    signal rst_bomb : std_logic;
-    signal col_player : std_logic_vector(3 downto 0);
-    signal row_player : std_logic_vector(3 downto 0);
-    signal plant_bomb : std_logic;
+    signal clk_bomb : std_logic := '0';
+    signal rst_bomb : std_logic := '1';
+    signal col_player : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(1, 4));
+    signal row_player : std_logic_vector(3 downto 0) := std_logic_vector(to_unsigned(1, 4));
+    signal plant_bomb : std_logic := '1';
 
     --Outputs
     signal row_bomb : std_logic_vector(3 downto 0);
@@ -36,17 +36,46 @@ architecture bomb_testbench_behav of bomb_testbench_ent is
 
 begin
     boom : bomb_ent
-        generic map(32)
-        port map(
-            clk_bomb,
-            rst_bomb,
-            col_player.
-            row_player,
-            plant_bomb,
-            row_bomb,
-            col_bomb,
-            enable_bomb,
-            explode_bomb
-        );
+    generic map(32)
+    port map(
+        clk_bomb,
+        rst_bomb,
+        col_player.
+        row_player,
+        plant_bomb,
+        row_bomb,
+        col_bomb,
+        enable_bomb,
+        explode_bomb
+    );
+
+    clk_move <= not clk_move after 19,85 ns; --nearly frequency of 25,175 MHz
+
+    set_bomb_test : process
+    begin
+        assert(enable_bomb = '0') report "enable_bomb sollte 0 sein";
+        assert(explode_bomb = '0') report "explode_bomb sollte 0 sein";
+        plant_bomb <= '1';
+        wait for 40 ns;
+        assert(enable_bomb = '1') report "enable_bomb sollte 1 sein, aber ist 0";
+        assert(explode_bomb = '0') report "explode_bomb sollte 0 sein, aber ist 1";
+        assert(row_bomb = std_logic_vector(to_unsigned(1, 4))) report "Falsche row in der Bombe";
+        assert(col_bomb = std_logic_vector(to_unsigned(1, 4))) report "Falsche col in der Bombe";
+        rst_bomb <= '0';
+        wait for 40 ns;
+    end process set_bomb_test;
+
+    explode_bomb_test : process
+        plant_bomb <= '1';
+        wait for 40 ns;
+        assert(enable_bomb = '1') report "enable_bomb sollte 1 sein, aber ist 0";
+        wait for 3000000000 ns;
+        assert(explode_bomb = '1') report "explode_bomb sollte 1 sein, aber ist 0";
+        wait for 500000000 ns;
+        assert(enable_bomb = '0') report "enable_bomb sollte 0 sein";
+        assert(explode_bomb = '0') report "explode_bomb sollte 0 sein";
+        rst_bomb <= '0';
+        wait for 40 ns;
+    end process explode_bomb_test;
 
 end bomb_testbench_behav;

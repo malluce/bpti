@@ -110,6 +110,8 @@ begin
         wait for 40 ns;
         assert(to_integer(unsigned(y_move)) = 33) report "Y Koordinate hat sich verändert";
         assert(to_integer(unsigned(x_move)) = 33) report "X Koordinate hat sich verändert";
+        rst_move <= '0';
+        wait for 40 ns;
     end process collision_test;
 
     move_test : process
@@ -132,5 +134,7 @@ begin
         wait for 120 ns;
         assert(to_integer(unsigned(y_move)) = 33) report "Y Koordinate hat sich nicht geändert";
         assert(to_integer(unsigned(x_move)) = 33) report "X Koordinate hat sich nicht geändert";
+        rst_move <= '0';
+        wait for 40 ns;
     end process move_test;
 end movement_testbench_behav;
