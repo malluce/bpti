@@ -36,12 +36,12 @@ architecture movement_testbench_behav of movement_testbench_ent is
     end component;
 
     --Inputs
-    signal clk_move : std_logic;
-    signal rst_move : std_logic;
-    signal up_move : std_logic;
-    signal down_move : std_logic;
-    signal left_move : std_logic;
-    signal right_move : std_logic;
+    signal clk_move : std_logic := '0';
+    signal rst_move : std_logic := '1';
+    signal up_move : std_logic := '1';
+    signal down_move : std_logic := '1' := '1';
+    signal left_move : std_logic := '1';
+    signal right_move : std_logic := '1';
     signal row0_move : std_logic_vector(59 downto 0);
     signal row1_move : std_logic_vector(59 downto 0);
     signal row2_move : std_logic_vector(59 downto 0);
@@ -90,4 +90,21 @@ begin
         x_move,
         y_move
     );
+
+    clk_move <= not clk_move after 19,85 ns; --nearly frequency of 25,175 MHz
+
+    collision_test : process
+    begin
+        row0 <= x"FFFFFFFFFFFFFFF";
+        row1 <= x"F0FFFFFFFFFFFFF";
+        row2 <= x"FFFFFFFFFFFFFFF";
+        down_move <= '0';
+        right_move <= '0';
+        wait for 40 ns;
+        if to_integer(unsigned(y_move)) /= 33 then
+
+        elsif to_integer(unsigned(x_move)) /= 33 then
+
+        end if;
+    end process collision_test;
 end movement_testbench_behav;
