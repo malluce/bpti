@@ -57,6 +57,7 @@ architecture game_state_test of game_state_testbench is
     signal row_bomb2 : std_logic_vector(3 downto 0) := x"0";
     signal col_bomb2 : std_logic_vector(3 downto 0) := x"0";
     signal explode_bomb1, enable_bomb1, explode_bomb2, enable_bomb2 : std_logic := '0';
+
     signal enable_player1_out, enable_player2_out : std_logic;
     signal row0, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14 : std_logic_vector(59 downto 0);
 
@@ -101,6 +102,7 @@ architecture game_state_test of game_state_testbench is
 
         test : process
         begin
+            -- player_collision test
             row_player1 <= x"1";
             col_player1 <= x"1";
             row_bomb1 <= x"1";
@@ -115,7 +117,7 @@ architecture game_state_test of game_state_testbench is
             enable_bomb1 <= '1';
             explode_bomb1 <= '1';
 
-            wait for 80 ns;
+            wait for 40 ns;
 
             assert(enable_player1_out = '0');
 

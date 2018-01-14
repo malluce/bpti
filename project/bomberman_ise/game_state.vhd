@@ -155,6 +155,7 @@ begin
 				if(vector_player1(59 - (player1_col_int * 4) downto 56 - (player1_col_int * 4)) = x"1") then
 					enable_player1_state_var := '0';
 				end if;
+				enable_player1_state_out <= enable_player1_state_var;
 			end if;
 
 			-- same for player2
@@ -184,6 +185,7 @@ begin
 					enable_player2_state_var := '0';
 				end if;
 			end if;
+			enable_player2_state_out <= enable_player2_state_var;
 		end if;
 	end process player_collision;
 
@@ -282,8 +284,6 @@ begin
 			row12_state <= row12;
 			row13_state <= row13;
 			row14_state <= row14;
-			enable_player1_state_out <= enable_player1_state_var;
-			enable_player2_state_out <= enable_player2_state_var;
 		end if;
 	end process bomb_explode;
 end game_state_behav;
