@@ -226,7 +226,6 @@ begin
 				col_int_upper := 59 - (to_integer(unsigned(col_bomb1_state)) * 4); -- upper bound for vector access
 				col_int_lower := 56 - (to_integer(unsigned(col_bomb1_state)) * 4); -- lower bound for vector access
 				if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
-
 					was_explode1 := '1';
 					SET_TILE(row_int, col_int_upper, col_int_lower, x"1");
 					if(col_int_upper <= 55 and col_int_lower <= 52) then
@@ -263,12 +262,6 @@ begin
 					SET_TILE(row_int, col_int_upper, col_int_lower, x"D");
 				end if;
 			end if;
-		end if;
-	end process bomb_placement;
-
-	bomb_explode : process(clk_state, rst_state)
-	begin
-		if(clk_state'event and clk_state = '1') then
 			row0_state <= row0;
 			row1_state <= row1;
 			row2_state <= row2;
@@ -285,5 +278,5 @@ begin
 			row13_state <= row13;
 			row14_state <= row14;
 		end if;
-	end process bomb_explode;
+	end process bomb_placement;
 end game_state_behav;
