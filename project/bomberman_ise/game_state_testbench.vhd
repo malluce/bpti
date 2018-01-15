@@ -102,6 +102,7 @@ architecture game_state_test of game_state_testbench is
 
         test : process
         begin
+
             -- player_collision test
             row_player1 <= x"1";
             col_player1 <= x"1";
@@ -112,15 +113,35 @@ architecture game_state_test of game_state_testbench is
             explode_bomb1 <= '0';
 
             wait for 40 ns;
-            assert(enable_player1_out = '1');
+            assert(enable_player1_out = '1') report "enable should be 1";
 
             enable_bomb1 <= '1';
             explode_bomb1 <= '1';
 
             wait for 40 ns;
 
-            assert(enable_player1_out = '0');
+            assert(enable_player1_out = '0') report "enable should be 0";
+            -- reset game_state
+            reset <= '0';
+            wait for 20 ns;
 
+            -- init values from bomb_ent
+            reset <= '1';
+            row_bomb1 <= x"0";
+            col_bomb1 <= x"0";
+            enable_bomb1 <= '0';
+            explode_bomb1 <= '0';
+            wait for 40 ns;
+
+            -- bomb_placement test
+            assert(row0 = x"FFFFFFFFFFFFFFF") report "row0 did change but shouldnt";
+            assert(row1 = x"F00EEEEEEEEE00F") report "row1 did change but shouldnt";
+
+            row_bomb1 <= x"1";
+            col_bomb1 <= x"1";
+            enable_bomb1 <= '1';
+            wait for 40 ns;
+            assert(row1 = x"FD0EEEEEEEEE00F") report "bomb was not planted";
 
         end process test;
 end game_state_test;
