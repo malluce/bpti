@@ -109,8 +109,14 @@ architecture game_state_behav of game_state_ent is
 			when others => null;
 		end case;
 	end SET_TILE;
-
+	
+	shared variable col_int_upper : integer range 0 to 59 := 59;
+		shared variable was_explode1 : std_logic := '0';
+		shared variable was_explode2 : std_logic := '0';
+		shared variable was_enable1 : std_logic := '0';
+	
 begin
+	
 	-- lookup player position in current row vectors. if player tile = explosion tile kill player (i.e set enable to '0')
 	player_collision : process(clk_state, rst_state)
 		variable vector_player1 : std_logic_vector(59 downto 0) := x"000000000000000";
@@ -194,17 +200,12 @@ begin
 	bomb_placement : process(clk_state, rst_state)
 		variable row_int : integer range 0 to 14 := 0;
 		variable row_bomb1 : std_logic_vector(59 downto 0) := x"000000000000000";
-		variable col_int_upper : integer range 0 to 59 := 59;
-		variable col_int_lower : integer range 0 to 56 := 56;
-		variable was_explode1 : std_logic := '0';
-		variable was_explode2 : std_logic := '0';
-		variable was_enable1 : std_logic := '0';
+		
 	begin
 		if(rst_state = '0') then
 			row_int := 0;
 			row_bomb1 := x"000000000000000";
 			col_int_upper := 59;
-			col_int_lower := 56;
 			was_explode1 := '0';
 			was_explode2 := '0';
 			row0 :=  x"FFFFFFFFFFFFFFF";

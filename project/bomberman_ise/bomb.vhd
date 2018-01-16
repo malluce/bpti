@@ -3,13 +3,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity bomb_ent is
-	generic(TILE_SIZE_BOMB : integer);
+	--generic(TILE_SIZE_BOMB : integer);
 	port(
 		clk_bomb : in std_logic;
 		rst_bomb : in std_logic;
 		col_player : in std_logic_vector(3 downto 0);
 		row_player : in std_logic_vector(3 downto 0);
 		plant_bomb : in std_logic;
+		enable_player : in std_logic;
 		row_bomb : out std_logic_vector(3 downto 0);
 		col_bomb : out std_logic_vector(3 downto 0);
 		enable_bomb : out std_logic;
@@ -25,6 +26,7 @@ architecture bomb_behav of bomb_ent is
 	shared variable bomb_set : std_logic := '0';
 	shared variable tick_cnt : integer range 0 to TICK_MAX := TICK_MAX;
 	shared variable is_exploding : std_logic := '0'; -- indicates whether the bomb is exploding or not
+	shared variable explosion_cnt : integer range 0 to EXPLOSION_MAX := EXPLOSION_MAX;
 begin
 
 	set_bomb : process(clk_bomb, rst_bomb)
@@ -36,10 +38,9 @@ begin
 			row_of_bomb := 0;
 			col_of_bomb := 0;
 		elsif(clk_bomb'event and clk_bomb = '1') then
-			if((bomb_set = '1') and (is_exploding = '0') and (tick_cnt = 0)) then
+			if((bomb_set = '1') and (is_exploding = '0') and (tick_cnt = TICK_MAX)) then
 				bomb_set := '0';
-			end if;
-			if(plant_bomb = '0' and bomb_set = '0') then -- just plant when no bomb is planted right now 
+			elsif(plant_bomb = '0' and bomb_set = '0' and enable_player = '1') then -- just plant when no bomb is planted right now 
 				bomb_set := '1';
 				row_of_bomb := to_integer(unsigned(row_player));
 				col_of_bomb := to_integer(unsigned(col_player));
@@ -52,7 +53,7 @@ begin
 
 	-- ticks down bomb and explosion when bomb is planted
 	bomb_tick : process(clk_bomb, rst_bomb)
-		variable explosion_cnt : integer range 0 to EXPLOSION_MAX := EXPLOSION_MAX;
+
 	begin
 		if(rst_bomb = '0') then
 			tick_cnt := TICK_MAX;

@@ -96,6 +96,7 @@ architecture player_struct of player_ent is
 			col_player : in std_logic_vector(3 downto 0);
 			row_player : in std_logic_vector(3 downto 0);
 			plant_bomb : in std_logic;
+			enable_player : in std_logic;
 			row_bomb : out std_logic_vector(3 downto 0);
 			col_bomb : out std_logic_vector(3 downto 0);
 			enable_bomb : out std_logic;
@@ -103,6 +104,7 @@ architecture player_struct of player_ent is
 		);
 	end component;
 	
+	signal enable_player_fwd : std_logic;
 	signal mov_clk_fwd : std_logic;
 	signal x_fwd : std_logic_vector(8 downto 0);
 	signal y_fwd : std_logic_vector(8 downto 0);
@@ -163,6 +165,7 @@ begin
 		col_fwd,
 		row_fwd,
 		plant_player,
+		enable_player_fwd,
 		row_bomb_player,
 		col_bomb_player,
 		enable_bomb_player,
@@ -174,4 +177,5 @@ begin
 	row_player <= row_fwd;
 	col_player <= col_fwd;
 	enable_player_out <= enable_player;
+	enable_player_fwd <= enable_player;
 end player_struct;
