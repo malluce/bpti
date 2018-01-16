@@ -62,7 +62,7 @@ architecture game_state_behav of game_state_ent is
 	shared variable enable_player2_state_var : std_logic := '1';
 
 
-	procedure SET_TILE (ROW_INT,COL_UPPER,COL_LOWER : integer; NEW_VALUE : std_logic_vector) is
+	procedure SET_TILE (ROW_INT,COL_UPPER: integer; NEW_VALUE : std_logic_vector) is
 		variable col : integer range 0 to 14;
 		variable row : std_logic_vector(59 downto 0);
 	begin
@@ -84,9 +84,10 @@ architecture game_state_behav of game_state_ent is
 			when 14 => row := row14;
 			when others => row := x"000000000000000";
 		end case;
-
-		if(row(COL_UPPER downto COL_LOWER) /= x"F") then
-			row(COL_UPPER downto COL_LOWER) := NEW_VALUE;
+		
+		if(to_integer(unsigned(row(COL_UPPER downto (COL_UPPER - 3)))) /= 
+				15) then
+			row(COL_UPPER downto (COL_UPPER - 3)) := NEW_VALUE;
 		end if;
 
 		case ROW_INT is
@@ -155,9 +156,9 @@ begin
 				if(vector_player1(59 - (player1_col_int * 4) downto 56 - (player1_col_int * 4)) = x"1") then
 					enable_player1_state_var := '0';
 				end if;
-				enable_player1_state_out <= enable_player1_state_var;
 			end if;
-
+			enable_player1_state_out <= enable_player1_state_var;
+			
 			-- same for player2
 			if(enable_player2_state = '1') then
 				player2_row_int := to_integer(unsigned(row_player2_state));
@@ -197,6 +198,7 @@ begin
 		variable col_int_lower : integer range 0 to 56 := 56;
 		variable was_explode1 : std_logic := '0';
 		variable was_explode2 : std_logic := '0';
+		variable was_enable1 : std_logic := '0';
 	begin
 		if(rst_state = '0') then
 			row_int := 0;
@@ -221,47 +223,47 @@ begin
 			row13 := x"F00EEEEEEEEE00F";
 			row14 := x"FFFFFFFFFFFFFFF";
 		elsif(clk_state'event and clk_state = '1') then
-			if(enable_bomb1_state = '1') then -- bomb 1 is active
 				row_int := to_integer(unsigned(row_bomb1_state));
 				col_int_upper := 59 - (to_integer(unsigned(col_bomb1_state)) * 4); -- upper bound for vector access
-				col_int_lower := 56 - (to_integer(unsigned(col_bomb1_state)) * 4); -- lower bound for vector access
-				if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
+			if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
 					was_explode1 := '1';
-					SET_TILE(row_int, col_int_upper, col_int_lower, x"1");
-					if(col_int_upper <= 55 and col_int_lower <= 52) then
-						SET_TILE(row_int, col_int_upper+4, col_int_lower+4, x"1");
+					SET_TILE(row_int, col_int_upper, x"1");
+					if(col_int_upper <= 55) then
+						SET_TILE(row_int, col_int_upper+4, x"1");
 					end if;
-					if(col_int_upper >= 7 and col_int_lower >= 4) then
-						SET_TILE(row_int, col_int_upper-4, col_int_lower-4, x"1");
+					if(col_int_upper >= 7) then
+						SET_TILE(row_int, col_int_upper-4, x"1");
 					end if;
 					if(row_int >= 1) then
-						SET_TILE(row_int-1, col_int_upper, col_int_lower, x"1");
+						SET_TILE(row_int-1, col_int_upper, x"1");
 					end if;
 					if(row_int <= 13) then
-						SET_TILE(row_int+1, col_int_upper, col_int_lower, x"1");
+						SET_TILE(row_int+1, col_int_upper, x"1");
 					end if;
 
 				elsif(explode_bomb1_state = '0' and was_explode1 = '1') then
 					was_explode1 := '0';
-					SET_TILE(row_int, col_int_upper, col_int_lower, x"0");
-					if(col_int_upper <= 55 and col_int_lower <= 52) then
-						SET_TILE(row_int, col_int_upper+4, col_int_lower+4, x"0");
+					was_enable1 := '0';
+					SET_TILE(row_int, col_int_upper, x"0");
+					if(col_int_upper <= 55) then
+						SET_TILE(row_int, col_int_upper+4, x"0");
 					end if;
-					if(col_int_upper >= 7 and col_int_lower >= 4) then
-						SET_TILE(row_int, col_int_upper-4, col_int_lower-4, x"0");
+					if(col_int_upper >= 7) then
+						SET_TILE(row_int, col_int_upper-4, x"0");
 					end if;
 					if(row_int >= 1) then
-						SET_TILE(row_int-1, col_int_upper, col_int_lower, x"0");
+						SET_TILE(row_int-1, col_int_upper, x"0");
 					end if;
 					if(row_int <= 13) then
-						SET_TILE(row_int+1, col_int_upper, col_int_lower, x"0");
+						SET_TILE(row_int+1, col_int_upper, x"0");
 					end if;
 
-				else -- bomb 1 is just ticking right now
+				elsif(was_enable1 = '0' and enable_bomb1_state = '1') then
+				-- bomb 1 is just ticking right now
 					-- change one tile to bomb (bomb = x"D")
-					SET_TILE(row_int, col_int_upper, col_int_lower, x"D");
+					was_enable1 := '1';
+					SET_TILE(row_int, col_int_upper, x"D");
 				end if;
-			end if;
 			row0_state <= row0;
 			row1_state <= row1;
 			row2_state <= row2;

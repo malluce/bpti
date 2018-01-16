@@ -49,7 +49,7 @@ begin
         explode_bomb
     );
 
-    clk_move <= not clk_move after 19,85 ns; --nearly frequency of 25,175 MHz
+    clk_bomb <= not clk_bomb after 19.85 ns; --nearly frequency of 25,175 MHz
 
     set_bomb_test : process
     begin
@@ -66,12 +66,13 @@ begin
     end process set_bomb_test;
 
     explode_bomb_test : process
+    begin
         plant_bomb <= '1';
         wait for 40 ns;
         assert(enable_bomb = '1') report "enable_bomb sollte 1 sein, aber ist 0";
-        wait for 3000000000 ns;
+        wait for 3 s;
         assert(explode_bomb = '1') report "explode_bomb sollte 1 sein, aber ist 0";
-        wait for 500000000 ns;
+        wait for 5 s;
         assert(enable_bomb = '0') report "enable_bomb sollte 0 sein";
         assert(explode_bomb = '0') report "explode_bomb sollte 0 sein";
         rst_bomb <= '0';

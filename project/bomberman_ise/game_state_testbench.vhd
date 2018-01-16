@@ -62,7 +62,9 @@ architecture game_state_test of game_state_testbench is
     signal row0, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14 : std_logic_vector(59 downto 0);
 
     begin
-        game_state_1 : game_state_ent port map(
+        game_state_1 : game_state_ent 
+        generic map(32, 32)
+        port map(
             clock,
             reset,
             row_player1,

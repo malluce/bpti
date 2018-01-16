@@ -103,8 +103,8 @@ begin
 				end if;
 			end if;
 			y_right_bottom := y_int + PLAYER_SIZE_MOVE - 1;
+			y_move <= std_logic_vector(to_unsigned(y_int, 9));
 		end if;
-		y_move <= std_logic_vector(to_unsigned(y_int, 9));
 	end process move_up_down;
 
 
@@ -142,7 +142,7 @@ begin
 				end if;
 			end if;
 			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+			x_move <= std_logic_vector(to_unsigned(x_int, 9));
 		end if;
-		x_move <= std_logic_vector(to_unsigned(x_int, 9));
 	end process move_left_right;
 end movement_behav;
