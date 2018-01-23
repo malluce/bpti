@@ -63,9 +63,10 @@ architecture game_state_behav of game_state_ent is
 
 
 	procedure SET_TILE (ROW_INT,COL_UPPER: integer; NEW_VALUE : std_logic_vector) is
-		variable col : integer range 0 to 14;
+		variable col : integer range 0 to 59;
 		variable row : std_logic_vector(59 downto 0);
 	begin
+		col := 59 - (4 * COL_UPPER);
 		case ROW_INT is
 			when 0 => row := row0;
 			when 1 => row := row1;
@@ -85,9 +86,9 @@ architecture game_state_behav of game_state_ent is
 			when others => row := x"000000000000000";
 		end case;
 		
-		if(to_integer(unsigned(row(COL_UPPER downto (COL_UPPER - 3)))) /= 
+		if(to_integer(unsigned(row(col downto (col - 3)))) /= 
 				15) then
-			row(COL_UPPER downto (COL_UPPER - 3)) := NEW_VALUE;
+			row(col downto (col - 3)) := NEW_VALUE;
 		end if;
 
 		case ROW_INT is
@@ -109,11 +110,6 @@ architecture game_state_behav of game_state_ent is
 			when others => null;
 		end case;
 	end SET_TILE;
-	
-	shared variable col_int_upper : integer range 0 to 59 := 59;
-		shared variable was_explode1 : std_logic := '0';
-		shared variable was_explode2 : std_logic := '0';
-		shared variable was_enable1 : std_logic := '0';
 	
 begin
 	
@@ -198,14 +194,19 @@ begin
 
 	-- the rows are changed here when a bomb is planted (or exploding?)
 	bomb_placement : process(clk_state, rst_state)
-		variable row_int : integer range 0 to 14 := 0;
+		type LOGIC_ARR is array (1 downto 0) of std_logic;
+		type INT_ARR is array (1 downto 0) of integer range 0 to 15;
+		variable enable_arr : LOGIC_ARR;
+		variable explode_arr : LOGIC_ARR;
+		variable was_explode_arr : LOGIC_ARR := ('0', '0');
+		variable was_enable_arr : LOGIC_ARR := ('0', '0');
+		variable row_arr : INT_ARR;
+		variable col_arr : INT_ARR;
 	
 	begin
 		if(rst_state = '0') then
-			row_int := 0;
-			col_int_upper := 59;
-			was_explode1 := '0';
-			was_explode2 := '0';
+			was_explode_arr := ('0', '0');
+			was_enable_arr := ('0', '0');
 			row0 :=  x"FFFFFFFFFFFFFFF";
 			row1 :=  x"F00EEEEEEEEE00F";
 			row2 :=  x"F0F0F0F0F0F0F0F";
@@ -222,47 +223,53 @@ begin
 			row13 := x"F00EEEEEEEEE00F";
 			row14 := x"FFFFFFFFFFFFFFF";
 		elsif(clk_state'event and clk_state = '1') then
-				row_int := to_integer(unsigned(row_bomb1_state));
-				col_int_upper := 59 - (to_integer(unsigned(col_bomb1_state)) * 4); -- upper bound for vector access
-			if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
-					was_explode1 := '1';
-					SET_TILE(row_int, col_int_upper, x"1");
-					if(col_int_upper <= 55) then
-						SET_TILE(row_int, col_int_upper+4, x"1");
-					end if;
-					if(col_int_upper >= 7) then
-						SET_TILE(row_int, col_int_upper-4, x"1");
-					end if;
-					if(row_int >= 1) then
-						SET_TILE(row_int-1, col_int_upper, x"1");
-					end if;
-					if(row_int <= 13) then
-						SET_TILE(row_int+1, col_int_upper, x"1");
-					end if;
+				enable_arr := (enable_bomb1_state, enable_bomb2_state);
+				explode_arr := (explode_bomb1_state, explode_bomb2_state);
+				row_arr := (to_integer(unsigned(row_bomb1_state)), to_integer(unsigned(row_bomb2_state)));
+				col_arr := (to_integer(unsigned(col_bomb1_state)), to_integer(unsigned(col_bomb2_state)));
+				for i in 0 to 1 loop
+					if(explode_arr(i) = '1' and was_explode_arr(i) = '0') then -- bomb 1 is exploding right now
+						was_explode_arr(i) := '1';
+						SET_TILE(row_arr(i), col_arr(i), x"1");
+						if(col_arr(i) >= 1) then
+							SET_TILE(row_arr(i), col_arr(i)-1, x"1");
+						end if;
+						if(col_arr(i) <= 14) then
+							SET_TILE(row_arr(i), col_arr(i)+1, x"1");
+						end if;
+						if(row_arr(i) >= 1) then
+							SET_TILE(row_arr(i)-1, col_arr(i), x"1");
+						end if;
+						if(row_arr(i) <= 14) then
+							SET_TILE(row_arr(i)+1, col_arr(i), x"1");
+						end if;
 
-				elsif(explode_bomb1_state = '0' and was_explode1 = '1') then
-					was_explode1 := '0';
-					was_enable1 := '0';
-					SET_TILE(row_int, col_int_upper, x"0");
-					if(col_int_upper <= 55) then
-						SET_TILE(row_int, col_int_upper+4, x"0");
-					end if;
-					if(col_int_upper >= 7) then
-						SET_TILE(row_int, col_int_upper-4, x"0");
-					end if;
-					if(row_int >= 1) then
-						SET_TILE(row_int-1, col_int_upper, x"0");
-					end if;
-					if(row_int <= 13) then
-						SET_TILE(row_int+1, col_int_upper, x"0");
-					end if;
+					elsif(explode_arr(i) = '0' and was_explode_arr(i) = '1') then
+						was_explode_arr(i) := '0';
+						was_enable_arr(i) := '0';
+						SET_TILE(row_arr(i), col_arr(i), x"0");
+						if(col_arr(i) >= 1) then
+							SET_TILE(row_arr(i), col_arr(i)-1, x"0");
+						end if;
+						if(col_arr(i) <= 14) then
+							SET_TILE(row_arr(i), col_arr(i)+1, x"0");
+						end if;
+						if(row_arr(i) >= 1) then
+							SET_TILE(row_arr(i)-1, col_arr(i), x"0");
+						end if;
+						if(row_arr(i) <= 14) then
+							SET_TILE(row_arr(i)+1, col_arr(i), x"0");
+						end if;
 
-				elsif(was_enable1 = '0' and enable_bomb1_state = '1') then
-				-- bomb 1 is just ticking right now
-					-- change one tile to bomb (bomb = x"D")
-					was_enable1 := '1';
-					SET_TILE(row_int, col_int_upper, x"D");
-				end if;
+					elsif(was_enable_arr(i) = '0' and enable_arr(i) = '1') then
+					-- bomb 1 is just ticking right now
+						-- change one tile to bomb (bomb = x"D")
+						was_enable_arr(i) := '1';
+						SET_TILE(row_arr(i), col_arr(i), x"D");
+					end if;
+				
+				end loop;
+			
 			row0_state <= row0;
 			row1_state <= row1;
 			row2_state <= row2;
