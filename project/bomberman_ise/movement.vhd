@@ -5,6 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity movement_ent is
 	generic(X_INIT_MOVE, Y_INIT_MOVE, PLAYER_SIZE_MOVE, TILE_SIZE_MOVE : integer);
 	port(
+		fast_clk_move : in std_logic;
 		clk_move : in std_logic;
 		rst_move : in std_logic;
 		up_move : in std_logic;
@@ -103,7 +104,6 @@ begin
 				end if;
 			end if;
 			y_right_bottom := y_int + PLAYER_SIZE_MOVE - 1;
-			y_move <= std_logic_vector(to_unsigned(y_int, 9));
 		end if;
 	end process move_up_down;
 
@@ -142,7 +142,14 @@ begin
 				end if;
 			end if;
 			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
-			x_move <= std_logic_vector(to_unsigned(x_int, 9));
 		end if;
 	end process move_left_right;
+	
+	output : process(fast_clk_move, rst_move)
+	begin
+		if(fast_clk_move'event and fast_clk_move = '1') then
+			x_move <= std_logic_vector(to_unsigned(x_int, 9));
+			y_move <= std_logic_vector(to_unsigned(y_int, 9));
+		end if;
+	end process output;
 end movement_behav;

@@ -1,0 +1,20 @@
+Release 14.7 - netgen P.20131013 (lin)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+Command Line: netgen -intstyle ise -ar Structure -tm bomberman_ent -w -dir
+netgen/synthesis -ofmt vhdl -sim bomberman_ent.ngc bomberman_ent_synthesis.vhd  
+
+Reading design 'bomberman_ent.ngc' ...
+Flattening design ...
+Processing design ... 
+  Preping design's networks ...
+  Preping design's macros ...
+Writing VHDL netlist
+'/home/capplab10/Schreibtisch/bpti/project/bomberman_ise/netgen/synthesis/bomber
+man_ent_synthesis.vhd' ...
+INFO:NetListWriters:635 - The generated VHDL netlist contains Xilinx UNISIM
+   simulation primitives and has to be used with UNISIM library for correct
+   compilation and simulation. 
+Number of warnings: 0
+Number of info messages: 1
+Total memory usage is 103152 kilobytes

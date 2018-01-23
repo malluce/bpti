@@ -199,12 +199,10 @@ begin
 	-- the rows are changed here when a bomb is planted (or exploding?)
 	bomb_placement : process(clk_state, rst_state)
 		variable row_int : integer range 0 to 14 := 0;
-		variable row_bomb1 : std_logic_vector(59 downto 0) := x"000000000000000";
-		
+	
 	begin
 		if(rst_state = '0') then
 			row_int := 0;
-			row_bomb1 := x"000000000000000";
 			col_int_upper := 59;
 			was_explode1 := '0';
 			was_explode2 := '0';

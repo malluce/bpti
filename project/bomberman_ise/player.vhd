@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 entity player_ent is
 	generic(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER : integer);
@@ -52,6 +53,7 @@ architecture player_struct of player_ent is
 	component movement_ent
 		generic(X_INIT_MOVE, Y_INIT_MOVE, PLAYER_SIZE_MOVE, TILE_SIZE_MOVE : integer); 
 		port(
+			fast_clk_move : in std_logic;
 			clk_move : in std_logic;
 			rst_move : in std_logic;
 			up_move : in std_logic;
@@ -76,16 +78,6 @@ architecture player_struct of player_ent is
 			x_move : out std_logic_vector(8 downto 0);
 			y_move : out std_logic_vector(8 downto 0)
 	);
-	end component;
-	
-	component xy_to_rowcol_ent
-		generic(PLAYER_SIZE_CONV, TILE_SIZE_CONV : integer);
-		port(
-			x_convert : in std_logic_vector(8 downto 0);
-			y_convert : in std_logic_vector(8 downto 0);
-			row_convert : out std_logic_vector(3 downto 0);
-			col_convert : out std_logic_vector(3 downto 0)
-		);
 	end component;
 	
 	component bomb_ent
@@ -123,6 +115,7 @@ begin
 	movement : movement_ent  
 	generic map(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER)
 	port map(
+		clk_player,
 		mov_clk_fwd,
 		rst_player,
 		up_player,
@@ -148,15 +141,6 @@ begin
 		y_fwd
 	);
 	
-	xy_to_rowcol : xy_to_rowcol_ent 
-	generic map(PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER)
-	port map(
-		x_fwd,
-		y_fwd,
-		row_fwd,
-		col_fwd
-	);
-	
 	bomb : bomb_ent 
 	generic map(TILE_SIZE_PLAYER)
 	port map(
@@ -174,6 +158,8 @@ begin
 	
 	x_player <= x_fwd;
 	y_player <= y_fwd;
+	row_fwd <= std_logic_vector(to_unsigned((to_integer(unsigned(y_fwd)) + (PLAYER_SIZE_PLAYER / 2) - 1) / TILE_SIZE_PLAYER, 4));
+	col_fwd <= std_logic_vector(to_unsigned((to_integer(unsigned(x_fwd)) + (PLAYER_SIZE_PLAYER / 2) - 1) / TILE_SIZE_PLAYER, 4));
 	row_player <= row_fwd;
 	col_player <= col_fwd;
 	enable_player_out <= enable_player;
