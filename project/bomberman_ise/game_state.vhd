@@ -64,49 +64,130 @@ architecture game_state_behav of game_state_ent is
 
 	procedure SET_TILE (ROW_INT,COL_UPPER: integer; NEW_VALUE : std_logic_vector) is
 		variable col : integer range 0 to 59;
-		variable row : std_logic_vector(59 downto 0);
+		variable row_upper : std_logic_vector(59 downto 0);
+		variable row_mid : std_logic_vector(59 downto 0);
+		variable row_lower : std_logic_vector(59 downto 0);
 	begin
 		col := 59 - (4 * COL_UPPER);
 		case ROW_INT is
-			when 0 => row := row0;
-			when 1 => row := row1;
-			when 2 => row := row2;
-			when 3 => row := row3;
-			when 4 => row := row4;
-			when 5 => row := row5;
-			when 6 => row := row6;
-			when 7 => row := row7;
-			when 8 => row := row8;
-			when 9 => row := row9;
-			when 10 => row := row10;
-			when 11 => row := row11;
-			when 12 => row := row12;
-			when 13 => row := row13;
-			when 14 => row := row14;
-			when others => row := x"000000000000000";
+			when 0 => 	row_mid := row0;
+							row_lower := row1;
+			when 1 => 	row_upper := row0;
+							row_mid := row1;
+							row_lower := row2;
+			when 2 => 	row_upper := row1;
+							row_mid := row2;
+							row_lower := row3;
+			when 3 => 	row_upper := row2;
+							row_mid := row3;
+							row_lower := row4;
+			when 4 => 	row_upper := row3;
+							row_mid := row4;
+							row_lower := row5;
+			when 5 => 	row_upper := row4;
+							row_mid := row5;
+							row_lower := row6;
+			when 6 => 	row_upper := row5;
+							row_mid := row6;
+							row_lower := row7;
+			when 7 => 	row_upper := row6;
+							row_mid := row7;
+							row_lower := row8;
+			when 8 => 	row_upper := row7;
+							row_mid := row8;
+							row_lower := row9;
+			when 9 => 	row_upper := row8;
+							row_mid := row9;
+							row_lower := row10;
+			when 10 => 	row_upper := row9;
+							row_mid := row10;
+							row_lower := row11;
+			when 11 => 	row_upper := row10;
+							row_mid := row11;
+							row_lower := row12;
+			when 12 => 	row_upper := row11;
+							row_mid := row12;
+							row_lower := row13;
+			when 13 => 	row_upper := row12;
+							row_mid := row13;
+							row_lower := row14;
+			when 14 => 	row_upper := row13;
+							row_mid := row14;
+			when others => null;
 		end case;
 		
-		if(to_integer(unsigned(row(col downto (col - 3)))) /= 
+		if(NEW_VALUE /= x"D") then
+			if(col <= 55) then
+				if(to_integer(unsigned(row_mid(col downto (col - 3)))) /= 15) then
+					row_mid((col + 4) downto (col + 1)) := NEW_VALUE;
+				end if;
+			end if;
+			if(col >= 7) then
+				if(to_integer(unsigned(row_mid(col downto (col - 3)))) /= 15) then
+					row_mid((col - 4) downto (col - 7)) := NEW_VALUE;
+				end if;
+			end if;
+			if(row_int >= 1) then
+				if(to_integer(unsigned(row_upper(col downto (col - 3)))) /= 15) then
+					row_upper(col downto (col - 3)) := NEW_VALUE;
+				end if;
+			end if;
+			if(row_int <= 13) then
+				if(to_integer(unsigned(row_lower(col downto (col - 3)))) /= 15) then
+					row_lower(col downto (col - 3)) := NEW_VALUE;
+				end if;
+			end if;
+		end if;
+		
+		if(to_integer(unsigned(row_mid(col downto (col - 3)))) /= 
 				15) then
-			row(col downto (col - 3)) := NEW_VALUE;
+			row_mid(col downto (col - 3)) := NEW_VALUE;
 		end if;
 
 		case ROW_INT is
-			when 0 => row0 := row;
-			when 1 => row1 := row;
-			when 2 => row2 := row;
-			when 3 => row3 := row;
-			when 4 => row4 := row;
-			when 5 => row5 := row;
-			when 6 => row6 := row;
-			when 7 => row7 := row;
-			when 8 => row8 := row;
-			when 9 => row9 := row;
-			when 10 => row10 := row;
-			when 11 => row11 := row;
-			when 12 => row12 := row;
-			when 13 => row13 := row;
-			when 14 => row14 := row;
+			when 0 => 	row0 := row_mid;
+							row1 := row_lower;
+			when 1 => 	row0 := row_upper;
+							row1 := row_mid;
+							row2 := row_lower;
+			when 2 => 	row1 := row_upper;
+							row2 := row_mid;
+							row3 := row_lower;
+			when 3 => 	row2 := row_upper;
+							row3 := row_mid;
+							row4 := row_lower;
+			when 4 => 	row3 := row_upper;
+							row4 := row_mid;
+							row5 := row_lower;
+			when 5 => 	row4 := row_upper;
+							row5 := row_mid;
+							row6 := row_lower;
+			when 6 => 	row5 := row_upper;
+							row6 := row_mid;
+							row7 := row_lower;
+			when 7 => 	row6 := row_upper;
+							row7 := row_mid;
+							row8 := row_lower;
+			when 8 => 	row7 := row_upper;
+							row8 := row_mid;
+							row9 := row_lower;
+			when 9 => 	row8 := row_upper;
+							row9 := row_mid;
+							row10 := row_lower;
+			when 10 => 	row9 := row_upper;
+							row10 := row_mid;
+							row11 := row_lower;
+			when 11 => 	row10 := row_upper;
+							row11 := row_mid;
+							row12 := row_lower;
+			when 12 => 	row11 := row_upper;
+							row12 := row_mid;
+							row13 := row_lower;
+			when 13 => 	row12 := row_upper;
+							row13 := row_mid;
+							row14 := row_lower;
+			when 14 => 	row13 := row_upper;
+							row14 := row_mid;
 			when others => null;
 		end case;
 	end SET_TILE;
@@ -194,19 +275,26 @@ begin
 
 	-- the rows are changed here when a bomb is planted (or exploding?)
 	bomb_placement : process(clk_state, rst_state)
-		type LOGIC_ARR is array (1 downto 0) of std_logic;
-		type INT_ARR is array (1 downto 0) of integer range 0 to 15;
-		variable enable_arr : LOGIC_ARR;
-		variable explode_arr : LOGIC_ARR;
-		variable was_explode_arr : LOGIC_ARR := ('0', '0');
-		variable was_enable_arr : LOGIC_ARR := ('0', '0');
-		variable row_arr : INT_ARR;
-		variable col_arr : INT_ARR;
-	
+		
+		 variable col_int1 : integer range 0 to 14 := 0;
+		 variable col_int2 : integer range 0 to 14 := 0;
+		 variable was_explode1 : std_logic := '0';
+		 variable was_explode2 : std_logic := '0';
+		 variable was_enable1 : std_logic := '0';
+		 variable was_enable2 : std_logic := '0';
+		 variable row_int1 : integer range 0 to 14 := 0;
+		 variable row_int2 : integer range 0 to 14 := 0;
+		
 	begin
 		if(rst_state = '0') then
-			was_explode_arr := ('0', '0');
-			was_enable_arr := ('0', '0');
+			row_int1 := 0;
+			row_int2 := 0;
+			col_int1 := 0;
+			col_int2 := 0;
+			was_explode1 := '0';
+			was_explode2 := '0';
+			was_enable1 := '0';
+			was_enable2 := '0';
 			row0 :=  x"FFFFFFFFFFFFFFF";
 			row1 :=  x"F00EEEEEEEEE00F";
 			row2 :=  x"F0F0F0F0F0F0F0F";
@@ -223,52 +311,42 @@ begin
 			row13 := x"F00EEEEEEEEE00F";
 			row14 := x"FFFFFFFFFFFFFFF";
 		elsif(clk_state'event and clk_state = '1') then
-				enable_arr := (enable_bomb1_state, enable_bomb2_state);
-				explode_arr := (explode_bomb1_state, explode_bomb2_state);
-				row_arr := (to_integer(unsigned(row_bomb1_state)), to_integer(unsigned(row_bomb2_state)));
-				col_arr := (to_integer(unsigned(col_bomb1_state)), to_integer(unsigned(col_bomb2_state)));
-				for i in 0 to 1 loop
-					if(explode_arr(i) = '1' and was_explode_arr(i) = '0') then -- bomb 1 is exploding right now
-						was_explode_arr(i) := '1';
-						SET_TILE(row_arr(i), col_arr(i), x"1");
-						if(col_arr(i) >= 1) then
-							SET_TILE(row_arr(i), col_arr(i)-1, x"1");
-						end if;
-						if(col_arr(i) <= 14) then
-							SET_TILE(row_arr(i), col_arr(i)+1, x"1");
-						end if;
-						if(row_arr(i) >= 1) then
-							SET_TILE(row_arr(i)-1, col_arr(i), x"1");
-						end if;
-						if(row_arr(i) <= 14) then
-							SET_TILE(row_arr(i)+1, col_arr(i), x"1");
-						end if;
+				row_int1 := to_integer(unsigned(row_bomb1_state));
+				col_int1 := to_integer(unsigned(col_bomb1_state)); -- upper bound for vector access
+				row_int2 := to_integer(unsigned(row_bomb2_state));
+				col_int2 := to_integer(unsigned(col_bomb2_state)); -- upper bound for vector access
+		
+			if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
+					was_explode1 := '1';
+					SET_TILE(row_int1, col_int1, x"1");
 
-					elsif(explode_arr(i) = '0' and was_explode_arr(i) = '1') then
-						was_explode_arr(i) := '0';
-						was_enable_arr(i) := '0';
-						SET_TILE(row_arr(i), col_arr(i), x"0");
-						if(col_arr(i) >= 1) then
-							SET_TILE(row_arr(i), col_arr(i)-1, x"0");
-						end if;
-						if(col_arr(i) <= 14) then
-							SET_TILE(row_arr(i), col_arr(i)+1, x"0");
-						end if;
-						if(row_arr(i) >= 1) then
-							SET_TILE(row_arr(i)-1, col_arr(i), x"0");
-						end if;
-						if(row_arr(i) <= 14) then
-							SET_TILE(row_arr(i)+1, col_arr(i), x"0");
-						end if;
+				elsif(explode_bomb1_state = '0' and was_explode1 = '1') then
+					was_explode1 := '0';
+					was_enable1 := '0';
+					SET_TILE(row_int1, col_int1, x"0");
 
-					elsif(was_enable_arr(i) = '0' and enable_arr(i) = '1') then
-					-- bomb 1 is just ticking right now
-						-- change one tile to bomb (bomb = x"D")
-						was_enable_arr(i) := '1';
-						SET_TILE(row_arr(i), col_arr(i), x"D");
-					end if;
-				
-				end loop;
+				elsif(was_enable1 = '0' and enable_bomb1_state = '1') then
+				-- bomb 1 is just ticking right now
+					-- change one tile to bomb (bomb = x"D")
+					was_enable1 := '1';
+					SET_TILE(row_int1, col_int1, x"D");
+			end if;
+			
+			if(explode_bomb2_state = '1' and was_explode2 = '0') then -- bomb 2 is exploding right now
+					was_explode2 := '1';
+					SET_TILE(row_int2, col_int2, x"1");
+
+				elsif(explode_bomb2_state = '0' and was_explode2 = '1') then
+					was_explode2 := '0';
+					was_enable2 := '0';
+					SET_TILE(row_int2, col_int2, x"0");
+
+				elsif(was_enable2 = '0' and enable_bomb2_state = '1') then
+				-- bomb 2 is just ticking right now
+					-- change one tile to bomb (bomb = x"D")
+					was_enable2 := '1';
+					SET_TILE(row_int2, col_int2, x"D");
+			end if;
 			
 			row0_state <= row0;
 			row1_state <= row1;
