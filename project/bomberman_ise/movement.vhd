@@ -12,21 +12,7 @@ entity movement_ent is
 		down_move : in std_logic;
 		left_move : in std_logic;
 		right_move : in std_logic;
-		row0_move : in std_logic_vector(59 downto 0);
-		row1_move : in std_logic_vector(59 downto 0);
-		row2_move : in std_logic_vector(59 downto 0);
-		row3_move : in std_logic_vector(59 downto 0);
-		row4_move : in std_logic_vector(59 downto 0);
-		row5_move : in std_logic_vector(59 downto 0);
-		row6_move : in std_logic_vector(59 downto 0);
-		row7_move : in std_logic_vector(59 downto 0);
-		row8_move : in std_logic_vector(59 downto 0);
-		row9_move : in std_logic_vector(59 downto 0);
-		row10_move : in std_logic_vector(59 downto 0);
-		row11_move : in std_logic_vector(59 downto 0);
-		row12_move : in std_logic_vector(59 downto 0);
-		row13_move : in std_logic_vector(59 downto 0);
-		row14_move : in std_logic_vector(59 downto 0);
+		tiles_move : in std_logic_vector(899 downto 0);
 		x_move : out std_logic_vector(8 downto 0);
 		y_move : out std_logic_vector(8 downto 0)
 	);
@@ -38,25 +24,10 @@ architecture movement_behav of movement_ent is
 	impure function GET_TILE (X,Y : integer) return std_logic_vector is
 		variable col : integer range 0 to 14;
 		variable row : std_logic_vector(59 downto 0);
+		variable tiles_index : integer range 0 to 899 := 0;
 	begin
-		case ((Y - 1) / TILE_SIZE_MOVE) is
-			when 0 => row := row0_move;
-			when 1 => row := row1_move;
-			when 2 => row := row2_move;
-			when 3 => row := row3_move;
-			when 4 => row := row4_move;
-			when 5 => row := row5_move;
-			when 6 => row := row6_move;
-			when 7 => row := row7_move;
-			when 8 => row := row8_move;
-			when 9 => row := row9_move;
-			when 10 => row := row10_move;
-			when 11 => row := row11_move;
-			when 12 => row := row12_move;
-			when 13 => row := row13_move;
-			when 14 => row := row14_move;
-			when others => row := x"000000000000000";
-		end case;
+		tiles_index := 899 - (((Y - 1) / TILE_SIZE_MOVE) * 60);
+		row := tiles_move(tiles_index downto (tiles_index - 59));
 
 		col := (X - 1) / TILE_SIZE_MOVE;
 		return row(59 - col * 4 downto 56 - col * 4);

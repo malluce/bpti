@@ -22,21 +22,7 @@ entity game_mechanic_ent is
         p2_x_coord_mech : out std_logic_vector(8 downto 0);
         p2_y_coord_mech : out std_logic_vector(8 downto 0);
         p2_enable_mech : out std_logic;
-        row0_mech : out std_logic_vector(59 downto 0);
-        row1_mech : out std_logic_vector(59 downto 0);
-        row2_mech : out std_logic_vector(59 downto 0);
-        row3_mech : out std_logic_vector(59 downto 0);
-        row4_mech : out std_logic_vector(59 downto 0);
-        row5_mech : out std_logic_vector(59 downto 0);
-        row6_mech : out std_logic_vector(59 downto 0);
-        row7_mech : out std_logic_vector(59 downto 0);
-        row8_mech : out std_logic_vector(59 downto 0);
-        row9_mech : out std_logic_vector(59 downto 0);
-        row10_mech : out std_logic_vector(59 downto 0);
-        row11_mech : out std_logic_vector(59 downto 0);
-		  row12_mech : out std_logic_vector(59 downto 0);
-		  row13_mech : out std_logic_vector(59 downto 0);
-		  row14_mech : out std_logic_vector(59 downto 0)
+        tiles_mech : out std_logic_vector(899 downto 0)
     );
 end game_mechanic_ent;
 
@@ -52,21 +38,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		right_player : in std_logic;
 		plant_player : in std_logic;
 		enable_player : in std_logic;
-		row0_player : in std_logic_vector(59 downto 0);
-		row1_player : in std_logic_vector(59 downto 0);
-		row2_player : in std_logic_vector(59 downto 0);
-		row3_player : in std_logic_vector(59 downto 0);
-		row4_player : in std_logic_vector(59 downto 0);
-		row5_player : in std_logic_vector(59 downto 0);
-		row6_player : in std_logic_vector(59 downto 0);
-		row7_player : in std_logic_vector(59 downto 0);
-		row8_player : in std_logic_vector(59 downto 0);
-		row9_player : in std_logic_vector(59 downto 0);
-		row10_player : in std_logic_vector(59 downto 0);
-		row11_player : in std_logic_vector(59 downto 0);
-		row12_player : in std_logic_vector(59 downto 0);
-		row13_player : in std_logic_vector(59 downto 0);
-		row14_player : in std_logic_vector(59 downto 0);
+		tiles_player : in std_logic_vector(899 downto 0);
 		x_player : out std_logic_vector(8 downto 0);
 		y_player : out std_logic_vector(8 downto 0);
 		row_player : out std_logic_vector(3 downto 0);
@@ -101,21 +73,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 			
 			enable_player1_state_out : out std_logic;
 			enable_player2_state_out : out std_logic;
-			row0_state : out std_logic_vector(59 downto 0);
-			row1_state : out std_logic_vector(59 downto 0);
-			row2_state : out std_logic_vector(59 downto 0);
-			row3_state : out std_logic_vector(59 downto 0);
-			row4_state : out std_logic_vector(59 downto 0);
-			row5_state : out std_logic_vector(59 downto 0);
-			row6_state : out std_logic_vector(59 downto 0);
-			row7_state : out std_logic_vector(59 downto 0);
-			row8_state : out std_logic_vector(59 downto 0);
-			row9_state : out std_logic_vector(59 downto 0);
-			row10_state : out std_logic_vector(59 downto 0);
-			row11_state : out std_logic_vector(59 downto 0);
-			row12_state : out std_logic_vector(59 downto 0);
-			row13_state : out std_logic_vector(59 downto 0);
-			row14_state : out std_logic_vector(59 downto 0)
+			tiles_state : out std_logic_vector(899 downto 0)
 		);
 	end component;
 	
@@ -140,21 +98,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	signal explode_bomb2_fwd : std_logic;
 	signal enable_bomb1_fwd : std_logic;
 	signal enable_bomb2_fwd : std_logic;
-	signal row0_fwd : std_logic_vector(59 downto 0);
-	signal row1_fwd : std_logic_vector(59 downto 0);
-	signal row2_fwd : std_logic_vector(59 downto 0);
-	signal row3_fwd : std_logic_vector(59 downto 0);
-	signal row4_fwd : std_logic_vector(59 downto 0);
-	signal row5_fwd : std_logic_vector(59 downto 0);
-	signal row6_fwd : std_logic_vector(59 downto 0);
-	signal row7_fwd : std_logic_vector(59 downto 0);
-	signal row8_fwd : std_logic_vector(59 downto 0);
-	signal row9_fwd : std_logic_vector(59 downto 0);
-	signal row10_fwd : std_logic_vector(59 downto 0);
-	signal row11_fwd : std_logic_vector(59 downto 0);
-	signal row12_fwd : std_logic_vector(59 downto 0);
-	signal row13_fwd : std_logic_vector(59 downto 0);
-	signal row14_fwd : std_logic_vector(59 downto 0);
+	signal tiles_fwd : std_logic_vector(899 downto 0);
 	
 	
 begin
@@ -169,21 +113,7 @@ begin
 		p1_right_mech,
 		p1_bomb_mech,
 		enable_player1_to_player,
-		row0_fwd,
-		row1_fwd,
-		row2_fwd,
-		row3_fwd,
-		row4_fwd,
-		row5_fwd,
-		row6_fwd,
-		row7_fwd,
-		row8_fwd,
-		row9_fwd,
-		row10_fwd,
-		row11_fwd,
-		row12_fwd,
-		row13_fwd,
-		row14_fwd,
+		tiles_fwd,
 		x_player1_fwd,
 		y_player1_fwd,
 		row_player1_fwd,
@@ -206,21 +136,7 @@ begin
 		p2_right_mech,
 		p2_bomb_mech,
 		enable_player2_to_player,
-		row0_fwd,
-		row1_fwd,
-		row2_fwd,
-		row3_fwd,
-		row4_fwd,
-		row5_fwd,
-		row6_fwd,
-		row7_fwd,
-		row8_fwd,
-		row9_fwd,
-		row10_fwd,
-		row11_fwd,
-		row12_fwd,
-		row13_fwd,
-		row14_fwd,
+		tiles_fwd,
 		x_player2_fwd,
 		y_player2_fwd,
 		row_player2_fwd,
@@ -253,21 +169,7 @@ begin
 		enable_bomb2_fwd,
 		enable_player1_to_player,
 		enable_player2_to_player,
-		row0_fwd,
-		row1_fwd,
-		row2_fwd,
-		row3_fwd,
-		row4_fwd,
-		row5_fwd,
-		row6_fwd,
-		row7_fwd,
-		row8_fwd,
-		row9_fwd,
-		row10_fwd,
-		row11_fwd,
-		row12_fwd,
-		row13_fwd,
-		row14_fwd
+		tiles_fwd
 	);
 
 	
@@ -277,19 +179,5 @@ begin
 	p2_y_coord_mech <= y_player2_fwd;
 	p1_enable_mech <= enable_player1_to_player;
 	p2_enable_mech <= enable_player2_to_player;
-	row0_mech <= row0_fwd;
-	row1_mech <= row1_fwd;
-	row2_mech <= row2_fwd;
-	row3_mech <= row3_fwd;
-	row4_mech <= row4_fwd;
-	row5_mech <= row5_fwd;
-	row6_mech <= row6_fwd;
-	row7_mech <= row7_fwd;
-	row8_mech <= row8_fwd;
-	row9_mech <= row9_fwd;
-	row10_mech <= row10_fwd;
-	row11_mech <= row11_fwd;
-	row12_mech <= row12_fwd;
-	row13_mech <= row13_fwd;
-	row14_mech <= row14_fwd;
+	tiles_mech <= tiles_fwd;
 end game_mechanic_struct;

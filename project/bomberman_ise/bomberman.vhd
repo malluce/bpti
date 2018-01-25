@@ -65,21 +65,7 @@ architecture bomberman_struct of bomberman_ent is
             p2_x_coord_mech : out std_logic_vector(8 downto 0);
             p2_y_coord_mech : out std_logic_vector(8 downto 0);
             p2_enable_mech : out std_logic;
-            row0_mech : out std_logic_vector(59 downto 0);
-            row1_mech : out std_logic_vector(59 downto 0);
-            row2_mech : out std_logic_vector(59 downto 0);
-            row3_mech : out std_logic_vector(59 downto 0);
-            row4_mech : out std_logic_vector(59 downto 0);
-            row5_mech : out std_logic_vector(59 downto 0);
-            row6_mech : out std_logic_vector(59 downto 0);
-            row7_mech : out std_logic_vector(59 downto 0);
-            row8_mech : out std_logic_vector(59 downto 0);
-            row9_mech : out std_logic_vector(59 downto 0);
-            row10_mech : out std_logic_vector(59 downto 0);
-            row11_mech : out std_logic_vector(59 downto 0);
-				row12_mech : out std_logic_vector(59 downto 0);
-				row13_mech : out std_logic_vector(59 downto 0);
-				row14_mech : out std_logic_vector(59 downto 0)
+            tiles_mech : out std_logic_vector(899 downto 0)
         );
     end component;
 
@@ -94,21 +80,7 @@ architecture bomberman_struct of bomberman_ent is
             p2_x_coord_pixel : in std_logic_vector(8 downto 0);
             p2_y_coord_pixel : in std_logic_vector(8 downto 0);
             p2_enable_pixel : in std_logic;
-            row0_pixel : in std_logic_vector(59 downto 0);
-            row1_pixel : in std_logic_vector(59 downto 0);
-            row2_pixel : in std_logic_vector(59 downto 0);
-            row3_pixel : in std_logic_vector(59 downto 0);
-            row4_pixel : in std_logic_vector(59 downto 0);
-            row5_pixel : in std_logic_vector(59 downto 0);
-            row6_pixel : in std_logic_vector(59 downto 0);
-            row7_pixel : in std_logic_vector(59 downto 0);
-            row8_pixel : in std_logic_vector(59 downto 0);
-            row9_pixel : in std_logic_vector(59 downto 0);
-            row10_pixel : in std_logic_vector(59 downto 0);
-            row11_pixel : in std_logic_vector(59 downto 0);
-				row12_pixel : in std_logic_vector(59 downto 0);
-				row13_pixel : in std_logic_vector(59 downto 0);
-				row14_pixel : in std_logic_vector(59 downto 0);
+            tiles_pixel : in std_logic_vector(899 downto 0);
             red_pixel : out std_logic_vector(3 downto 0);
             green_pixel : out std_logic_vector(3 downto 0);
             blue_pixel : out std_logic_vector(3 downto 0)
@@ -146,21 +118,7 @@ architecture bomberman_struct of bomberman_ent is
     signal p2_x_coord_fwd : std_logic_vector(8 downto 0);
     signal p2_y_coord_fwd : std_logic_vector(8 downto 0);
     signal p2_enable_fwd : std_logic;
-    signal row0_fwd : std_logic_vector(59 downto 0);
-    signal row1_fwd : std_logic_vector(59 downto 0);
-    signal row2_fwd : std_logic_vector(59 downto 0);
-    signal row3_fwd : std_logic_vector(59 downto 0);
-    signal row4_fwd : std_logic_vector(59 downto 0);
-    signal row5_fwd : std_logic_vector(59 downto 0);
-    signal row6_fwd : std_logic_vector(59 downto 0);
-    signal row7_fwd : std_logic_vector(59 downto 0);
-    signal row8_fwd : std_logic_vector(59 downto 0);
-    signal row9_fwd : std_logic_vector(59 downto 0);
-    signal row10_fwd : std_logic_vector(59 downto 0);
-    signal row11_fwd : std_logic_vector(59 downto 0);
-	 signal row12_fwd : std_logic_vector(59 downto 0);
-	 signal row13_fwd : std_logic_vector(59 downto 0);
-	 signal row14_fwd : std_logic_vector(59 downto 0);
+    signal tiles_fwd : std_logic_vector(899 downto 0);
     signal red_fwd : std_logic_vector(3 downto 0);
     signal green_fwd : std_logic_vector(3 downto 0);
     signal blue_fwd : std_logic_vector(3 downto 0);
@@ -196,21 +154,7 @@ begin
         p2_x_coord_fwd,
         p2_y_coord_fwd,
         p2_enable_fwd,
-        row0_fwd,
-        row1_fwd,
-        row2_fwd,
-        row3_fwd,
-        row4_fwd,
-        row5_fwd,
-        row6_fwd,
-        row7_fwd,
-        row8_fwd,
-        row9_fwd,
-        row10_fwd,
-        row11_fwd,
-		  row12_fwd,
-		  row13_fwd,
-		  row14_fwd
+        tiles_fwd
     );
 
     pixel : pixel_gen_ent 
@@ -224,21 +168,7 @@ begin
         p2_x_coord_fwd,
         p2_y_coord_fwd,
         p2_enable_fwd,
-        row0_fwd,
-        row1_fwd,
-        row2_fwd,
-        row3_fwd,
-        row4_fwd,
-        row5_fwd,
-        row6_fwd,
-        row7_fwd,
-        row8_fwd,
-        row9_fwd,
-        row10_fwd,
-        row11_fwd,
-		  row12_fwd,
-		  row13_fwd,
-		  row14_fwd,
+        tiles_fwd,
         red_fwd,
         green_fwd,
         blue_fwd
