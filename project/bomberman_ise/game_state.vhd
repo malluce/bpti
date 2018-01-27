@@ -44,16 +44,16 @@ architecture game_state_behav of game_state_ent is
 		variable tiles_index_lower : integer range 0 to 899 := 0;
 	begin
 		col := 59 - (4 * COL_UPPER);
-		
+
 		tiles_index_upper := 899 - ((ROW_INT - 1) * 60);
 		row_upper := tiles(tiles_index_upper downto (tiles_index_upper - 59));
-		
+
 		tiles_index_mid := 899 - ((ROW_INT) * 60);
 		row_mid := tiles(tiles_index_mid downto (tiles_index_mid - 59));
-		
+
 		tiles_index_lower := 899 - ((ROW_INT + 1) * 60);
 		row_lower := tiles(tiles_index_lower downto (tiles_index_lower - 59));
-		
+
 		if(NEW_VALUE /= x"D") then
 			if(col <= 55) then
 				if(to_integer(unsigned(row_mid(col downto (col - 3)))) /= 15) then
@@ -76,20 +76,20 @@ architecture game_state_behav of game_state_ent is
 				end if;
 			end if;
 		end if;
-		
-		if(to_integer(unsigned(row_mid(col downto (col - 3)))) /= 
+
+		if(to_integer(unsigned(row_mid(col downto (col - 3)))) /=
 				15) then
 			row_mid(col downto (col - 3)) := NEW_VALUE;
 		end if;
-		
+
 		tiles(tiles_index_upper downto (tiles_index_upper - 59)) := row_upper;
 		tiles(tiles_index_mid downto (tiles_index_mid - 59)) := row_mid;
 		tiles(tiles_index_lower downto (tiles_index_lower - 59)) := row_lower;
-		
+
 	end SET_TILE;
-	
+
 begin
-	
+
 	-- lookup player position in current row vectors. if player tile = explosion tile kill player (i.e set enable to '0')
 	player_collision : process(clk_state, rst_state)
 		variable vector_player1 : std_logic_vector(59 downto 0) := x"000000000000000";
@@ -117,21 +117,21 @@ begin
 				-- calculate the row in which the player is
 				tiles_index1 := 899 - (player1_row_int * 60);
 				vector_player1 := tiles(tiles_index1 downto (tiles_index1 - 59));
-				
+
 				-- player tile is explosion tile -> kill player
 				if(vector_player1(59 - (player1_col_int * 4) downto 56 - (player1_col_int * 4)) = x"1") then
 					enable_player1_state_var := '0';
 				end if;
 			end if;
 			enable_player1_state_out <= enable_player1_state_var;
-			
+
 			-- same for player2
 			if(enable_player2_state = '1') then
 				player2_row_int := to_integer(unsigned(row_player2_state));
 				player2_col_int := to_integer(unsigned(col_player2_state));
 				tiles_index2 := 899 - (player2_row_int * 60);
 				vector_player2 := tiles(tiles_index2 downto (tiles_index2 - 59));
-	
+
 				if(vector_player2(59 - (player2_col_int * 4) downto 56 - (player2_col_int * 4)) = x"1") then
 					enable_player2_state_var := '0';
 				end if;
@@ -142,7 +142,7 @@ begin
 
 	-- the rows are changed here when a bomb is planted (or exploding?)
 	bomb_placement : process(clk_state, rst_state)
-		
+
 		 variable col_int1 : integer range 0 to 14 := 0;
 		 variable col_int2 : integer range 0 to 14 := 0;
 		 variable was_explode1 : std_logic := '0';
@@ -151,7 +151,7 @@ begin
 		 variable was_enable2 : std_logic := '0';
 		 variable row_int1 : integer range 0 to 14 := 0;
 		 variable row_int2 : integer range 0 to 14 := 0;
-		
+
 	begin
 		if(rst_state = '0') then
 			row_int1 := 0;
@@ -168,7 +168,7 @@ begin
 				col_int1 := to_integer(unsigned(col_bomb1_state)); -- upper bound for vector access
 				row_int2 := to_integer(unsigned(row_bomb2_state));
 				col_int2 := to_integer(unsigned(col_bomb2_state)); -- upper bound for vector access
-		
+
 			if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
 					was_explode1 := '1';
 					SET_TILE(row_int1, col_int1, x"1");
@@ -184,7 +184,7 @@ begin
 					was_enable1 := '1';
 					SET_TILE(row_int1, col_int1, x"D");
 			end if;
-			
+
 			if(explode_bomb2_state = '1' and was_explode2 = '0') then -- bomb 2 is exploding right now
 					was_explode2 := '1';
 					SET_TILE(row_int2, col_int2, x"1");
@@ -200,7 +200,7 @@ begin
 				was_enable2 := '1';
 				SET_TILE(row_int2, col_int2, x"D");
 			end if;
-			
+
 			tiles_state <= tiles;
 		end if;
 	end process bomb_placement;
