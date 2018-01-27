@@ -34,16 +34,18 @@ entity memory_dispatcher_ent is
     adr_out_2 : out std_logic_vector(3 downto 0);
     data_out_2 : out std_logic_vector(59 downto 0)
   );
-end entity;
+end memory_dispatcher_ent;
 
 architecture memory_dispatcher_behav of memory_dispatcher_ent is
     type enable_arr is array(5 downto 0) of std_logic;
     type adr_arr is array(5 downto 0) of std_logic_vector(3 downto 0);
     type data_arr is array(5 downto 0) of std_logic_vector(59 downto 0);
 begin
-    dispatch :
-    if(clk_dispatch = '1' and clk_dispatch'event) then
-        -- TODO
-    end if;
+    dispatch : process(clk_dispatch)
+    begin
+        if(clk_dispatch = '1' and clk_dispatch'event) then
+            -- TODO
+        end if;
+    end process dispatch;
 
 end architecture;

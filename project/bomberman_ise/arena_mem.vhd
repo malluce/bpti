@@ -24,7 +24,8 @@ entity arena_mem_ent is
     row12_arena : out std_logic_vector(59 downto 0);
     row13_arena : out std_logic_vector(59 downto 0);
     row14_arena : out std_logic_vector(59 downto 0)
-end entity;
+    );
+end arena_mem_ent;
 
 architecture arena_mem_behav of arena_mem_ent is
     type memory is array (14 downto 0) of std_logic_vector(59 downto 0);
