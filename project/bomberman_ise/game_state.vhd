@@ -45,6 +45,7 @@ end game_state_ent;
 architecture game_state_behav of game_state_ent is
 	type memory is array(0 to 14) of std_logic_vector(59 downto 0);
 	constant initial_map : memory := (	x"FFFFFFFFFFFFFFF",
+										x"F00EEEEEEEEE00F",
 							            x"F0F0F0F0F0F0F0F",
 							            x"FE0E0E0E0E0E0EF",
 							            x"FEF0F0F0F0F0FEF",
@@ -58,13 +59,15 @@ architecture game_state_behav of game_state_ent is
 							            x"F0F0F0F0F0F0F0F",
 							            x"F00EEEEEEEEE00F",
 							            x"FFFFFFFFFFFFFFF");
-
 	signal current_map : memory := initial_map;
-	shared variable enable_player1_state_var : std_logic := '1';
-	shared variable enable_player2_state_var : std_logic := '1';
 
 
-	procedure SET_TILE (ROW_INT,COL_UPPER: integer; NEW_VALUE : std_logic_vector) is
+	procedure SET_TILE (
+			ROW_INT,COL_UPPER: integer; -- row and col of tile to change
+		 	NEW_VALUE : std_logic_vector; -- the value to be set
+			signal CUR_MAP : out memory -- the current map on which to change the tile
+		) is
+
 		variable col : integer range 0 to 59;
 		variable row_upper : std_logic_vector(59 downto 0);
 		variable row_mid : std_logic_vector(59 downto 0);
@@ -116,18 +119,19 @@ architecture game_state_behav of game_state_ent is
 
 		-- set map from variable rows
 		if(ROW_INT = 0) then
-			current_map(0) <= row_mid;
-			current_map(1) <= row_lower;
+			CUR_MAP(0) <= row_mid;
+			CUR_MAP(1) <= row_lower;
 		elsif(ROW_INT = 14) then
-			current_map(13) <= row_upper;
-			current_map(14) <= row_mid;
+			CUR_MAP(13) <= row_upper;
+			CUR_MAP(14) <= row_mid;
 		else
-			current_map(ROW_INT - 1) <= row_upper;
-			current_map(ROW_INT) <= row_mid;
-			current_map(ROW_INT + 1) <= row_lower;
+			CUR_MAP(ROW_INT - 1) <= row_upper;
+			CUR_MAP(ROW_INT) <= row_mid;
+			CUR_MAP(ROW_INT + 1) <= row_lower;
 		end if;
-
 	end SET_TILE;
+
+
 
 begin
 
@@ -139,6 +143,8 @@ begin
 		variable player1_col_int : integer range 0 to 14 := 0;
 		variable player2_row_int : integer range 0 to 14 := 0;
 		variable player2_col_int : integer range 0 to 14 := 0;
+		variable enable_player1_state_var : std_logic := '1';
+		variable enable_player2_state_var : std_logic := '1';
 	begin
 		if(rst_state = '0') then
 			vector_player1 := x"000000000000000";
@@ -154,24 +160,7 @@ begin
 				player1_row_int := to_integer(unsigned(row_player1_state));
 				player1_col_int := to_integer(unsigned(col_player1_state));
 				-- calculate the row in which the player is
-				case player1_row_int is
-					when 0 => vector_player1 := row0;
-					when 1 => vector_player1 := row1;
-					when 2 => vector_player1 := row2;
-					when 3 => vector_player1 := row3;
-					when 4 => vector_player1 := row4;
-					when 5 => vector_player1 := row5;
-					when 6 => vector_player1 := row6;
-					when 7 => vector_player1 := row7;
-					when 8 => vector_player1 := row8;
-					when 9 => vector_player1 := row9;
-					when 10 => vector_player1 := row10;
-					when 11 => vector_player1 := row11;
-					when 12 => vector_player1 := row12;
-					when 13 => vector_player1 := row13;
-					when 14 => vector_player1 := row14;
-					when others => vector_player1 := x"000000000000000";
-				end case;
+				vector_player1 := current_map(player1_row_int);
 				-- player tile is explosion tile -> kill player
 				if(vector_player1(59 - (player1_col_int * 4) downto 56 - (player1_col_int * 4)) = x"1") then
 					enable_player1_state_var := '0';
@@ -183,24 +172,8 @@ begin
 			if(enable_player2_state = '1') then
 				player2_row_int := to_integer(unsigned(row_player2_state));
 				player2_col_int := to_integer(unsigned(col_player2_state));
-				case player2_row_int is
-					when 0 => vector_player2 := row0;
-					when 1 => vector_player2 := row1;
-					when 2 => vector_player2 := row2;
-					when 3 => vector_player2 := row3;
-					when 4 => vector_player2 := row4;
-					when 5 => vector_player2 := row5;
-					when 6 => vector_player2 := row6;
-					when 7 => vector_player2 := row7;
-					when 8 => vector_player2 := row8;
-					when 9 => vector_player2 := row9;
-					when 10 => vector_player2 := row10;
-					when 11 => vector_player2 := row11;
-					when 12 => vector_player2 := row12;
-					when 13 => vector_player2 := row13;
-					when 14 => vector_player2 := row14;
-					when others => vector_player2 := x"000000000000000";
-				end case;
+
+				vector_player2 := current_map(player2_row_int);
 
 				if(vector_player2(59 - (player2_col_int * 4) downto 56 - (player2_col_int * 4)) = x"1") then
 					enable_player2_state_var := '0';
@@ -232,74 +205,70 @@ begin
 			was_explode2 := '0';
 			was_enable1 := '0';
 			was_enable2 := '0';
-			row0 :=  x"FFFFFFFFFFFFFFF";
-			row1 :=  x"F00EEEEEEEEE00F";
-			row2 :=  x"F0F0F0F0F0F0F0F";
-			row3 :=  x"FE0E0E0E0E0E0EF";
-			row4 :=  x"FEF0F0F0F0F0FEF";
-			row5 :=  x"FEE0E0E0E0E0EEF";
-			row6 :=  x"FEF0F0F0F0F0FEF";
-			row7 :=	x"FE0E0E0E0E0E0EF";
-			row8 :=  x"FEF0F0F0F0F0FEF";
-			row9 :=  x"FEE0E0E0E0E0EEF";
-			row10 := x"FEF0F0F0F0F0FEF";
-			row11 := x"FE0E0E0E0E0E0EF";
-			row12 := x"F0F0F0F0F0F0F0F";
-			row13 := x"F00EEEEEEEEE00F";
-			row14 := x"FFFFFFFFFFFFFFF";
+			current_map(0) <=  initial_map(0);
+			current_map(1) <=  initial_map(1);
+			current_map(2) <=  initial_map(2);
+			current_map(3) <=  initial_map(3);
+			current_map(4) <=  initial_map(4);
+			current_map(5) <=  initial_map(5);
+			current_map(6) <=  initial_map(6);
+			current_map(7) <=  initial_map(7);
+			current_map(8) <=  initial_map(8);
+			current_map(9) <=  initial_map(9);
+			current_map(10) <=  initial_map(10);
+			current_map(11) <=  initial_map(11);
+			current_map(12) <=  initial_map(12);
+			current_map(13) <=  initial_map(13);
+			current_map(14) <=  initial_map(14);
 		elsif(clk_state'event and clk_state = '1') then
+				-- row, col of bombs
 				row_int1 := to_integer(unsigned(row_bomb1_state));
-				col_int1 := to_integer(unsigned(col_bomb1_state)); -- upper bound for vector access
+				col_int1 := to_integer(unsigned(col_bomb1_state));
 				row_int2 := to_integer(unsigned(row_bomb2_state));
-				col_int2 := to_integer(unsigned(col_bomb2_state)); -- upper bound for vector access
+				col_int2 := to_integer(unsigned(col_bomb2_state));
 
 			if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
 					was_explode1 := '1';
-					SET_TILE(row_int1, col_int1, x"1");
+					SET_TILE(row_int1, col_int1, x"1", current_map);
 
-				elsif(explode_bomb1_state = '0' and was_explode1 = '1') then
+				elsif(explode_bomb1_state = '0' and was_explode1 = '1') then -- bomb 1 finished exploding
 					was_explode1 := '0';
 					was_enable1 := '0';
-					SET_TILE(row_int1, col_int1, x"0");
-
-				elsif(was_enable1 = '0' and enable_bomb1_state = '1') then
-				-- bomb 1 is just ticking right now
-					-- change one tile to bomb (bomb = x"D")
+					SET_TILE(row_int1, col_int1, x"0", current_map);
+				elsif(was_enable1 = '0' and enable_bomb1_state = '1') then -- bomb 1 is ticking right now
 					was_enable1 := '1';
-					SET_TILE(row_int1, col_int1, x"D");
+					SET_TILE(row_int1, col_int1, x"D", current_map);
 			end if;
 
 			if(explode_bomb2_state = '1' and was_explode2 = '0') then -- bomb 2 is exploding right now
 					was_explode2 := '1';
-					SET_TILE(row_int2, col_int2, x"1");
+					SET_TILE(row_int2, col_int2, x"1", current_map);
 
-				elsif(explode_bomb2_state = '0' and was_explode2 = '1') then
+				elsif(explode_bomb2_state = '0' and was_explode2 = '1') then -- bomb 2 finished exploding
 					was_explode2 := '0';
 					was_enable2 := '0';
-					SET_TILE(row_int2, col_int2, x"0");
-
-				elsif(was_enable2 = '0' and enable_bomb2_state = '1') then
-				-- bomb 2 is just ticking right now
-					-- change one tile to bomb (bomb = x"D")
+					SET_TILE(row_int2, col_int2, x"0", current_map);
+				elsif(was_enable2 = '0' and enable_bomb2_state = '1') then -- bomb 2 is ticking right now
+					-- bomb 2 is just ticking right now
 					was_enable2 := '1';
-					SET_TILE(row_int2, col_int2, x"D");
+					SET_TILE(row_int2, col_int2, x"D", current_map);
 			end if;
 
-			row0_state <= row0;
-			row1_state <= row1;
-			row2_state <= row2;
-			row3_state <= row3;
-			row4_state <= row4;
-			row5_state <= row5;
-			row6_state <= row6;
-			row7_state <= row7;
-			row8_state <= row8;
-			row9_state <= row9;
-			row10_state <= row10;
-			row11_state <= row11;
-			row12_state <= row12;
-			row13_state <= row13;
-			row14_state <= row14;
+			row0_state <= current_map(0);
+			row1_state <= current_map(1);
+			row2_state <= current_map(2);
+			row3_state <= current_map(3);
+			row4_state <= current_map(4);
+			row5_state <= current_map(5);
+			row6_state <= current_map(6);
+			row7_state <= current_map(7);
+			row8_state <= current_map(8);
+			row9_state <= current_map(9);
+			row10_state <= current_map(10);
+			row11_state <= current_map(11);
+			row12_state <= current_map(12);
+			row13_state <= current_map(13);
+			row14_state <= current_map(14);
 		end if;
 	end process bomb_placement;
 end game_state_behav;
