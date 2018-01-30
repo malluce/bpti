@@ -28,9 +28,9 @@ entity pixel_gen_ent is
 		row12_pixel : in std_logic_vector(59 downto 0);
 		row13_pixel : in std_logic_vector(59 downto 0);
 		row14_pixel : in std_logic_vector(59 downto 0);
-		red_pixel : out std_logic_vector(3 downto 0);
-		green_pixel : out std_logic_vector(3 downto 0);
-		blue_pixel : out std_logic_vector(3 downto 0)
+		sprite_id_pixel : out std_logic_vector(3 downto 0);
+		sprite_row_pixel : out std_logic_vector(4 downto 0);
+		sprite_col_pixel : out std_logic_vector(4 downto 0)
 	);
 end pixel_gen_ent;
 
@@ -41,15 +41,15 @@ begin
 							row10_pixel, row11_pixel, row12_pixel, row13_pixel, row14_pixel)
 		variable row_int : integer range 0 to 480 := 1;
 		variable col_int : integer range 0 to 640 := 1;
-		variable red_int : integer range 0 to 15 := 0;
-		variable green_int : integer range 0 to 15 := 0;
-		variable blue_int : integer range 0 to 15 := 0;
 		variable current_row : std_logic_vector(59 downto 0);
 		variable arrayElement : std_logic_vector(3 downto 0);
 		variable p1_x_int : integer range 0 to 480 := 0;
 		variable p1_y_int : integer range 0 to 480 := 0;
 		variable p2_x_int : integer range 0 to 480 := 0;
 		variable p2_y_int : integer range 0 to 480 := 0;
+		variable sprite_id : std_logic_vector(3 downto 0) := x"0";
+		variable sprite_row_int : integer range 0 to 31 := 0;
+		variable sprite_col_int : integer range 0 to 31 := 0;
 
 	begin
 		row_int := to_integer(unsigned(row_pixel));
@@ -59,25 +59,21 @@ begin
 		p2_x_int := to_integer(unsigned(p2_x_coord_pixel));
 		p2_y_int := to_integer(unsigned(p2_y_coord_pixel));
 		if(col_int /= 0 and row_int /= 0) then
+			sprite_row_int := row_int mod TILE_SIZE_PIX;
+			sprite_col_int := col_int mod TILE_SIZE_PIX;
 			if(col_int <= 160) then
-				red_pixel <= x"F";
-				green_pixel <= x"F";
-				blue_pixel <= x"F";
+				sprite_id := x"4";
 			else
 				if(p1_enable_pixel = '1'  and row_int >= p1_y_int
 					and col_int >= (p1_x_int + 160) and row_int < (p1_y_int + PLAYER_SIZE_PIX)
 					and col_int < (p1_x_int + 160 + PLAYER_SIZE_PIX)) then
 					-- draw player1
-						red_pixel <= x"F";
-						green_pixel <= x"F";
-						blue_pixel <= x"0";
+						sprite_id := x"2";
 				elsif(p2_enable_pixel = '1'  and row_int >= p2_y_int
 					and col_int >= (p2_x_int + 160) and row_int < (p2_y_int + PLAYER_SIZE_PIX)
 					and col_int < (p2_x_int + 160 + PLAYER_SIZE_PIX)) then
 					-- draw player2
-						red_pixel <= x"F";
-						green_pixel <= x"0";
-						blue_pixel <= x"F";
+						sprite_id := x"3";
 				else
 					-- draw arena
 					case ((row_int - 1) / TILE_SIZE_PIX) is
@@ -99,35 +95,15 @@ begin
 						when others => current_row := x"000000000000000";
 					end case;
 
-					arrayElement := current_row((59 - (((col_int - 161) / TILE_SIZE_PIX) * 4)) downto
+					sprite_id := current_row((59 - (((col_int - 161) / TILE_SIZE_PIX) * 4)) downto
 																(56 - (((col_int - 161) / TILE_SIZE_PIX) * 4)));
 
-					case (arrayElement) is
-						when x"0" => red_pixel <= x"F"; -- empty blocks = white
-										 green_pixel <= x"F";
-										 blue_pixel <= x"F";				
-						when x"1" => red_pixel <= x"F"; -- explosion = red
-										 green_pixel <= x"0";
-										 blue_pixel <= x"0";
-						when x"D" => red_pixel <= x"0"; -- bomb = blue
-										 green_pixel <= x"0";
-										 blue_pixel <= x"F";
-						when x"E" => red_pixel <= x"0"; -- destroyable blocks = green
-										 green_pixel <= x"F";
-										 blue_pixel <= x"0";
-						when x"F" => red_pixel <= x"0"; -- undestroyable blocks = black
-										 green_pixel <= x"0";
-										 blue_pixel <= x"0";
-						when others => red_pixel <= x"A"; -- everything random
-										 green_pixel <= x"A";
-										 blue_pixel <= x"A";
-					end case;
 				end if;
 			end if;
 		else
-			red_pixel <= x"0";
-			green_pixel <= x"0";
-			blue_pixel <= x"0";
+			sprite_id_pixel <= sprite_id;
+			sprite_row_pixel <= std_logic_vector(to_unsigned(sprite_row_int, 4));
+			sprite_col_pixel <= std_logic_vector(to_unsigned(sprite_col_int, 4));
 		end if;
 	end process pixel_proc;
 end pixel_gen_behav;
