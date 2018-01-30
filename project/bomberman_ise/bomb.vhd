@@ -19,10 +19,10 @@ entity bomb_ent is
 end bomb_ent;
 
 architecture bomb_behav of bomb_ent is
-	--constant EXPLOSION_MAX : integer range 0 to 12 := 12;
-	constant EXPLOSION_MAX : integer range 0 to 12000000 := 12000000; -- duration of explosion : 0.5 sec
-	--constant TICK_MAX : integer range 0 to 72 := 72;
-	constant TICK_MAX : integer range 0 to 72000000 := 72000000; -- time until explosion : 3 sec
+	constant EXPLOSION_MAX : integer range 0 to 12 := 12;
+	--constant EXPLOSION_MAX : integer range 0 to 12000000 := 12000000; -- duration of explosion : 0.5 sec
+	constant TICK_MAX : integer range 0 to 72 := 72;
+	--constant TICK_MAX : integer range 0 to 72000000 := 72000000; -- time until explosion : 3 sec
 	shared variable bomb_set : std_logic := '0';
 	shared variable tick_cnt : integer range 0 to TICK_MAX := TICK_MAX;
 	shared variable is_exploding : std_logic := '0'; -- indicates whether the bomb is exploding or not

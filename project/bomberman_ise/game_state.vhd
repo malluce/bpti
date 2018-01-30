@@ -90,12 +90,12 @@ architecture game_state_behav of game_state_ent is
 
 		if(NEW_VALUE /= x"D") then -- not bomb => change tiles within radius
 			if(col <= 55) then -- left tile
-				if(to_integer(unsigned(row_mid(col downto (col - 3)))) /= 15) then
+				if(to_integer(unsigned(row_mid((col + 4) downto (col + 1)))) /= 15) then
 					row_mid((col + 4) downto (col + 1)) := NEW_VALUE;
 				end if;
 			end if;
 			if(col >= 7) then -- right tile
-				if(to_integer(unsigned(row_mid(col downto (col - 3)))) /= 15) then
+				if(to_integer(unsigned(row_mid((col - 4) downto (col - 7)))) /= 15) then
 					row_mid((col - 4) downto (col - 7)) := NEW_VALUE;
 				end if;
 			end if;
