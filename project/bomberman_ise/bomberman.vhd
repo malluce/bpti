@@ -146,6 +146,21 @@ architecture bomberman_struct of bomberman_ent is
 			blue_sprite : out std_logic_vector(3 downto 0)
 		);
 	end component;
+	
+	component PlayerROM
+		port(
+			clk_player : in std_logic;
+			id_player : in std_logic_vector(3 downto 0);
+			x_player : in std_logic_vector(4 downto 0);
+			y_player : in std_logic_vector(4 downto 0);
+			red_in_player : in std_logic_vector(3 downto 0);
+			green_in_player : in std_logic_vector(3 downto 0);
+			blue_in_player : in std_logic_vector(3 downto 0);
+			red_out_player : out std_logic_vector(3 downto 0);
+			green_out_player : out std_logic_vector(3 downto 0);
+			blue_out_player : out std_logic_vector(3 downto 0)
+		);
+	end component;
 
 	constant TILE_SIZE : integer range 0 to 32 := 32; -- do NOT change this!!
 	constant PLAYER_SIZE : integer range 0 to TILE_SIZE := 32;
@@ -176,9 +191,15 @@ architecture bomberman_struct of bomberman_ent is
     signal red_fwd : std_logic_vector(3 downto 0);
     signal green_fwd : std_logic_vector(3 downto 0);
     signal blue_fwd : std_logic_vector(3 downto 0);
+	 signal red_player_fwd : std_logic_vector(3 downto 0);
+    signal green_player_fwd : std_logic_vector(3 downto 0);
+    signal blue_player_fwd : std_logic_vector(3 downto 0);
 	 signal sprite_id_fwd : std_logic_vector(3 downto 0);
 	 signal sprite_row_fwd : std_logic_vector(4 downto 0);
 	 signal sprite_col_fwd : std_logic_vector(4 downto 0);
+	 signal player_id_sprite_fwd : std_logic_vector(3 downto 0);
+	 signal player_x_sprite_fwd : std_logic_vector(4 downto 0);
+	 signal player_y_sprite_fwd : std_logic_vector(4 downto 0);
 
 begin
     sync : sync_gen_ent port map(
@@ -256,7 +277,10 @@ begin
 		  row14_fwd,
         sprite_id_fwd,
         sprite_row_fwd,
-        sprite_col_fwd
+        sprite_col_fwd,
+		  player_id_sprite_fwd,
+		  player_x_sprite_fwd,
+		  player_y_sprite_fwd
     );
 
     rgb_assign : rgb_assign_ent port map(
@@ -277,11 +301,24 @@ begin
         blue_3
     );
 	 
-	 sprites : SpriteROM port map(
+	 board_sprites : SpriteROM port map(
 		clk,
 		sprite_id_fwd,
       sprite_row_fwd,
       sprite_col_fwd,
+		red_player_fwd,
+		green_player_fwd,
+		blue_player_fwd
+	 );
+	 
+	 player_sprites : PlayerROM port map(
+		clk,
+		player_id_sprite_fwd,
+		player_x_sprite_fwd,
+		player_y_sprite_fwd,
+		red_player_fwd,
+		green_player_fwd,
+		blue_player_fwd,
 		red_fwd,
 		green_fwd,
 		blue_fwd

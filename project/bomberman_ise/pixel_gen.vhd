@@ -30,7 +30,10 @@ entity pixel_gen_ent is
 		row14_pixel : in std_logic_vector(59 downto 0);
 		sprite_id_pixel : out std_logic_vector(3 downto 0);
 		sprite_row_pixel : out std_logic_vector(4 downto 0);
-		sprite_col_pixel : out std_logic_vector(4 downto 0)
+		sprite_col_pixel : out std_logic_vector(4 downto 0);
+		player_id_pixel : out std_logic_vector(3 downto 0);
+		player_x_pixel : out std_logic_vector(4 downto 0);
+		player_y_pixel : out std_logic_vector(4 downto 0)
 	);
 end pixel_gen_ent;
 
@@ -48,8 +51,11 @@ begin
 		variable p2_x_int : integer range 0 to 480 := 0;
 		variable p2_y_int : integer range 0 to 480 := 0;
 		variable sprite_id : std_logic_vector(3 downto 0) := x"0";
+		variable player_id : std_logic_vector(3 downto 0) := x"0";
 		variable sprite_row_int : integer range 0 to 31 := 0;
 		variable sprite_col_int : integer range 0 to 31 := 0;
+		variable player_x : integer range 0 to 31 := 0;
+		variable player_y : integer range 0 to 31 := 0;
 
 	begin
 		row_int := to_integer(unsigned(row_pixel));
@@ -68,42 +74,51 @@ begin
 					and col_int >= (p1_x_int + 160) and row_int < (p1_y_int + PLAYER_SIZE_PIX)
 					and col_int < (p1_x_int + 160 + PLAYER_SIZE_PIX)) then
 					-- draw player1
-						sprite_id := x"2";
+						player_id := x"2";
+						player_x := col_int - p1_x_int;
+						player_y := row_int - p1_y_int;
 				elsif(p2_enable_pixel = '1'  and row_int >= p2_y_int
 					and col_int >= (p2_x_int + 160) and row_int < (p2_y_int + PLAYER_SIZE_PIX)
 					and col_int < (p2_x_int + 160 + PLAYER_SIZE_PIX)) then
 					-- draw player2
-						sprite_id := x"3";
+						player_id := x"3";
+						player_x := col_int - p2_x_int;
+						player_y := row_int - p2_y_int;
 				else
-					-- draw arena
-					case ((row_int - 1) / TILE_SIZE_PIX) is
-						when 0 => current_row := row0_pixel;
-						when 1 => current_row := row1_pixel;
-						when 2 => current_row := row2_pixel;
-						when 3 => current_row := row3_pixel;
-						when 4 => current_row := row4_pixel;
-						when 5 => current_row := row5_pixel;
-						when 6 => current_row := row6_pixel;
-						when 7 => current_row := row7_pixel;
-						when 8 => current_row := row8_pixel;
-						when 9 => current_row := row9_pixel;
-						when 10 => current_row := row10_pixel;
-						when 11 => current_row := row11_pixel;
-						when 12 => current_row := row12_pixel;
-						when 13 => current_row := row13_pixel;
-						when 14 => current_row := row14_pixel;
-						when others => current_row := x"000000000000000";
-					end case;
-
-					sprite_id := current_row((59 - (((col_int - 161) / TILE_SIZE_PIX) * 4)) downto
-																(56 - (((col_int - 161) / TILE_SIZE_PIX) * 4)));
-
+					player_x := 0;
+					player_y := 0;
+					player_id := x"0";
 				end if;
+				
+				case ((row_int - 1) / TILE_SIZE_PIX) is
+					when 0 => current_row := row0_pixel;
+					when 1 => current_row := row1_pixel;
+					when 2 => current_row := row2_pixel;
+					when 3 => current_row := row3_pixel;
+					when 4 => current_row := row4_pixel;
+					when 5 => current_row := row5_pixel;
+					when 6 => current_row := row6_pixel;
+					when 7 => current_row := row7_pixel;
+					when 8 => current_row := row8_pixel;
+					when 9 => current_row := row9_pixel;
+					when 10 => current_row := row10_pixel;
+					when 11 => current_row := row11_pixel;
+					when 12 => current_row := row12_pixel;
+					when 13 => current_row := row13_pixel;
+					when 14 => current_row := row14_pixel;
+					when others => null;
+				end case;
+
+				sprite_id := current_row((59 - (((col_int - 161) / TILE_SIZE_PIX) * 4)) downto
+															(56 - (((col_int - 161) / TILE_SIZE_PIX) * 4)));
 			end if;
 		else
 			sprite_id_pixel <= sprite_id;
 			sprite_row_pixel <= std_logic_vector(to_unsigned(sprite_row_int, 4));
 			sprite_col_pixel <= std_logic_vector(to_unsigned(sprite_col_int, 4));
+			player_x_pixel <= std_logic_vector(to_unsigned(player_x));
+			player_y_pixel <= std_logic_vector(to_unsigned(player_y));
+			player_id_pixel <= player_id;
 		end if;
 	end process pixel_proc;
 end pixel_gen_behav;
