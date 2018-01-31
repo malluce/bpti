@@ -80,10 +80,24 @@ architecture bomberman_struct of bomberman_ent is
             p2_x_coord_pixel : in std_logic_vector(8 downto 0);
             p2_y_coord_pixel : in std_logic_vector(8 downto 0);
             p2_enable_pixel : in std_logic;
-            tiles_pixel : in std_logic_vector(899 downto 0);
-            red_pixel : out std_logic_vector(3 downto 0);
-            green_pixel : out std_logic_vector(3 downto 0);
-            blue_pixel : out std_logic_vector(3 downto 0)
+            row0_pixel : in std_logic_vector(59 downto 0);
+            row1_pixel : in std_logic_vector(59 downto 0);
+            row2_pixel : in std_logic_vector(59 downto 0);
+            row3_pixel : in std_logic_vector(59 downto 0);
+            row4_pixel : in std_logic_vector(59 downto 0);
+            row5_pixel : in std_logic_vector(59 downto 0);
+            row6_pixel : in std_logic_vector(59 downto 0);
+            row7_pixel : in std_logic_vector(59 downto 0);
+            row8_pixel : in std_logic_vector(59 downto 0);
+            row9_pixel : in std_logic_vector(59 downto 0);
+            row10_pixel : in std_logic_vector(59 downto 0);
+            row11_pixel : in std_logic_vector(59 downto 0);
+				row12_pixel : in std_logic_vector(59 downto 0);
+				row13_pixel : in std_logic_vector(59 downto 0);
+				row14_pixel : in std_logic_vector(59 downto 0);
+            sprite_id_pixel : out std_logic_vector(3 downto 0);
+				sprite_row_pixel : out std_logic_vector(4 downto 0);
+				sprite_col_pixel : out std_logic_vector(4 downto 0)
         );
     end component;
 
@@ -107,9 +121,36 @@ architecture bomberman_struct of bomberman_ent is
         );
     end component;
 
+	component SpriteROM
+		port(
+			clk_sprite : in std_logic;
+			sprite_id : in std_logic_vector(3 downto 0);
+			sprite_row : in std_logic_vector(4 downto 0);
+			sprite_col : in std_logic_vector(4 downto 0);
+			red_sprite : out std_logic_vector(3 downto 0);
+			green_sprite : out std_logic_vector(3 downto 0);
+			blue_sprite : out std_logic_vector(3 downto 0)
+		);
+	end component;
+
+	component PlayerROM
+		port(
+			clk_player : in std_logic;
+			id_player : in std_logic_vector(3 downto 0);
+			x_player : in std_logic_vector(4 downto 0);
+			y_player : in std_logic_vector(4 downto 0);
+			red_in_player : in std_logic_vector(3 downto 0);
+			green_in_player : in std_logic_vector(3 downto 0);
+			blue_in_player : in std_logic_vector(3 downto 0);
+			red_out_player : out std_logic_vector(3 downto 0);
+			green_out_player : out std_logic_vector(3 downto 0);
+			blue_out_player : out std_logic_vector(3 downto 0)
+		);
+	end component;
+
 	constant TILE_SIZE : integer range 0 to 32 := 32; -- do NOT change this!!
 	constant PLAYER_SIZE : integer range 0 to TILE_SIZE := 32;
-	
+
     signal row_fwd : std_logic_vector(8 downto 0);
     signal col_fwd : std_logic_vector(9 downto 0);
     signal p1_x_coord_fwd : std_logic_vector(8 downto 0);
@@ -122,6 +163,15 @@ architecture bomberman_struct of bomberman_ent is
     signal red_fwd : std_logic_vector(3 downto 0);
     signal green_fwd : std_logic_vector(3 downto 0);
     signal blue_fwd : std_logic_vector(3 downto 0);
+	 signal red_player_fwd : std_logic_vector(3 downto 0);
+    signal green_player_fwd : std_logic_vector(3 downto 0);
+    signal blue_player_fwd : std_logic_vector(3 downto 0);
+	 signal sprite_id_fwd : std_logic_vector(3 downto 0);
+	 signal sprite_row_fwd : std_logic_vector(4 downto 0);
+	 signal sprite_col_fwd : std_logic_vector(4 downto 0);
+	 signal player_id_sprite_fwd : std_logic_vector(3 downto 0);
+	 signal player_x_sprite_fwd : std_logic_vector(4 downto 0);
+	 signal player_y_sprite_fwd : std_logic_vector(4 downto 0);
 
 begin
     sync : sync_gen_ent port map(
@@ -133,7 +183,7 @@ begin
         col_fwd
     );
 
-    game : game_mechanic_ent 
+    game : game_mechanic_ent
 	generic map(PLAYER_SIZE, TILE_SIZE)
 	port map(
         clk,
@@ -157,7 +207,7 @@ begin
         tiles_fwd
     );
 
-    pixel : pixel_gen_ent 
+    pixel : pixel_gen_ent
 	generic map(PLAYER_SIZE, TILE_SIZE)
 	port map(
         row_fwd,
@@ -168,10 +218,27 @@ begin
         p2_x_coord_fwd,
         p2_y_coord_fwd,
         p2_enable_fwd,
-        tiles_fwd,
-        red_fwd,
-        green_fwd,
-        blue_fwd
+        row0_fwd,
+        row1_fwd,
+        row2_fwd,
+        row3_fwd,
+        row4_fwd,
+        row5_fwd,
+        row6_fwd,
+        row7_fwd,
+        row8_fwd,
+        row9_fwd,
+        row10_fwd,
+        row11_fwd,
+		  row12_fwd,
+		  row13_fwd,
+		  row14_fwd,
+        sprite_id_fwd,
+        sprite_row_fwd,
+        sprite_col_fwd,
+		  player_id_sprite_fwd,
+		  player_x_sprite_fwd,
+		  player_y_sprite_fwd
     );
 
     rgb_assign : rgb_assign_ent port map(
@@ -191,5 +258,28 @@ begin
         blue_2,
         blue_3
     );
+
+	 board_sprites : SpriteROM port map(
+		clk,
+		sprite_id_fwd,
+      sprite_row_fwd,
+      sprite_col_fwd,
+		red_player_fwd,
+		green_player_fwd,
+		blue_player_fwd
+	 );
+
+	 player_sprites : PlayerROM port map(
+		clk,
+		player_id_sprite_fwd,
+		player_x_sprite_fwd,
+		player_y_sprite_fwd,
+		red_player_fwd,
+		green_player_fwd,
+		blue_player_fwd,
+		red_fwd,
+		green_fwd,
+		blue_fwd
+	 );
 
 end bomberman_struct;
