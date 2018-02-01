@@ -4,7 +4,6 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity PlayerROM is
 	port(
-		clk_player : in std_logic;
 		id_player : in std_logic_vector(3 downto 0);
 		x_player : in std_logic_vector(4 downto 0);
 		y_player : in std_logic_vector(4 downto 0);
@@ -92,7 +91,7 @@ constant player2 : spriteROM := (
 );
 
 begin
-	player_proc : process(clk_player)
+	player_proc : process(id_player, x_player, y_player, red_in_player, green_in_player, blue_in_player)
 	
 	variable x_int : integer range 0 to 31 := 0;
 	variable y_int : integer range 0 to 31 := 0;
@@ -102,7 +101,6 @@ begin
 	variable blue : std_logic_vector(3 downto 0) := x"0";
 	
 	begin
-		if(clk_player'event and clk_player = '1') then
 			x_int := to_integer(unsigned(x_player));
 			y_int := to_integer(unsigned(y_player));
 			sprite_idx := 383 - 12 * x_int;
@@ -130,7 +128,6 @@ begin
 				green_out_player <= green;
 				blue_out_player <= blue;
 			end if;
-		end if;
 	end process player_proc;
 
 

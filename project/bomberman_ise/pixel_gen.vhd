@@ -67,7 +67,7 @@ begin
 		p2_y_int := to_integer(unsigned(p2_y_coord_pixel));
 		if(col_int /= 0 and row_int /= 0) then
 			sprite_row_int := (row_int - 1) mod TILE_SIZE_PIX;
-			sprite_col_int := col_int mod TILE_SIZE_PIX;
+			sprite_col_int := (col_int - 1) mod TILE_SIZE_PIX;
 			if(col_int <= 160) then
 				sprite_id := x"4";
 			else

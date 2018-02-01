@@ -4,7 +4,6 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity SpriteROM is
 	port(
-		clk_sprite : in std_logic;
 		sprite_id : in std_logic_vector(3 downto 0);
 		sprite_row : in std_logic_vector(4 downto 0);
 		sprite_col : in std_logic_vector(4 downto 0);
@@ -198,11 +197,10 @@ shared variable row_int : integer range 0 to 31 := 0;
 		shared variable sprite_idx : integer range 0 to 383 := 0;
 
 begin
-	sprite_proc : process(clk_sprite)
+	sprite_proc : process(sprite_id, sprite_row, sprite_col)
 		
 		
 		begin
-			if(clk_sprite'event and clk_sprite = '1') then
 				row_int := to_integer(unsigned(sprite_row));
 				col_int := to_integer(unsigned(sprite_col));
 				sprite_idx := 383 - 12 * col_int;
@@ -226,7 +224,6 @@ begin
 										green_sprite <= x"F";
 										blue_sprite <= x"F";
 				end case;
-			end if;
 		end process sprite_proc;
 
 

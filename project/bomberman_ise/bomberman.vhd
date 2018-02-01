@@ -140,7 +140,6 @@ architecture bomberman_struct of bomberman_ent is
 	 
 	component SpriteROM
 		port(
-			clk_sprite : in std_logic;
 			sprite_id : in std_logic_vector(3 downto 0);
 			sprite_row : in std_logic_vector(4 downto 0);
 			sprite_col : in std_logic_vector(4 downto 0);
@@ -152,7 +151,6 @@ architecture bomberman_struct of bomberman_ent is
 	
 	component PlayerROM
 		port(
-			clk_player : in std_logic;
 			id_player : in std_logic_vector(3 downto 0);
 			x_player : in std_logic_vector(4 downto 0);
 			y_player : in std_logic_vector(4 downto 0);
@@ -305,7 +303,6 @@ begin
     );
 	 
 	 board_sprites : SpriteROM port map(
-		clk,
 		sprite_id_fwd,
       sprite_row_fwd,
       sprite_col_fwd,
@@ -315,7 +312,6 @@ begin
 	 );
 	 
 	 player_sprites : PlayerROM port map(
-		clk,
 		player_id_sprite_fwd,
 		player_x_sprite_fwd,
 		player_y_sprite_fwd,
