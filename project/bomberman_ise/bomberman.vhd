@@ -111,7 +111,10 @@ architecture bomberman_struct of bomberman_ent is
 				row14_pixel : in std_logic_vector(59 downto 0);
             sprite_id_pixel : out std_logic_vector(3 downto 0);
 				sprite_row_pixel : out std_logic_vector(4 downto 0);
-				sprite_col_pixel : out std_logic_vector(4 downto 0)
+				sprite_col_pixel : out std_logic_vector(4 downto 0);
+				player_id_pixel : out std_logic_vector(3 downto 0);
+				player_x_pixel : out std_logic_vector(4 downto 0);
+				player_y_pixel : out std_logic_vector(4 downto 0)
         );
     end component;
 

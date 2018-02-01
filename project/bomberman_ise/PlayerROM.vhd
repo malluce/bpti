@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 entity PlayerROM is
 	port(
@@ -104,7 +105,7 @@ begin
 		if(clk_player'event and clk_player = '1') then
 			x_int := to_integer(unsigned(x_player));
 			y_int := to_integer(unsigned(y_player));
-			sprite_idx := 383 - 6 * x_int;
+			sprite_idx := 383 - 12 * x_int;
 			case id_player is
 				when x"2" => 
 					red := player1(y_int)(sprite_idx downto (sprite_idx - 3));

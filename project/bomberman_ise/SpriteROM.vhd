@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 entity SpriteROM is
 	port(
@@ -192,17 +193,19 @@ constant explosion_tile : spriteROM := (
 	x"700700500700B00E00E30E00500700300200100300100300300700E70E00B00B00200700500300100300500500700500"
 );
 
+shared variable row_int : integer range 0 to 31 := 0;
+		shared variable col_int : integer range 0 to 31 := 0;
+		shared variable sprite_idx : integer range 0 to 383 := 0;
+
 begin
 	sprite_proc : process(clk_sprite)
-		variable row_int : integer range 0 to 31 := 0;
-		variable col_int : integer range 0 to 31 := 0;
-		variable sprite_idx : integer range 0 to 383 := 0;
+		
 		
 		begin
 			if(clk_sprite'event and clk_sprite = '1') then
 				row_int := to_integer(unsigned(sprite_row));
 				col_int := to_integer(unsigned(sprite_col));
-				sprite_idx := 383 - 6 * col_int;
+				sprite_idx := 383 - 12 * col_int;
 				case sprite_id is
 					when x"0" => 	red_sprite <= empty_tile(row_int)(sprite_idx downto (sprite_idx - 3));
 										green_sprite <= empty_tile(row_int)((sprite_idx - 4) downto (sprite_idx - 7));
@@ -210,12 +213,6 @@ begin
 					when x"1" => 	red_sprite <= explosion_tile(row_int)(sprite_idx downto (sprite_idx - 3));
 										green_sprite <= explosion_tile(row_int)((sprite_idx - 4) downto (sprite_idx - 7));
 										blue_sprite <= explosion_tile(row_int)((sprite_idx - 8) downto (sprite_idx - 11));
-					when x"2" => 	red_sprite <= player1(row_int)(sprite_idx downto (sprite_idx - 3));
-										green_sprite <= player1(row_int)((sprite_idx - 4) downto (sprite_idx - 7));
-										blue_sprite <= player1(row_int)((sprite_idx - 8) downto (sprite_idx - 11));
-					when x"3" => 	red_sprite <= player2(row_int)(sprite_idx downto (sprite_idx - 3));
-										green_sprite <= player2(row_int)((sprite_idx - 4) downto (sprite_idx - 7));
-										blue_sprite <= player2(row_int)((sprite_idx - 8) downto (sprite_idx - 11));
 					when x"D" => 	red_sprite <= bomb_tile(row_int)(sprite_idx downto (sprite_idx - 3));
 										green_sprite <= bomb_tile(row_int)((sprite_idx - 4) downto (sprite_idx - 7));
 										blue_sprite <= bomb_tile(row_int)((sprite_idx - 8) downto (sprite_idx - 11));
