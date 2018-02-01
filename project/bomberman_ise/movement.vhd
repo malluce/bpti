@@ -67,11 +67,11 @@ architecture movement_behav of movement_ent is
 	shared variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
 	shared variable x_right_bottom : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 	shared variable y_right_bottom : integer range 0 to 480 := Y_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
-	
+
 begin
-	
+
 	move_up_down : process(clk_move, rst_move)
-	
+
 	variable left_tile : std_logic_vector(3 downto 0);
 	variable right_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
@@ -109,7 +109,7 @@ begin
 
 
 	move_left_right : process(clk_move, rst_move)
-	
+
 	variable upper_tile : std_logic_vector(3 downto 0);
 	variable lower_tile : std_logic_vector(3 downto 0);
 	variable speed : integer range 0 to 5 := 1;
@@ -141,10 +141,10 @@ begin
 					end if;
 				end if;
 			end if;
-			x_right_bottom := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
+			x_right_bottom := x_int + PLAYER_SIZE_MOVE - 1;
 		end if;
 	end process move_left_right;
-	
+
 	output : process(fast_clk_move, rst_move)
 	begin
 		if(fast_clk_move'event and fast_clk_move = '1') then
