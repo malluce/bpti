@@ -198,8 +198,8 @@ shared variable row_int : integer range 0 to 31 := 0;
 
 begin
 	sprite_proc : process(sprite_id, sprite_row, sprite_col)
-		
-		
+
+
 		begin
 				row_int := to_integer(unsigned(sprite_row));
 				col_int := to_integer(unsigned(sprite_col));
@@ -220,12 +220,11 @@ begin
 					when x"F" => 	red_sprite <= undestroyable_tile(row_int)(sprite_idx downto (sprite_idx - 3));
 										green_sprite <= undestroyable_tile(row_int)((sprite_idx - 4) downto (sprite_idx - 7));
 										blue_sprite <= undestroyable_tile(row_int)((sprite_idx - 8) downto (sprite_idx - 11));
-					when others => red_sprite <= x"F";
-										green_sprite <= x"F";
-										blue_sprite <= x"F";
+					when others => red_sprite <= x"0"; -- not allowed to set RGB here
+										green_sprite <= x"0";
+										blue_sprite <= x"0";
 				end case;
 		end process sprite_proc;
 
 
 end SpriteROM_Behav;
-
