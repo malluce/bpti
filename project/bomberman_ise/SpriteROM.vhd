@@ -4,9 +4,12 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity SpriteROM is
 	port(
+		-- info about which sprite has to be read at which position
 		sprite_id : in std_logic_vector(3 downto 0);
 		sprite_row : in std_logic_vector(4 downto 0);
 		sprite_col : in std_logic_vector(4 downto 0);
+
+		-- rgb of the sprite 
 		red_sprite : out std_logic_vector(3 downto 0);
 		green_sprite : out std_logic_vector(3 downto 0);
 		blue_sprite : out std_logic_vector(3 downto 0)
