@@ -88,7 +88,7 @@ begin
 				else
 					left_tile := GET_TILE(x_int, y_int - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int - 1);
-					if(to_integer(unsigned(left_tile))  <= to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  <= to_integer(unsigned(BOMB_CODING))) then -- next tile is allowed
+					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- next tile is allowed
 						y_int := y_int - speed;
 					end if;
 				end if;
@@ -98,7 +98,7 @@ begin
 				else
 					left_tile := GET_TILE(x_int, y_int + 1 + PLAYER_SIZE_MOVE - 1);
 					right_tile := GET_TILE(x_right_bottom, y_int + 1 + PLAYER_SIZE_MOVE - 1);
-					if(to_integer(unsigned(left_tile))  <= to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile)) <= to_integer(unsigned(BOMB_CODING))) then
+					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile)) < to_integer(unsigned(BOMB_CODING))) then
 						y_int := y_int + speed;
 					end if;
 				end if;
@@ -126,7 +126,7 @@ begin
 				else
 					upper_tile := GET_TILE(x_int - 1, y_int);
 					lower_tile := GET_TILE(x_int - 1, y_int + PLAYER_SIZE_MOVE - 1);
-					if(to_integer(unsigned(upper_tile)) <= to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) <= to_integer(unsigned(BOMB_CODING))) then
+					if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
 						x_int := x_int - speed;
 					end if;
 				end if;
@@ -136,7 +136,7 @@ begin
 				else
 					upper_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int);
 					lower_tile := GET_TILE(x_int + PLAYER_SIZE_MOVE - 1 + 1, y_int + PLAYER_SIZE_MOVE - 1);
-					if(to_integer(unsigned(upper_tile)) <= to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) <= to_integer(unsigned(BOMB_CODING))) then
+					if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
 						x_int := x_int + speed;
 					end if;
 				end if;
