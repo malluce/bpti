@@ -41,7 +41,7 @@ entity game_mechanic_ent is
 end game_mechanic_ent;
 
 architecture game_mechanic_struct of game_mechanic_ent is
-	component player_ent 
+	component player_ent
 		generic(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER : integer);
 		port(
 		clk_player : in std_logic;
@@ -74,11 +74,10 @@ architecture game_mechanic_struct of game_mechanic_ent is
 		row_bomb_player : out std_logic_vector(3 downto 0);
 		col_bomb_player : out std_logic_vector(3 downto 0);
 		enable_bomb_player : out std_logic;
-		explode_bomb_player : out std_logic;
-		enable_player_out : out std_logic
+		explode_bomb_player : out std_logic
 	);
 	end component;
-	
+
 	component game_state_ent
 		generic(PLAYER_SIZE_STATE, TILE_SIZE_STATE : integer);
 		port(
@@ -86,10 +85,8 @@ architecture game_mechanic_struct of game_mechanic_ent is
 			rst_state : in std_logic;
 			row_player1_state : in std_logic_vector(3 downto 0);
 			col_player1_state : in std_logic_vector(3 downto 0);
-			enable_player1_state : in std_logic;
 			row_player2_state : in std_logic_vector(3 downto 0);
 			col_player2_state : in std_logic_vector(3 downto 0);
-			enable_player2_state : in std_logic;
 			row_bomb1_state : in std_logic_vector(3 downto 0);
 			col_bomb1_state : in std_logic_vector(3 downto 0);
 			explode_bomb1_state : in std_logic;
@@ -98,7 +95,7 @@ architecture game_mechanic_struct of game_mechanic_ent is
 			col_bomb2_state : in std_logic_vector(3 downto 0);
 			explode_bomb2_state : in std_logic;
 			enable_bomb2_state : in std_logic;
-			
+
 			enable_player1_state_out : out std_logic;
 			enable_player2_state_out : out std_logic;
 			row0_state : out std_logic_vector(59 downto 0);
@@ -118,8 +115,8 @@ architecture game_mechanic_struct of game_mechanic_ent is
 			row14_state : out std_logic_vector(59 downto 0)
 		);
 	end component;
-	
-	
+
+
 	signal x_player1_fwd : std_logic_vector(8 downto 0);
 	signal y_player1_fwd : std_logic_vector(8 downto 0);
 	signal x_player2_fwd : std_logic_vector(8 downto 0);
@@ -128,8 +125,6 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	signal col_player1_fwd : std_logic_vector(3 downto 0);
 	signal row_player2_fwd : std_logic_vector(3 downto 0);
 	signal col_player2_fwd : std_logic_vector(3 downto 0);
-	signal enable_player1_to_state : std_logic;
-	signal enable_player2_to_state : std_logic;
 	signal enable_player1_to_player : std_logic;
 	signal enable_player2_to_player : std_logic;
 	signal row_bomb1_fwd : std_logic_vector(3 downto 0);
@@ -155,10 +150,10 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	signal row12_fwd : std_logic_vector(59 downto 0);
 	signal row13_fwd : std_logic_vector(59 downto 0);
 	signal row14_fwd : std_logic_vector(59 downto 0);
-	
-	
+
+
 begin
-	player_1: player_ent 
+	player_1: player_ent
 	generic map(33, 33, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
 		clk_mech,
@@ -191,11 +186,10 @@ begin
 		row_bomb1_fwd,
 		col_bomb1_fwd,
 		enable_bomb1_fwd,
-		explode_bomb1_fwd,
-		enable_player1_to_state
+		explode_bomb1_fwd
 	);
-	
-	player_2: player_ent 
+
+	player_2: player_ent
 	generic map(417, 417, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
 		clk_mech,
@@ -228,21 +222,18 @@ begin
 		row_bomb2_fwd,
 		col_bomb2_fwd,
 		enable_bomb2_fwd,
-		explode_bomb2_fwd,
-		enable_player2_to_state
+		explode_bomb2_fwd
 	);
-	
-	state : game_state_ent 
+
+	state : game_state_ent
 	generic map(PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
 		clk_mech,
 		rst_mech,
 		row_player1_fwd,
 		col_player1_fwd,
-		enable_player1_to_state,
 		row_player2_fwd,
 		col_player2_fwd,
-		enable_player2_to_state,
 		row_bomb1_fwd,
 		col_bomb1_fwd,
 		explode_bomb1_fwd,
@@ -270,7 +261,7 @@ begin
 		row14_fwd
 	);
 
-	
+
 	p1_x_coord_mech <= x_player1_fwd;
 	p1_y_coord_mech <= y_player1_fwd;
 	p2_x_coord_mech <= x_player2_fwd;

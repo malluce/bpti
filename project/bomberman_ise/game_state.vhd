@@ -9,10 +9,8 @@ entity game_state_ent is
 		rst_state : in std_logic;
 		row_player1_state : in std_logic_vector(3 downto 0);
 		col_player1_state : in std_logic_vector(3 downto 0);
-		enable_player1_state : in std_logic;
 		row_player2_state : in std_logic_vector(3 downto 0);
 		col_player2_state : in std_logic_vector(3 downto 0);
-		enable_player2_state : in std_logic;
 		row_bomb1_state : in std_logic_vector(3 downto 0);
 		col_bomb1_state : in std_logic_vector(3 downto 0);
 		explode_bomb1_state : in std_logic;
@@ -156,7 +154,7 @@ begin
 			enable_player1_state_var := '1';
 			enable_player2_state_var := '1';
 		elsif(clk_state'event and clk_state = '1') then
-			if(enable_player1_state = '1') then -- action just needed when player is still alive
+			if(enable_player1_state_var = '1') then -- action just needed when player is still alive
 				player1_row_int := to_integer(unsigned(row_player1_state));
 				player1_col_int := to_integer(unsigned(col_player1_state));
 				-- calculate the row in which the player is
@@ -166,10 +164,9 @@ begin
 					enable_player1_state_var := '0';
 				end if;
 			end if;
-			enable_player1_state_out <= enable_player1_state_var;
 
 			-- same for player2
-			if(enable_player2_state = '1') then
+			if(enable_player2_state_var = '1') then
 				player2_row_int := to_integer(unsigned(row_player2_state));
 				player2_col_int := to_integer(unsigned(col_player2_state));
 
@@ -179,7 +176,6 @@ begin
 					enable_player2_state_var := '0';
 				end if;
 			end if;
-			enable_player2_state_out <= enable_player2_state_var;
 		end if;
 	end process player_collision;
 
