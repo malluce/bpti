@@ -17,8 +17,10 @@
 
 %\clearscrheadfoot
 \ohead{BPTI: Gruppe 03=\{Niklas Metz, Felix Bachmann\}, Bericht, WS 2017/18}
+\title{BPTI: Bomberman in VHDL}
 
 \begin{document}
+	\maketitle
 	\section{Beschreibung der Entities}
 		\subsection{Bomberman}
 		
@@ -42,7 +44,13 @@
 		
 		\subsection{Player\_sprites}
 		
-		\subsection{Sync\_gen}
+		\subsection{sync\_gen\_ent}
+			Die Entity sync\_gen\_ent wird strukturell beschrieben durch die Unterkomponenten hsync und vsync. In dieser Entity werden die Signale für den VGA-Controller generiert (also hsync und vsync). Desweiteren werden zum Setzen der Pixel die aktuelle row und column ausgegeben.
+			An dieser Stelle sei auf das VGA-Übungsblatt und den Bericht darüber verwiesen. Wir haben unsere Lösung von dem Übungsblatt für das Projekt übernommen und im Laufe des Projekts nichts an der Entity inklusive Unterkomponenten gerändert.
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.1]{./bilder/Sync_gen.jpeg}
+			\end{figure}
 		
 	\section{Java Dateien}
 		\subsection{Main.java}
@@ -70,4 +78,7 @@
 		
 		\subsection{Player\_sprites}
 		
+		\subsection{sync\_gen\_ent}
+			Ein Problem, das schon bei der Lösung des Übungsblatts aufgetaucht ist, hat sich auch durch das Projekt gezogen.
+			Die VGA-Ausgabe funktioniert nicht an allen Monitoren ordnungsgemäß (flackern). An unserem Test-Monitor hat die VGA-Ausgabe nach einigen Einstellungen jedoch funktioniert.
 \end{document}
