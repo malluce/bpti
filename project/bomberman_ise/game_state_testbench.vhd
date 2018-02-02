@@ -62,7 +62,7 @@ architecture game_state_test of game_state_testbench is
     signal row0, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14 : std_logic_vector(59 downto 0);
 
     begin
-        game_state_1 : game_state_ent 
+        game_state_1 : game_state_ent
         generic map(32, 32)
         port map(
             clock,
@@ -100,7 +100,7 @@ architecture game_state_test of game_state_testbench is
             row14
         );
 
-        clock <= not clock after 10 ns;
+        clock <= not clock after 20 ns;
 
         test : process
         begin
@@ -114,13 +114,16 @@ architecture game_state_test of game_state_testbench is
             enable_bomb1 <= '0';
             explode_bomb1 <= '0';
 
-            wait for 40 ns;
+            wait for 41 ns; -- wait for clk_cylce_length + 1 ns because we change signals on clock edge so we cannot check it at exactly the edge
             assert(enable_player1_out = '1') report "enable should be 1";
-
+            wait for 38 ns; -- wait to align new values to rising clk edge
             enable_bomb1 <= '1';
             explode_bomb1 <= '1';
+            wait for 3 ns; -- game_state recognized the new signals, so reset to 0 1ns after the rising edge
+            enable_bomb1 <= '0';
+            explode_bomb1 <= '0';
 
-            wait for 40 ns;
+            wait for 39 ns;
 
             assert(enable_player1_out = '0') report "enable should be 0";
             -- reset game_state
@@ -142,7 +145,7 @@ architecture game_state_test of game_state_testbench is
             row_bomb1 <= x"1";
             col_bomb1 <= x"1";
             enable_bomb1 <= '1';
-            wait for 40 ns;
+            wait for 80 ns; -- wait two cycles (at the first edge the map array is updated, in the second the row is available at output signal) 
             assert(row1 = x"FD0EEEEEEEEE00F") report "bomb was not planted";
 
         end process test;
