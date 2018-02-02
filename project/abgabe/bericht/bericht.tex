@@ -28,14 +28,14 @@
 		
 		\subsection{Game\_state}
 		
-		\subsection{Player}
-		
-		\subsection{Movement}
-		
-		\subsection{Mov\_clk}
-		
-		\subsection{Bomb}
-		
+		\subsection{player\_ent}
+			%TODO blockdiagramm
+			\subsubsection{movement\_ent}
+			
+			\subsubsection{clk\_movement\_ent}
+				Die Entity clk\_movement\_ent ist ein Clock Divider, die Architecture wird funktional beschrieben. Die Entity wird genutzt, um die Geschwindigkeit der Bewegung der Spieler zu steuern. Es wird alle 78125 Originaltakte die Ausgabe Ausgabe negiert. Da in unserem Design die VGA-Clock genutzt wird, wird somit alle $\frac{78125 * 2}{25.175 * 10^6}s \approx 6.2ms$ ein Takt erzeugt. Dies hat zur Folge, dass bei ständiger Bewegung eines Spielers in die gleiche Richtung, die pro steigender Takt-Flanke des ausgegebenen Takts stattfindet, die Bewegung vom linken bis zum rechten Rand des Spielfelds (480 Pixel) $480 * 6.2 ms \approx 2.98 s$ dauert. Diesen Wert haben wir bei BombermanGB über einen Emulator gemessen und \enquote{rückwärts} den nötigen Zähler, also 78125, bestimmt.
+			\subsubsection{bomb\_ent}
+				%TODO simulations-screenshot
 		\subsection{Pixel\_gen}
 		
 		\subsection{RGB\_assign}
@@ -81,9 +81,8 @@
 		
 		\subsection{RGB\_assign}
 		
-		\subsection{Board\_sprites}
-		
-		\subsection{Player\_sprites}
+		\subsection{Sprites}
+			%TODO farben gefixt bekommen?
 		
 		\subsection{sync\_gen\_ent}
 			Ein Problem, das schon bei der Lösung des Übungsblatts aufgetaucht ist, hat sich auch durch das Projekt gezogen.
