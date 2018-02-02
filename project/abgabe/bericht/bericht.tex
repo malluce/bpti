@@ -48,9 +48,9 @@
 			\subsubsection{SpriteExtractor.java}
 				Das Java-Programm bekommt als Kommandozeilenargumente die Pfade zu den 32 * 32 Pixel großen Sprites. Über jedes der Sprites wird pixelweise iteriert und für jeden Pixel der RGB-Wert ausgelesen. Daraus werden die Werte der einzelnen Farbkanäle bestimmt, welche anschließend normiert werden, da auf dem FPGA nur 4 Bit pro Farbkanal nutzbar sind. Die normierten Werte werden in Hex-Character umgewandelt und auf der Konsole ausgegeben, sodass die RGB-Kanäle jedes Pixels mit 3 Hex-Charactern  dargestellt werden. Die Ausgabe erfolgt in der Form von 32 komma-separierten std\_logic\_vectoren der Länge 384.
 			\subsubsection{SpriteROM}
-				Die Entity SpriteROM wird mit einer Architecture funktional beschrieben. Abhängig von der sprite\_id wird mittels sprite\_row und sprite\_col asynchron auf die verschiedenen Arrays zugegriffen. Die sprite\_id orientiert sich hierbei an den Kodierungen des Spielfeldes (siehe game\_state, z.B. leerer Block = x0). Ist keine gültige id gesetzt (also id > x1 und id < xD), wird RGB schwarz ausgegeben.
+				Die Entity SpriteROM wird mit einer Architecture funktional beschrieben. Abhängig von der sprite\_id wird mittels sprite\_row und sprite\_col asynchron auf die verschiedenen Arrays, die Sprites für den leeren/zerstörbaren/unzerstörbaren Block enthalten, zugegriffen. Die sprite\_id orientiert sich hierbei an den Kodierungen des Spielfeldes (siehe game\_state, z.B. leerer Block = x0). Ist keine gültige id gesetzt (also id > x1 und id < xD), wird RGB schwarz ausgegeben.
 			\subsubsection{PlayerROM}
-				Die Entity PlayerROM ist hinter SpriteROM geschaltet und überscheibt die RGB-Werte, die von SpriteROM ausgegeben werden, wenn sich im aktuellen Pixel des Bildes ein Spieler befindet. In PlayerROM befinden sich zwei konstante Arrays, die in der gleichen Form wie in SpriteROM die Sprites für die Spieler enthalten. PlayerROM bekommt zum Auslesen der Arrays eine id (x2 für Spieler 1, x3 für Spieler 2), sowie die x- und y-Position des Spielers im aktuell betrachteten Pixels. Ist die id gültig, wird der RGB-Wert des entsprechenden Sprites gelesen und ausgegeben. Überlappen sich beide Spieler, so wird stets Spieler 1 gezeichnet.
+				Die Entity PlayerROM ist hinter SpriteROM geschaltet und überschreibt asynchron die RGB-Werte, die von SpriteROM ausgegeben werden, wenn sich im aktuellen Pixel des Bildes ein Spieler befindet. In PlayerROM befinden sich zwei konstante Arrays, die in der gleichen Form wie in SpriteROM die Sprites für die Spieler enthalten. PlayerROM bekommt zum Auslesen der Arrays eine id (x2 für Spieler 1, x3 für Spieler 2), sowie die x- und y-Position des Spielers im aktuell betrachteten Pixels. Ist die id gültig, wird der RGB-Wert des entsprechenden Sprites gelesen und ausgegeben. Überlappen sich beide Spieler, so wird stets Spieler 1 gezeichnet.
 				Ist keine gültige id gesetzt (also id > x3 oder id < x2), wird der RGB-Wert von SpriteROM durchgeschaltet.
 				Hat ein Pixel den (in unseren Sprites speziellen) RGB-Wert xEEE wird ebenfalls der RGB-Wert von SpriteROM durchgeschaltet. Dies sorgt dafür, dass die Spielfiguren erkennbare Strukturen haben (Spieler sind keine Kacheln) und sich sichtbar vor einem Hintergrund bewegen.
 		
@@ -60,6 +60,7 @@
 			\begin{figure}[H]
 				\centering
 				\includegraphics[scale=0.1]{./bilder/Sync_gen.jpeg}
+				\caption{Blockdiagramm sync\_gen\_ent}
 			\end{figure}
 		
 	\section{Probleme}
