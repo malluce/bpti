@@ -26,6 +26,7 @@ architecture rgb_assign_behav of rgb_assign_ent is
 begin
 	assign_proc : process(red_assign, green_assign, blue_assign)
 	begin
+		--set the individual bits from the input vectors
 		red_assign_0 <= red_assign(0);
 		red_assign_1 <= red_assign(1);
 		red_assign_2 <= red_assign(2);
