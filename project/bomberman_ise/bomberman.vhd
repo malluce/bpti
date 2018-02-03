@@ -1,6 +1,8 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+--this entity constains all the smaller entities and connects them together
+
 entity bomberman_ent is
     port(
         clk : in std_logic;
@@ -21,7 +23,7 @@ entity bomberman_ent is
 		red_1 : out std_logic;
 		red_2 : out std_logic;
 		red_3 : out std_logic;
-      green_0 : out std_logic;
+        green_0 : out std_logic;
 		green_1 : out std_logic;
 		green_2 : out std_logic;
 		green_3 : out std_logic;
@@ -77,9 +79,9 @@ architecture bomberman_struct of bomberman_ent is
             row9_mech : out std_logic_vector(59 downto 0);
             row10_mech : out std_logic_vector(59 downto 0);
             row11_mech : out std_logic_vector(59 downto 0);
-				row12_mech : out std_logic_vector(59 downto 0);
-				row13_mech : out std_logic_vector(59 downto 0);
-				row14_mech : out std_logic_vector(59 downto 0)
+			row12_mech : out std_logic_vector(59 downto 0);
+			row13_mech : out std_logic_vector(59 downto 0);
+			row14_mech : out std_logic_vector(59 downto 0)
         );
     end component;
 
@@ -106,15 +108,15 @@ architecture bomberman_struct of bomberman_ent is
             row9_pixel : in std_logic_vector(59 downto 0);
             row10_pixel : in std_logic_vector(59 downto 0);
             row11_pixel : in std_logic_vector(59 downto 0);
-				row12_pixel : in std_logic_vector(59 downto 0);
-				row13_pixel : in std_logic_vector(59 downto 0);
-				row14_pixel : in std_logic_vector(59 downto 0);
+			row12_pixel : in std_logic_vector(59 downto 0);
+			row13_pixel : in std_logic_vector(59 downto 0);
+			row14_pixel : in std_logic_vector(59 downto 0);
             sprite_id_pixel : out std_logic_vector(3 downto 0);
-				sprite_row_pixel : out std_logic_vector(4 downto 0);
-				sprite_col_pixel : out std_logic_vector(4 downto 0);
-				player_id_pixel : out std_logic_vector(3 downto 0);
-				player_x_pixel : out std_logic_vector(4 downto 0);
-				player_y_pixel : out std_logic_vector(4 downto 0)
+			sprite_row_pixel : out std_logic_vector(4 downto 0);
+			sprite_col_pixel : out std_logic_vector(4 downto 0);
+			player_id_pixel : out std_logic_vector(3 downto 0);
+			player_x_pixel : out std_logic_vector(4 downto 0);
+			player_y_pixel : out std_logic_vector(4 downto 0)
         );
     end component;
 
@@ -137,7 +139,7 @@ architecture bomberman_struct of bomberman_ent is
             blue_assign_3 : out std_logic
         );
     end component;
-	 
+
 	component SpriteROM
 		port(
 			sprite_id : in std_logic_vector(3 downto 0);
@@ -148,7 +150,7 @@ architecture bomberman_struct of bomberman_ent is
 			blue_sprite : out std_logic_vector(3 downto 0)
 		);
 	end component;
-	
+
 	component PlayerROM
 		port(
 			id_player : in std_logic_vector(3 downto 0);
@@ -163,9 +165,10 @@ architecture bomberman_struct of bomberman_ent is
 		);
 	end component;
 
-	constant TILE_SIZE : integer range 0 to 32 := 32; -- do NOT change this!!
-	constant PLAYER_SIZE : integer range 0 to TILE_SIZE := 32;
-	
+	constant TILE_SIZE : integer range 0 to 32 := 32; -- size of a single tile
+	constant PLAYER_SIZE : integer range 0 to TILE_SIZE := 32; --size of the player
+
+    --forward signals to connect all of the entities
     signal row_fwd : std_logic_vector(8 downto 0);
     signal col_fwd : std_logic_vector(9 downto 0);
     signal p1_x_coord_fwd : std_logic_vector(8 downto 0);
@@ -186,21 +189,21 @@ architecture bomberman_struct of bomberman_ent is
     signal row9_fwd : std_logic_vector(59 downto 0);
     signal row10_fwd : std_logic_vector(59 downto 0);
     signal row11_fwd : std_logic_vector(59 downto 0);
-	 signal row12_fwd : std_logic_vector(59 downto 0);
-	 signal row13_fwd : std_logic_vector(59 downto 0);
-	 signal row14_fwd : std_logic_vector(59 downto 0);
+	signal row12_fwd : std_logic_vector(59 downto 0);
+	signal row13_fwd : std_logic_vector(59 downto 0);
+	signal row14_fwd : std_logic_vector(59 downto 0);
     signal red_fwd : std_logic_vector(3 downto 0);
     signal green_fwd : std_logic_vector(3 downto 0);
     signal blue_fwd : std_logic_vector(3 downto 0);
-	 signal red_player_fwd : std_logic_vector(3 downto 0);
+	signal red_player_fwd : std_logic_vector(3 downto 0);
     signal green_player_fwd : std_logic_vector(3 downto 0);
     signal blue_player_fwd : std_logic_vector(3 downto 0);
-	 signal sprite_id_fwd : std_logic_vector(3 downto 0);
-	 signal sprite_row_fwd : std_logic_vector(4 downto 0);
-	 signal sprite_col_fwd : std_logic_vector(4 downto 0);
-	 signal player_id_sprite_fwd : std_logic_vector(3 downto 0);
-	 signal player_x_sprite_fwd : std_logic_vector(4 downto 0);
-	 signal player_y_sprite_fwd : std_logic_vector(4 downto 0);
+	signal sprite_id_fwd : std_logic_vector(3 downto 0);
+	signal sprite_row_fwd : std_logic_vector(4 downto 0);
+	signal sprite_col_fwd : std_logic_vector(4 downto 0);
+	signal player_id_sprite_fwd : std_logic_vector(3 downto 0);
+	signal player_x_sprite_fwd : std_logic_vector(4 downto 0);
+	signal player_y_sprite_fwd : std_logic_vector(4 downto 0);
 
 begin
     sync : sync_gen_ent port map(
@@ -212,7 +215,7 @@ begin
         col_fwd
     );
 
-    game : game_mechanic_ent 
+    game : game_mechanic_ent
 	generic map(PLAYER_SIZE, TILE_SIZE)
 	port map(
         clk,
@@ -245,12 +248,12 @@ begin
         row9_fwd,
         row10_fwd,
         row11_fwd,
-		  row12_fwd,
-		  row13_fwd,
-		  row14_fwd
+		row12_fwd,
+		row13_fwd,
+		row14_fwd
     );
 
-    pixel : pixel_gen_ent 
+    pixel : pixel_gen_ent
 	generic map(PLAYER_SIZE, TILE_SIZE)
 	port map(
         row_fwd,
@@ -273,15 +276,15 @@ begin
         row9_fwd,
         row10_fwd,
         row11_fwd,
-		  row12_fwd,
-		  row13_fwd,
-		  row14_fwd,
+		row12_fwd,
+		row13_fwd,
+		row14_fwd,
         sprite_id_fwd,
         sprite_row_fwd,
         sprite_col_fwd,
-		  player_id_sprite_fwd,
-		  player_x_sprite_fwd,
-		  player_y_sprite_fwd
+		player_id_sprite_fwd,
+		player_x_sprite_fwd,
+		player_y_sprite_fwd
     );
 
     rgb_assign : rgb_assign_ent port map(
@@ -301,16 +304,16 @@ begin
         blue_2,
         blue_3
     );
-	 
+
 	 board_sprites : SpriteROM port map(
-		sprite_id_fwd,
-      sprite_row_fwd,
-      sprite_col_fwd,
+        sprite_id_fwd,
+        sprite_row_fwd,
+        sprite_col_fwd,
 		red_player_fwd,
 		green_player_fwd,
 		blue_player_fwd
 	 );
-	 
+
 	 player_sprites : PlayerROM port map(
 		player_id_sprite_fwd,
 		player_x_sprite_fwd,

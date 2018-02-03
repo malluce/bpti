@@ -1,6 +1,8 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+--basically an entity to connect the two players with the logic in game_state_ent
+
 entity game_mechanic_ent is
    generic(PLAYER_SIZE_MECH, TILE_SIZE_MECH : integer);
    port(
@@ -34,9 +36,9 @@ entity game_mechanic_ent is
         row9_mech : out std_logic_vector(59 downto 0);
         row10_mech : out std_logic_vector(59 downto 0);
         row11_mech : out std_logic_vector(59 downto 0);
-		  row12_mech : out std_logic_vector(59 downto 0);
-		  row13_mech : out std_logic_vector(59 downto 0);
-		  row14_mech : out std_logic_vector(59 downto 0)
+		row12_mech : out std_logic_vector(59 downto 0);
+		row13_mech : out std_logic_vector(59 downto 0);
+		row14_mech : out std_logic_vector(59 downto 0)
     );
 end game_mechanic_ent;
 
@@ -44,38 +46,38 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	component player_ent
 		generic(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER : integer);
 		port(
-		clk_player : in std_logic;
-		rst_player : in std_logic;
-		up_player : in std_logic;
-		down_player : in std_logic;
-		left_player : in std_logic;
-		right_player : in std_logic;
-		plant_player : in std_logic;
-		enable_player : in std_logic;
-		row0_player : in std_logic_vector(59 downto 0);
-		row1_player : in std_logic_vector(59 downto 0);
-		row2_player : in std_logic_vector(59 downto 0);
-		row3_player : in std_logic_vector(59 downto 0);
-		row4_player : in std_logic_vector(59 downto 0);
-		row5_player : in std_logic_vector(59 downto 0);
-		row6_player : in std_logic_vector(59 downto 0);
-		row7_player : in std_logic_vector(59 downto 0);
-		row8_player : in std_logic_vector(59 downto 0);
-		row9_player : in std_logic_vector(59 downto 0);
-		row10_player : in std_logic_vector(59 downto 0);
-		row11_player : in std_logic_vector(59 downto 0);
-		row12_player : in std_logic_vector(59 downto 0);
-		row13_player : in std_logic_vector(59 downto 0);
-		row14_player : in std_logic_vector(59 downto 0);
-		x_player : out std_logic_vector(8 downto 0);
-		y_player : out std_logic_vector(8 downto 0);
-		row_player : out std_logic_vector(3 downto 0);
-		col_player : out std_logic_vector(3 downto 0);
-		row_bomb_player : out std_logic_vector(3 downto 0);
-		col_bomb_player : out std_logic_vector(3 downto 0);
-		enable_bomb_player : out std_logic;
-		explode_bomb_player : out std_logic
-	);
+    		clk_player : in std_logic;
+    		rst_player : in std_logic;
+    		up_player : in std_logic;
+    		down_player : in std_logic;
+    		left_player : in std_logic;
+    		right_player : in std_logic;
+    		plant_player : in std_logic;
+    		enable_player : in std_logic;
+    		row0_player : in std_logic_vector(59 downto 0);
+    		row1_player : in std_logic_vector(59 downto 0);
+    		row2_player : in std_logic_vector(59 downto 0);
+    		row3_player : in std_logic_vector(59 downto 0);
+    		row4_player : in std_logic_vector(59 downto 0);
+    		row5_player : in std_logic_vector(59 downto 0);
+    		row6_player : in std_logic_vector(59 downto 0);
+    		row7_player : in std_logic_vector(59 downto 0);
+    		row8_player : in std_logic_vector(59 downto 0);
+    		row9_player : in std_logic_vector(59 downto 0);
+    		row10_player : in std_logic_vector(59 downto 0);
+    		row11_player : in std_logic_vector(59 downto 0);
+    		row12_player : in std_logic_vector(59 downto 0);
+    		row13_player : in std_logic_vector(59 downto 0);
+    		row14_player : in std_logic_vector(59 downto 0);
+    		x_player : out std_logic_vector(8 downto 0);
+    		y_player : out std_logic_vector(8 downto 0);
+    		row_player : out std_logic_vector(3 downto 0);
+    		col_player : out std_logic_vector(3 downto 0);
+    		row_bomb_player : out std_logic_vector(3 downto 0);
+    		col_bomb_player : out std_logic_vector(3 downto 0);
+    		enable_bomb_player : out std_logic;
+    		explode_bomb_player : out std_logic
+	    );
 	end component;
 
 	component game_state_ent
@@ -95,7 +97,6 @@ architecture game_mechanic_struct of game_mechanic_ent is
 			col_bomb2_state : in std_logic_vector(3 downto 0);
 			explode_bomb2_state : in std_logic;
 			enable_bomb2_state : in std_logic;
-
 			enable_player1_state_out : out std_logic;
 			enable_player2_state_out : out std_logic;
 			row0_state : out std_logic_vector(59 downto 0);
@@ -261,7 +262,7 @@ begin
 		row14_fwd
 	);
 
-
+    --set the output signale to the values of the forward signals
 	p1_x_coord_mech <= x_player1_fwd;
 	p1_y_coord_mech <= y_player1_fwd;
 	p2_x_coord_mech <= x_player2_fwd;
