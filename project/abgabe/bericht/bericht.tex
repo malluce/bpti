@@ -22,11 +22,11 @@
 \begin{document}
 	\maketitle
 	\section{Beschreibung der Entities}
-		\subsection{Bomberman}
+		\subsection{bomberman\_ent}
 		
-		\subsection{Game\_mechanic}
+		\subsection{game\_mechanic\_ent}
 		
-		\subsection{Game\_state}
+		\subsection{game\_state\_ent}
 		
 		\subsection{player\_ent}
 			%TODO blockdiagramm
@@ -36,9 +36,12 @@
 				Die Entity clk\_movement\_ent ist ein Clock Divider, die Architecture wird funktional beschrieben. Die Entity wird genutzt, um die Geschwindigkeit der Bewegung der Spieler zu steuern. Es wird alle 78125 Originaltakte die Ausgabe Ausgabe negiert. Da in unserem Design die VGA-Clock genutzt wird, wird somit alle $\frac{78125 * 2}{25.175 * 10^6}s \approx 6.2ms$ ein Takt erzeugt. Dies hat zur Folge, dass bei ständiger Bewegung eines Spielers in die gleiche Richtung, die pro steigender Takt-Flanke des ausgegebenen Takts stattfindet, die Bewegung vom linken bis zum rechten Rand des Spielfelds (480 Pixel) $480 * 6.2 ms \approx 2.98 s$ dauert. Diesen Wert haben wir bei BombermanGB über einen Emulator gemessen und \enquote{rückwärts} den nötigen Zähler, also 78125, bestimmt.
 			\subsubsection{bomb\_ent}
 				%TODO simulations-screenshot
-		\subsection{Pixel\_gen}
+				
+		\subsection{pixel\_gen\_ent}
+			
 		
-		\subsection{RGB\_assign}
+		\subsection{rgb\_assign\_ent}
+			In der Entity rgb\_assign\_ent werden die Farbausgänge für den Monitor gesetzt. Dazu wird bitweise auf die RGB-Eingangsvektoren zugegriffen und die einzelnen Ausgangsbits gesetzt. Diese Vorgehen am Ende der Bearbeitung erlaubt es uns während den Berechnungen mit drei Vektoren für die Farben zu arbeiten, anstatt immer 12 einzelne Bits zu benutzen.
 		
 		\subsection{Sprites}
 			In den beiden Entities PlayerROM und SpriteROM befinden sich Sprites, die in Abhängigkeit des aktuellen Zustands der Arena, der Spieler und der Bomben RGB-Werte an den VGA-Controller ausgeben. Dazu befinden sich in den beiden Entities PlayerROM und SpriteROM pro Sprite (es existieren Sprites für: Spieler 1, Spieler 2, leerer Block, zerstörbarer Block, unzerstörbarer Block, Bombe, Explosion) ein zweidimensionales konstantes Array (wird synthetisiert als ROM). Diese Arrays sind jeweils 32 * 384 Bit groß. \newline
