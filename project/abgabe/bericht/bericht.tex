@@ -24,9 +24,11 @@
 	\part{Beschreibung der Entities}
 		\section{bomberman\_ent}
 			%TODO blockdiagramm
+			bomberman\_ent ist die Top-Level-Architektur. Die Eingänge sind die tatsächlichen Eingaben des Nutzers und auf den Ausgängen liegen die Informationen die für den VGA-Anschluss benötigt werden. in bomberman\_ent werden drei Entities miteinander verbunden. Zu erst die sync\_gen\_ent, die hsync und vsync erzeugt. Außerdem die game\_mechanic\_ent, welche die eigentliche Spiellogik enthält. Zuletzt noch die graphics\_ent, die für die Erzeugung der entsprechenden RGB-Farbwerte zustädig ist. In bomberman\_ent werden außerdem die beiden Generics TILE\_SIZE und PLAYER\_SIZE definiert und mit 32 initialisiert.
 		
 		\section{game\_mechanic\_ent}
 			%TODO blockdiagramm
+			game\_mechanic\_ent ist die Architektur, welche die eigentliche Spiellogik enthält. Hier werden zwei Spieler vom Typ player\_ent erzeugt und mit der Logik in game\_state\_ent verbunden.
 		
 			\subsection{game\_state\_ent}
 		
@@ -42,8 +44,30 @@
 			
 		\section{graphics\_ent}
 			%TODO blockdiagramm
+			graphics\_ent kapselt die Farbenerzeugung. Als Eingabe bekommt es die Informationen über die Positionen der Spieler sowie über das Spielfeld. Aus diesen Werten, wird durch pixel\_gen\_ent entschieden welche Sprites gerade verwendet werden müssen. Anschließend werden die ausgelesenen Farbinformationen in rgb\_assign\_ent auf die einzelnen Farbausgänge gelegt.\newline
+			\begin{table}[]
+				\centering
+				\caption{Spielfeld-Kodierungen}
+				\label{tileCode}
+				\begin{tabular}{|l|l|}
+					\hline
+					\textbf{Wert} & \textbf{Bezeichnung}      \\ \hline
+					0x0           & Leeres Feld               \\ \hline
+					0x1           & Explosion                 \\ \hline
+					0x2           & Spieler 1                 \\ \hline
+					0x3           & Spieler 2                 \\ \hline
+					0x4           & Kodierung für weißen Rand \\ \hline
+					0xD           & Bombe                     \\ \hline
+					0xE           & Zerstörbarer Block        \\ \hline
+					0xF           & Unzerstörbarer Block      \\ \hline
+				\end{tabular}
+			\end{table}
 			
 			\subsection{pixel\_gen\_ent}
+				pixel\_gen\_ent bekommt als Eingaben die Informationen über die Spieler, sowie über das Spielfeld. Abhängig von diesen Informationen gibt die Entity aus, auf welche Sprites zugegriffen werden soll und an welcher Stelle.\newline
+				Die 160 Spalten am linken Rand des Monitors werden bei uns dauerhaft weiß gefärbt, da wir ein quadratisches Spielfeld wollten, was allerdings bei einer Auflösung von 640x480 nicht funktioniert. Unser tatsächliches Spielfeld ist somit nun 480x480 Pixel groß.\newline
+				Der erste Spieler hat bei uns den Vorrang vor dem zweiten Spieler, also falls sich beide Spieler übereinander befinden, wird der erste Spieler gezeichnet.\newline
+				Wir haben unterschiedliche Ausgänge für die Informationen über die Sprites für Spielfeld und Player, um im PlayerROM entscheiden zu können ob wirklich der Spieler oder doch das Spielfeld gezeichnet wird, falls die Grafik des Spielers an der bestimmten Position transparent ist.
 		
 			\subsection{Sprites}
 				In den beiden Entities PlayerROM und SpriteROM befinden sich Sprites, die in Abhängigkeit des aktuellen Zustands der Arena, der Spieler und der Bomben RGB-Werte an den VGA-Controller ausgeben. Dazu befinden sich in den beiden Entities PlayerROM und SpriteROM pro Sprite (es existieren Sprites für: Spieler 1, Spieler 2, leerer Block, zerstörbarer Block, unzerstörbarer Block, Bombe, Explosion) ein zweidimensionales konstantes Array (wird synthetisiert als ROM). Diese Arrays sind jeweils 32 * 384 Bit groß. \newline
