@@ -46,7 +46,6 @@
 					Die Ausgabe sind die Kachel-Position der Bombe, sowie ein enable- und ein explode-Signal. Beide Signale zusammen ergeben die verschiedenen Zustände der Bombe.
 					\begin{table}[H]
 						\centering
-						\caption{Zustände der Bombe}
 						\label{bombCode}
 						\begin{tabular}{|l|l|}
 							\hline
@@ -56,6 +55,7 @@
 							1,0          & Bombe ist auf dem Spielfeld, explodiert aber noch nicht \\ \hline
 							1,1          & Bombe ist auf dem Spielfeld und explodiert     \\ \hline
 						\end{tabular}
+						\caption{Zustände der Bombe}
 					\end{table}
 					Zur Generierung dieser Signale finden sich in der Architecture zwei Counter. Sobald erfolgreich eine neue Bombe gelegt wurde, wird das enable-Signal auf 1 gesetzt und ein Counter beginnt. Dieser zählt (falls die VGA-Clock als Takt genutzt wird) circa drei Sekunden und symbolisiert das \enquote{Ticken} der Bombe. Sobald dieser Counter heruntergezählt hat, wird das explode-Signal auf 1 gesetzt und der zweite Counter beginnt zu zählen. Dieser zählt circa eine halbe Sekunde. Hat dieser Counter heruntergezählt wird das explode-Signal und das enable-Signal auf 0 gesetzt. Der zweite Counter wird benötigt, damit die Explosion einer Bombe eine gewisse Zeit andauert und auf dem Bildschirm für das menschliche Auge sichtbar wird.
 			
@@ -64,7 +64,6 @@
 			graphics\_ent kapselt die Farbenerzeugung. Als Eingabe bekommt es die Informationen über die Positionen der Spieler sowie über das Spielfeld. Aus diesen Werten, wird durch pixel\_gen\_ent entschieden welche Sprites gerade verwendet werden müssen. Anschließend werden die ausgelesenen Farbinformationen in rgb\_assign\_ent auf die einzelnen Farbausgänge gelegt.\newline
 			\begin{table}[H]
 				\centering
-				\caption{Spielfeld-Kodierungen}
 				\label{tileCode}
 				\begin{tabular}{|l|l|}
 					\hline
@@ -78,6 +77,7 @@
 					0xE           & Zerstörbarer Block        \\ \hline
 					0xF           & Unzerstörbarer Block      \\ \hline
 				\end{tabular}
+				\caption{Spielfeld-Kodierungen}
 			\end{table}
 			
 			\subsection{pixel\_gen\_ent}
@@ -114,7 +114,7 @@
 		
 	\part{Probleme}
 		\section{bomberman\_ent}
-
+		
 		\section{game\_mechanic\_ent}
 
 			\subsection{game\_state\_ent}
