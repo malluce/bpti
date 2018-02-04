@@ -58,6 +58,11 @@
 						\caption{Zustände der Bombe}
 					\end{table}
 					Zur Generierung dieser Signale finden sich in der Architecture zwei Counter. Sobald erfolgreich eine neue Bombe gelegt wurde, wird das enable-Signal auf 1 gesetzt und ein Counter beginnt. Dieser zählt (falls die VGA-Clock als Takt genutzt wird) circa drei Sekunden und symbolisiert das \enquote{Ticken} der Bombe. Sobald dieser Counter heruntergezählt hat, wird das explode-Signal auf 1 gesetzt und der zweite Counter beginnt zu zählen. Dieser zählt circa eine halbe Sekunde. Hat dieser Counter heruntergezählt wird das explode-Signal und das enable-Signal auf 0 gesetzt. Der zweite Counter wird benötigt, damit die Explosion einer Bombe eine gewisse Zeit andauert und auf dem Bildschirm für das menschliche Auge sichtbar wird.
+					\begin{figure}[H]
+						\centering
+						\includegraphics[scale=0.4]{./bilder/bomb_sim.png}
+						\caption{Simulation von bomb\_ent \newline(Takt-Dauer von 40 ns, Counter um 6 Größenordnungen verringert)}
+					\end{figure}
 			
 		\section{graphics\_ent}
 			%TODO blockdiagramm

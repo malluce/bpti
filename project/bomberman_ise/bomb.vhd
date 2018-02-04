@@ -37,6 +37,7 @@ architecture bomb_behav of bomb_ent is
 	constant TICK_MAX : integer range 0 to 72000000 := 72000000; -- time until explosion : approx 3 sec
 	shared variable bomb_set : std_logic := '0'; -- indicates whether the bomb is planted or not
 	shared variable is_exploding : std_logic := '0'; -- indicates whether the bomb is exploding or not
+	shared variable tick_cnt : integer range 0 to TICK_MAX := TICK_MAX; -- counter for planted bomb (if =0, then explode)
 begin
 
 	-- handles the planting of a (new) bomb
@@ -59,6 +60,7 @@ begin
 			end if;
 			-- at every rising edge output state of the bomb
 			enable_bomb <= bomb_set;
+			explode_bomb <= is_exploding;
 			row_bomb <= std_logic_vector(to_unsigned(row_of_bomb, 4));
 			col_bomb <= std_logic_vector(to_unsigned(col_of_bomb, 4));
 		end if;
@@ -66,7 +68,6 @@ begin
 
 	-- ticks down bomb and explosion when bomb is already planted
 	bomb_tick : process(clk_bomb, rst_bomb)
-		variable tick_cnt : integer range 0 to TICK_MAX := TICK_MAX; -- counter for planted bomb (if =0, then explode)
 		variable explosion_cnt : integer range 0 to EXPLOSION_MAX := EXPLOSION_MAX; -- counter for exploding bomb (if = 0, then stop exploding)
 	begin
 		if(rst_bomb = '0') then
@@ -74,7 +75,6 @@ begin
 			explosion_cnt := EXPLOSION_MAX;
 			is_exploding := '0';
 		elsif(clk_bomb'event and clk_bomb = '1') then
-			explode_bomb <= is_exploding;
 			if(bomb_set = '1') then -- just need to do sth. if bomb is active
 				if(is_exploding = '0') then -- if bomb is not exploding, tick
 					if(tick_cnt > 0) then
