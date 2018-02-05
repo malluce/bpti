@@ -65,8 +65,9 @@
 					\end{figure}
 			
 		\section{graphics\_ent}
-			%TODO blockdiagramm
-			graphics\_ent kapselt die Farbenerzeugung. Als Eingabe bekommt es die Informationen über die Positionen der Spieler sowie über das Spielfeld. Aus diesen Werten, wird durch pixel\_gen\_ent entschieden welche Sprites gerade verwendet werden müssen. Anschließend werden die ausgelesenen Farbinformationen in rgb\_assign\_ent auf die einzelnen Farbausgänge gelegt.\newline
+			graphics\_ent kapselt die Farbenerzeugung. Als Eingabe bekommt es die Informationen über die Positionen der Spieler und über das Spielfeld, sowie die Position des aktuell zu zeichnenden Pixels (generiert durch sync\_gen\_ent). Aus diesen Werten, wird durch pixel\_gen\_ent entschieden welche Sprites gerade verwendet werden müssen. Anschließend werden die ausgelesenen Farbinformationen in rgb\_assign\_ent auf die einzelnen Farbausgänge gelegt.\newline
+			
+			%TODO wie ist das gemeint? player_id und spielfeldkodierung vermischt? -> kodierung für spielfeld ins game_state kapitel, spielerkodierung unnötig? (hab ich im sprite teil schon beschrieben, sind eh nur 2 werte)
 			\begin{table}[H]
 				\centering
 				\label{tileCode}
@@ -84,6 +85,12 @@
 				\end{tabular}
 				\caption{Spielfeld-Kodierungen}
 			\end{table}
+		
+			\begin{figure}[H]
+				\centering
+				\includegraphics[angle=90,scale=0.1]{./bilder/graphics_ent.jpg}
+				\caption{Blockdiagramm graphics\_ent}
+			\end{figure}
 			
 			\subsection{pixel\_gen\_ent}
 				pixel\_gen\_ent bekommt als Eingaben die Informationen über die Spieler, sowie über das Spielfeld. Abhängig von diesen Informationen gibt die Entity aus, auf welche Sprites zugegriffen werden soll und an welcher Stelle.\newline
