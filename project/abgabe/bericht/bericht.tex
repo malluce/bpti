@@ -30,6 +30,7 @@
 		
 		\section{game\_mechanic\_ent}
 			%TODO blockdiagramm
+			%TODO multiplexen der rows für die player
 			game\_mechanic\_ent ist die Architektur, welche die eigentliche Spiellogik enthält. Hier werden zwei Spieler vom Typ player\_ent erzeugt und mit der Logik in game\_state\_ent verbunden.
 		
 			\subsection{game\_state\_ent}
@@ -143,8 +144,6 @@
 
 				\subsubsection{movement\_ent}
 					%TODO reinglitchen in unzerstörbare blöcke
-				\subsubsection{clk\_movement\_ent}
-					
 				\subsubsection{bomb\_ent}
 
 		\section{graphics\_ent}
@@ -152,15 +151,8 @@
 			\subsection{pixel\_gen\_ent}
 	
 			\subsection{Sprites}
-				%TODO farben gefixt bekommen?
-
-				\subsubsection{SpriteExtractor.java}
-
-				\subsubsection{SpriteROM}
-
-				\subsubsection{PlayerROM}
-
-			\subsection{rgb\_assign\_ent}
+				Bei der ersten Implementierung geschah der Zugriff auf die ROMs taktsynchron. Dies führte zu einer Ausgabe, die verschmiert und deutlich dunkler als erwartet war. Erklären ist dies damit, dass durch die Taktsynchronität der RGB-Wert eines Pixels aus der Top-Level-Entity zwei Takte zu spät ausgegeben wurde (SpriteROM und PlayerROM verzögern Ausgabe jeweils um einen Takt). Somit wurden am Ende jeder Zeile des Bildes jeweils zwei Takte zu lang RGB-Werte gesetzt, was bei der VGA-Signalgenerierung allerdings nicht erlaubt ist.
+				Gelöst wurde das Problem dadurch, dass SpriteROM und PlayerROM nun asynchron arbeiten.
 		
 		\section{sync\_gen\_ent}
 			Ein Problem, das schon bei der Lösung des Übungsblatts aufgetaucht ist, hat sich auch durch das Projekt gezogen.
