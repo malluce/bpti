@@ -79,7 +79,6 @@ architecture player_struct of player_ent is
 	component movement_ent
 		generic(X_INIT_MOVE, Y_INIT_MOVE, PLAYER_SIZE_MOVE, TILE_SIZE_MOVE : integer);
 		port(
-			fast_clk_move : in std_logic;
 			clk_move : in std_logic;
 			rst_move : in std_logic;
 			up_move : in std_logic;
@@ -141,7 +140,6 @@ begin
 	movement : movement_ent
 	generic map(X_INIT_PLAYER, Y_INIT_PLAYER, PLAYER_SIZE_PLAYER, TILE_SIZE_PLAYER)
 	port map(
-		clk_player,
 		mov_clk_fwd,
 		rst_player,
 		up_player,
