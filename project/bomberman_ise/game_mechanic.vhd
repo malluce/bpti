@@ -54,21 +54,9 @@ architecture game_mechanic_struct of game_mechanic_ent is
     		right_player : in std_logic;
     		plant_player : in std_logic;
     		enable_player : in std_logic;
-    		row0_player : in std_logic_vector(59 downto 0);
-    		row1_player : in std_logic_vector(59 downto 0);
-    		row2_player : in std_logic_vector(59 downto 0);
-    		row3_player : in std_logic_vector(59 downto 0);
-    		row4_player : in std_logic_vector(59 downto 0);
-    		row5_player : in std_logic_vector(59 downto 0);
-    		row6_player : in std_logic_vector(59 downto 0);
-    		row7_player : in std_logic_vector(59 downto 0);
-    		row8_player : in std_logic_vector(59 downto 0);
-    		row9_player : in std_logic_vector(59 downto 0);
-    		row10_player : in std_logic_vector(59 downto 0);
-    		row11_player : in std_logic_vector(59 downto 0);
-    		row12_player : in std_logic_vector(59 downto 0);
-    		row13_player : in std_logic_vector(59 downto 0);
-    		row14_player : in std_logic_vector(59 downto 0);
+    		row_upper_player : in std_logic_vector(59 downto 0);
+    		row_mid_player : in std_logic_vector(59 downto 0);
+    		row_lower_player : in std_logic_vector(59 downto 0);
     		x_player : out std_logic_vector(8 downto 0);
     		y_player : out std_logic_vector(8 downto 0);
     		row_player : out std_logic_vector(3 downto 0);
@@ -151,7 +139,12 @@ architecture game_mechanic_struct of game_mechanic_ent is
 	signal row12_fwd : std_logic_vector(59 downto 0);
 	signal row13_fwd : std_logic_vector(59 downto 0);
 	signal row14_fwd : std_logic_vector(59 downto 0);
-
+	signal row_upper_fwd_p1 : std_logic_vector(59 downto 0);
+	signal row_mid_fwd_p1 : std_logic_vector(59 downto 0);
+	signal row_lower_fwd_p1 : std_logic_vector(59 downto 0);
+	signal row_upper_fwd_p2 : std_logic_vector(59 downto 0);
+	signal row_mid_fwd_p2 : std_logic_vector(59 downto 0);
+	signal row_lower_fwd_p2 : std_logic_vector(59 downto 0);
 
 begin
 	player_1: player_ent
@@ -165,21 +158,9 @@ begin
 		p1_right_mech,
 		p1_bomb_mech,
 		enable_player1_to_player,
-		row0_fwd,
-		row1_fwd,
-		row2_fwd,
-		row3_fwd,
-		row4_fwd,
-		row5_fwd,
-		row6_fwd,
-		row7_fwd,
-		row8_fwd,
-		row9_fwd,
-		row10_fwd,
-		row11_fwd,
-		row12_fwd,
-		row13_fwd,
-		row14_fwd,
+		row_upper_fwd_p1,
+		row_mid_fwd_p1,
+		row_lower_fwd_p1,
 		x_player1_fwd,
 		y_player1_fwd,
 		row_player1_fwd,
@@ -201,21 +182,9 @@ begin
 		p2_right_mech,
 		p2_bomb_mech,
 		enable_player2_to_player,
-		row0_fwd,
-		row1_fwd,
-		row2_fwd,
-		row3_fwd,
-		row4_fwd,
-		row5_fwd,
-		row6_fwd,
-		row7_fwd,
-		row8_fwd,
-		row9_fwd,
-		row10_fwd,
-		row11_fwd,
-		row12_fwd,
-		row13_fwd,
-		row14_fwd,
+		row_upper_fwd_p2,
+		row_mid_fwd_p2,
+		row_lower_fwd_p2,
 		x_player2_fwd,
 		y_player2_fwd,
 		row_player2_fwd,
@@ -262,6 +231,105 @@ begin
 		row14_fwd
 	);
 
+	
+	row_upper_fwd_p1 <= row0_fwd when row_player1_fwd = x"1" else
+							  row1_fwd when row_player1_fwd = x"2" else
+							  row2_fwd when row_player1_fwd = x"3" else
+							  row3_fwd when row_player1_fwd = x"4" else
+							  row4_fwd when row_player1_fwd = x"5" else
+							  row5_fwd when row_player1_fwd = x"6" else
+							  row6_fwd when row_player1_fwd = x"7" else
+							  row7_fwd when row_player1_fwd = x"8" else
+							  row8_fwd when row_player1_fwd = x"9" else
+							  row9_fwd when row_player1_fwd = x"A" else
+							  row10_fwd when row_player1_fwd = x"B" else
+							  row11_fwd when row_player1_fwd = x"C" else
+							  row12_fwd when row_player1_fwd = x"D" else
+							  row13_fwd when row_player1_fwd = x"E" else
+							  x"000000000000000";
+							  
+	row_mid_fwd_p1 <=   row0_fwd when row_player1_fwd = x"0" else
+							  row1_fwd when row_player1_fwd = x"1" else
+							  row2_fwd when row_player1_fwd = x"2" else
+							  row3_fwd when row_player1_fwd = x"3" else
+							  row4_fwd when row_player1_fwd = x"4" else
+							  row5_fwd when row_player1_fwd = x"5" else
+							  row6_fwd when row_player1_fwd = x"6" else
+							  row7_fwd when row_player1_fwd = x"7" else
+							  row8_fwd when row_player1_fwd = x"8" else
+							  row9_fwd when row_player1_fwd = x"9" else
+							  row10_fwd when row_player1_fwd = x"A" else
+							  row11_fwd when row_player1_fwd = x"B" else
+							  row12_fwd when row_player1_fwd = x"C" else
+							  row13_fwd when row_player1_fwd = x"D" else
+							  row14_fwd when row_player1_fwd = x"F" else
+							  x"000000000000000";
+							  
+	row_lower_fwd_p1 <= row1_fwd when row_player1_fwd = x"0" else
+							  row2_fwd when row_player1_fwd = x"1" else
+							  row3_fwd when row_player1_fwd = x"2" else
+							  row4_fwd when row_player1_fwd = x"3" else
+							  row5_fwd when row_player1_fwd = x"4" else
+							  row6_fwd when row_player1_fwd = x"5" else
+							  row7_fwd when row_player1_fwd = x"6" else
+							  row8_fwd when row_player1_fwd = x"7" else
+							  row9_fwd when row_player1_fwd = x"8" else
+							  row10_fwd when row_player1_fwd = x"9" else
+							  row11_fwd when row_player1_fwd = x"A" else
+							  row12_fwd when row_player1_fwd = x"B" else
+							  row13_fwd when row_player1_fwd = x"C" else
+							  row14_fwd when row_player1_fwd = x"D" else
+							  x"000000000000000";
+							  
+	row_upper_fwd_p2 <= row0_fwd when row_player2_fwd = x"1" else
+							  row1_fwd when row_player2_fwd = x"2" else
+							  row2_fwd when row_player2_fwd = x"3" else
+							  row3_fwd when row_player2_fwd = x"4" else
+							  row4_fwd when row_player2_fwd = x"5" else
+							  row5_fwd when row_player2_fwd = x"6" else
+							  row6_fwd when row_player2_fwd = x"7" else
+							  row7_fwd when row_player2_fwd = x"8" else
+							  row8_fwd when row_player2_fwd = x"9" else
+							  row9_fwd when row_player2_fwd = x"A" else
+							  row10_fwd when row_player2_fwd = x"B" else
+							  row11_fwd when row_player2_fwd = x"C" else
+							  row12_fwd when row_player2_fwd = x"D" else
+							  row13_fwd when row_player2_fwd = x"E" else
+							  x"000000000000000";
+							  
+	row_mid_fwd_p2 <=   row0_fwd when row_player2_fwd = x"0" else
+							  row1_fwd when row_player2_fwd = x"1" else
+							  row2_fwd when row_player2_fwd = x"2" else
+							  row3_fwd when row_player2_fwd = x"3" else
+							  row4_fwd when row_player2_fwd = x"4" else
+							  row5_fwd when row_player2_fwd = x"5" else
+							  row6_fwd when row_player2_fwd = x"6" else
+							  row7_fwd when row_player2_fwd = x"7" else
+							  row8_fwd when row_player2_fwd = x"8" else
+							  row9_fwd when row_player2_fwd = x"9" else
+							  row10_fwd when row_player2_fwd = x"A" else
+							  row11_fwd when row_player2_fwd = x"B" else
+							  row12_fwd when row_player2_fwd = x"C" else
+							  row13_fwd when row_player2_fwd = x"D" else
+							  row14_fwd when row_player2_fwd = x"F" else
+							  x"000000000000000";
+							  
+	row_lower_fwd_p2 <= row1_fwd when row_player2_fwd = x"0" else
+							  row2_fwd when row_player2_fwd = x"1" else
+							  row3_fwd when row_player2_fwd = x"2" else
+							  row4_fwd when row_player2_fwd = x"3" else
+							  row5_fwd when row_player2_fwd = x"4" else
+							  row6_fwd when row_player2_fwd = x"5" else
+							  row7_fwd when row_player2_fwd = x"6" else
+							  row8_fwd when row_player2_fwd = x"7" else
+							  row9_fwd when row_player2_fwd = x"8" else
+							  row10_fwd when row_player2_fwd = x"9" else
+							  row11_fwd when row_player2_fwd = x"A" else
+							  row12_fwd when row_player2_fwd = x"B" else
+							  row13_fwd when row_player2_fwd = x"C" else
+							  row14_fwd when row_player2_fwd = x"D" else
+							  x"000000000000000";
+							  
     --set the output signale to the values of the forward signals
 	p1_x_coord_mech <= x_player1_fwd;
 	p1_y_coord_mech <= y_player1_fwd;

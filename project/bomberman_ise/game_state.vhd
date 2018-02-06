@@ -182,6 +182,10 @@ begin
 					enable_player2_state_var := '0';
 				end if;
 			end if;
+			
+			-- output enable variables
+			enable_player1_state_out <= enable_player1_state_var;
+			enable_player2_state_out <= enable_player2_state_var;
 		end if;
 	end process player_collision;
 

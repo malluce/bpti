@@ -11,7 +11,7 @@ entity clk_movement_ent is
 end clk_movement_ent;
 
 architecture counter_behav of clk_movement_ent is
-    constant MAX : integer range 0 to 78124 := 78124;
+    constant MAX : integer range 0 to 78124 := 1;
     signal cnt : integer range 0 to 78124 := 0;
     signal temp : std_logic := '0';
 
