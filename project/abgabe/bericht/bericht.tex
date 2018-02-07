@@ -162,7 +162,9 @@
 		\section{game\_mechanic\_ent}
 
 			\subsection{game\_state\_ent}
-				%TODO großes problem mit der scheiß explosion
+				\begin{itemize}
+					\item Das größte Problem war die korrekte Darstellung der Explosionen. Sobald eine Bombe explodiert ist, wurde in der mittleren Zeile nur eine Explosion dargestellt, obwohl es eigentlich drei Felder mit Explosionen sein sollten. Um die Zeilen zu ändern hatten wir eine eigene Funktion, die die Änderungen vornimmt. Dort wurde immer eine lokale Kopie der entsprechenden Zeile gespeichert, dann die Änderung vorgenommen und anschließend die alte Zeile durch die neue überschrieben. Das Problem war, dass wir diese Funktion für alle fünf Blöcke, die bei einer Explosion geändert werden müssen, nacheinander aufgerufen haben und dies somit parallel ausgeführt wird. Bei den Explosionen über und unter der Bombe führte dies zu keinem Problem, allerdings bei denen rechts und links der Bombe. Die Funktion wurde hier also parallel ausgeführt und immer wurde eine lokale Kopie der Zeile gespeichert und später zurückgeschrieben. Sobald die letzte Änderung in einer Zeile vorgenommen wurde, wurden alle Änderungen die durch andere Funktionsaufrufe auf diese Zeile ausgeführt wurden, überschrieben und somit wurde immer nur eine anstatt drei Explosionen dargestellt. Dieses Problem haben wir behoben, indem wir die Funktion nicht fünf Mal aufgerufen haben, sondern nur einmal und dieser eine Aufruf sorgt direkt für alle fünf Änderungen.
+				\end{itemize}
 
 			\subsection{player\_ent}
 
