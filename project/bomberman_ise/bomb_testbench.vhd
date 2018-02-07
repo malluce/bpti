@@ -71,9 +71,10 @@ begin
         plant_bomb <= '0';
                 wait for 41 ns;
                 assert(enable_bomb = '1') report "enable_bomb sollte 1 sein, aber ist 0";
-                wait for 2921 ns;
+                plant_bomb <= '1';
+                wait for 2957 ns;
                 assert(explode_bomb = '1') report "explode_bomb sollte 1 sein, aber ist 0";
-                wait for 521 ns;
+                wait for 560 ns;
                 assert(enable_bomb = '0') report "enable_bomb sollte 0 sein";
                 assert(explode_bomb = '0') report "explode_bomb sollte 0 sein";
     end process set_bomb_test;

@@ -1,0 +1,12 @@
+
+STATUS:
+	+------------------------------------+--------------------------------+
+	| Most recent SmartPreview on disk:  |              bomberman_ent.ncd |
+	| Fully placed:                      |                            YES |
+	| Fully routed:                      |                             NO |
+	| SmartPreview status:               |           NOT ready for bitgen |
+	| Timing score:                      |                            N/A |
+	| Timing errors:                     |                            N/A |
+	| Number of failing constraints:     |                            N/A |
+	+------------------------------------+--------------------------------+
+
