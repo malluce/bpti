@@ -31,7 +31,10 @@
 			game\_mechanic\_ent ist die Architektur, welche die eigentliche Spiellogik enthält. Hier werden zwei Spieler vom Typ player\_ent erzeugt und mit der Logik in game\_state\_ent verbunden.
 		
 			\subsection{game\_state\_ent}
-			Test
+				game\_state\_ent ist einerseits für die Verwaltung des Speilfeldes, aber auch für die Kollisionen verantwortlich. Unser Spielfeld besteht aus insgesamt 15 Zeilen mit jeweils 15 Spalten, wobei jedes Feld durch vier Bits kodiert wird. Die genauen Kodierungen der einzelnen Blöcke kann man Tabelle 1 entnehmen. In dieser Entity wird der Anfangswert für alle Zeilen des Spielfeldes bestimmt, die durch das Ablaufen des Spiels verändert werden können. \newline
+				Sollte ein Spieler seine Bombe legen, bekommt game\_state\_ent die Postion der Bombe, sowie die Information, dass die Bombe gelegt wurde. Daraufhin wird die entsprechende Zeile so geändert, dass die Bombe auch tatsächlich sichtbar ist. Nachdem der Zähler der Bombe abgelaufen ist und sie explodieren soll, wird das entsprechende explode Signal gesetzt. Dann werden die umgrenzenden Blöcke der Bombe überprüft und auf Explosionen gesetzt. Die Blöcke müssen zuerst überprüft werden, um zu verhindern, dass unzerstörbare Blöcke von den Explosionen zerstört werden. Wenn der entsprechende Explosions Zähler in der Bombe abläuft, wird das explosion Signal auf 0 gesetzt und die Felder mit Explosionen werden auf leere Felder geändert. \newline
+				Desweiteren werden hier die Kollisionen der Spieler erkannt. Sollte sich ein Spieler auf einem Feld befinden, auf dem momentan eine Explosion ist, wird das enable Signal des Spielers auf 0 gesetzt und er "stirbt". Dabei verwenden wir jeweils den Mittelpunkt des Spielers als Vergleichswert, um zu entscheiden ob er stirbt oder nicht. \newline
+				
 				\begin{table}[]
 					\centering
 					\caption{Spielfeld-Kodierungen}
@@ -62,8 +65,8 @@
 			graphics\_ent kapselt die Farbenerzeugung. Als Eingabe bekommt es die Informationen über die Positionen der Spieler sowie über das Spielfeld. Aus diesen Werten, wird durch pixel\_gen\_ent entschieden welche Sprites gerade verwendet werden müssen. Anschließend werden die ausgelesenen Farbinformationen in rgb\_assign\_ent auf die einzelnen Farbausgänge gelegt.\newline
 			\begin{table}[]
 				\centering
-				\caption{Spielfeld-Kodierungen}
-				\label{tileCode}
+				\caption{Sprite-Kodierungen}
+				\label{spriteCode}
 				\begin{tabular}{|l|l|}
 					\hline
 					\textbf{SpriteID} & \textbf{Bezeichnung}      \\ \hline
@@ -111,7 +114,6 @@
 			\end{figure}
 		
 	\part{Probleme}
-		\section{bomberman\_ent}
 
 		\section{game\_mechanic\_ent}
 
@@ -137,8 +139,6 @@
 				\subsubsection{SpriteROM}
 
 				\subsubsection{PlayerROM}
-
-			\subsection{rgb\_assign\_ent}
 		
 		\section{sync\_gen\_ent}
 			Ein Problem, das schon bei der Lösung des Übungsblatts aufgetaucht ist, hat sich auch durch das Projekt gezogen.
