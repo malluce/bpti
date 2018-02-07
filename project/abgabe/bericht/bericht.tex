@@ -26,10 +26,35 @@
 	
 	\part{Allgemeines}
 		\section{Idee}
+			Die grundlegende Idee war ein klassisches Bomberman-Spiel, wie man es von älteren Konsolen kennt. Zwei Spieler können sich auf einem Spielfeld bewegen und Bomben platzieren, um Blöcke oder den Gegener zu zerstören.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.4]{./bilder/bomberman.png}
+				\caption{Screenshot eines Bomberman-Spiels}
+			\end{figure}
 		
 		\section{Erreichte Ziele}
+			%TODO Ticken der Bombe verschweigen?!
+			Wir haben alle unsere Musskrieterien erfüllt. Es gibt zwei Spielfiguren, die sich von den Spielern steuern lassen und sich nicht über Blöcke bewegen können. Das Spielfeld ist durch unzerstörbare und  zerstörbare Blöcke sowie leere Felder aufgebaut. Jeder Spieler kann eine Bombe platzieren, die nach einer bestimmten Zeit explodiert. Bei der Explosion werden zerstörbare Blöcke, die sich im Radius der Explosion befinden zerstört. Ebenfalls sterben Spieler, die sich in einer Explosion befinden. \newline
+			Außerdem haben wir Sprites für alle Blöcke und auch für die beiden Spieler implementiert. \newline
+			
 		
 		\section{Steuerung}
+			%TODO Bild vom Controller
+			%TODO Bild von der Verkabelung?!?!
+			\begin{table}[]
+				\centering
+				\label{controls}
+				\begin{tabular}{|l|l|}
+					\hline
+					\textbf{Knopf} & \textbf{Wirkung}      \\ \hline
+					1           & Hoch \& Runter bewegen               \\ \hline
+					2           & Bombe platzieren                 \\ \hline
+					3           & Links \& Rechts bewegen                    \\ \hline
+				\end{tabular}
+				\caption{Steuerung}
+			\end{table}
+			
 	
 	\part{Beschreibung der Entities}
 		\section{bomberman\_ent}
