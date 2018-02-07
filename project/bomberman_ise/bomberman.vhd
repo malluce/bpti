@@ -5,8 +5,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity bomberman_ent is
     port(
+        --clk and reset from the board
         clk : in std_logic;
         rst : in std_logic;
+
+        --input from both users
         p1_up : in std_logic;
         p1_down : in std_logic;
         p1_left : in std_logic;
@@ -17,8 +20,12 @@ entity bomberman_ent is
         p2_left : in std_logic;
         p2_right : in std_logic;
         p2_bomb : in std_logic;
+
+        --hsync and vsync output
         hsync : out std_logic;
 		vsync : out std_logic;
+
+        --color of the current pixel
 		red_0 : out std_logic;
 		red_1 : out std_logic;
 		red_2 : out std_logic;
@@ -155,6 +162,7 @@ architecture bomberman_struct of bomberman_ent is
 	signal row14_fwd : std_logic_vector(59 downto 0);
 
 begin
+    --hsync and vsync generator
     sync : sync_gen_ent port map(
         clk,
         rst,
@@ -164,6 +172,7 @@ begin
         col_fwd
     );
 
+    --basically all of the game logic
     game : game_mechanic_ent
 	generic map(PLAYER_SIZE, TILE_SIZE)
 	port map(
@@ -202,6 +211,7 @@ begin
 		row14_fwd
     );
 
+    --draws the game to the screen
     graphics : graphics_ent
     generic map(PLAYER_SIZE, TILE_SIZE)
     port map(

@@ -5,14 +5,19 @@ use IEEE.NUMERIC_STD.ALL;
 entity pixel_gen_ent is
 	generic(PLAYER_SIZE_PIX, TILE_SIZE_PIX : integer);
 	port(
+		--current position, where to draw
         row_pixel : in std_logic_vector(8 downto 0);
         col_pixel : in std_logic_vector(9 downto 0);
+
+		--coordinates and enable values of the players
         p1_x_coord_pixel : in std_logic_vector(8 downto 0);
         p1_y_coord_pixel : in std_logic_vector(8 downto 0);
         p1_enable_pixel : in std_logic;
         p2_x_coord_pixel : in std_logic_vector(8 downto 0);
         p2_y_coord_pixel : in std_logic_vector(8 downto 0);
         p2_enable_pixel : in std_logic;
+
+		--information about the game board
         row0_pixel : in std_logic_vector(59 downto 0);
         row1_pixel : in std_logic_vector(59 downto 0);
         row2_pixel : in std_logic_vector(59 downto 0);
@@ -28,6 +33,8 @@ entity pixel_gen_ent is
 		row12_pixel : in std_logic_vector(59 downto 0);
 		row13_pixel : in std_logic_vector(59 downto 0);
 		row14_pixel : in std_logic_vector(59 downto 0);
+
+		--information for the sprite entities, which sprites they should draw
 		sprite_id_pixel : out std_logic_vector(3 downto 0);
 		sprite_row_pixel : out std_logic_vector(4 downto 0);
 		sprite_col_pixel : out std_logic_vector(4 downto 0);
@@ -71,7 +78,7 @@ begin
 			sprite_row_int := (row_int - 1) mod TILE_SIZE_PIX;
 			sprite_col_int := (col_int - 1) mod TILE_SIZE_PIX;
 			if(col_int <= 160) then
-				--special sprite_id to make left side of the monitor white, because we wanted the board to be a square
+				--special sprite_id to make left side of the monitor black, because we wanted the board to be a square
 				sprite_id := x"4";
 			else
 				if(p1_enable_pixel = '1'  and row_int >= p1_y_int
@@ -89,6 +96,7 @@ begin
 						player_x := col_int - 160 - p2_x_int;
 						player_y := row_int - p2_y_int;
 				else
+					--no player is drawn at the moment
 					player_x := 0;
 					player_y := 0;
 					player_id := x"0";

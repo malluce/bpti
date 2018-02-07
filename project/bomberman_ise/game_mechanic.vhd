@@ -6,8 +6,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity game_mechanic_ent is
    generic(PLAYER_SIZE_MECH, TILE_SIZE_MECH : integer);
    port(
+        --clock and reset signals
         clk_mech : in std_logic;
         rst_mech : in std_logic;
+
+        --input from the users
         p1_up_mech : in std_logic;
         p1_down_mech : in std_logic;
         p1_left_mech : in std_logic;
@@ -18,12 +21,16 @@ entity game_mechanic_ent is
         p2_left_mech : in std_logic;
         p2_right_mech : in std_logic;
         p2_bomb_mech : in std_logic;
+
+        --coordinates and enables of the players
         p1_x_coord_mech : out std_logic_vector(8 downto 0);
         p1_y_coord_mech : out std_logic_vector(8 downto 0);
         p1_enable_mech : out std_logic;
         p2_x_coord_mech : out std_logic_vector(8 downto 0);
         p2_y_coord_mech : out std_logic_vector(8 downto 0);
         p2_enable_mech : out std_logic;
+
+        --new state of the game board
         row0_mech : out std_logic_vector(59 downto 0);
         row1_mech : out std_logic_vector(59 downto 0);
         row2_mech : out std_logic_vector(59 downto 0);
@@ -154,6 +161,8 @@ architecture game_mechanic_struct of game_mechanic_ent is
 
 
 begin
+
+    --first player
 	player_1: player_ent
 	generic map(33, 33, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
@@ -190,6 +199,7 @@ begin
 		explode_bomb1_fwd
 	);
 
+    --second player
 	player_2: player_ent
 	generic map(417, 417, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
@@ -226,6 +236,7 @@ begin
 		explode_bomb2_fwd
 	);
 
+    --manages the game board and all of the collisions
 	state : game_state_ent
 	generic map(PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(

@@ -4,14 +4,19 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity graphics_ent is
     generic(PLAYER_SIZE_GRAPHICS, TILE_SIZE_GRAPHICS : integer);
     port(
+        --current position, which has to be drawn
         row_graphics : in std_logic_vector(8 downto 0);
         col_graphics : in std_logic_vector(9 downto 0);
+
+        --coordinates and enables of the players
         p1_x_coord_graphics : in std_logic_vector(8 downto 0);
         p1_y_coord_graphics : in std_logic_vector(8 downto 0);
         p1_enable_graphics : in std_logic;
         p2_x_coord_graphics : in std_logic_vector(8 downto 0);
         p2_y_coord_graphics : in std_logic_vector(8 downto 0);
         p2_enable_graphics : in std_logic;
+
+        --state of the game board
         row0_graphics : in std_logic_vector(59 downto 0);
         row1_graphics : in std_logic_vector(59 downto 0);
         row2_graphics : in std_logic_vector(59 downto 0);
@@ -27,6 +32,8 @@ entity graphics_ent is
         row12_graphics : in std_logic_vector(59 downto 0);
         row13_graphics : in std_logic_vector(59 downto 0);
         row14_graphics : in std_logic_vector(59 downto 0);
+
+        --color of the current pixel
         red_0_graphics : out std_logic;
         red_1_graphics : out std_logic;
         red_2_graphics : out std_logic;
@@ -139,6 +146,7 @@ architecture graphics_struct of graphics_ent is
 
 begin
 
+    --evaluates which sprites should be used at the moment
     pixel : pixel_gen_ent
 	generic map(PLAYER_SIZE_GRAPHICS, TILE_SIZE_GRAPHICS)
 	port map(
@@ -173,6 +181,7 @@ begin
 		player_y_sprite_fwd
     );
 
+    --sprites for all of the blocks
 	 board_sprites : SpriteROM port map(
         sprite_id_fwd,
         sprite_row_fwd,
@@ -182,6 +191,7 @@ begin
 		blue_player_fwd
 	 );
 
+     --sprites for both players
 	 player_sprites : PlayerROM port map(
 		player_id_sprite_fwd,
 		player_x_sprite_fwd,
@@ -194,6 +204,7 @@ begin
 		blue_fwd
 	 );
 
+     --converts the color vectors to individual bits
      rgb_assign : rgb_assign_ent port map(
          red_fwd,
          green_fwd,

@@ -3,9 +3,12 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity rgb_assign_ent is
 	port(
+		--values of the colors in a vector
 		red_assign : in std_logic_vector(3 downto 0);
 		green_assign : in std_logic_vector(3 downto 0);
 		blue_assign : in std_logic_vector(3 downto 0);
+
+		--single bits for every color
 		red_0_assign : out std_logic;
 		red_1_assign : out std_logic;
 		red_2_assign : out std_logic;

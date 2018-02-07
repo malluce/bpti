@@ -31,6 +31,21 @@
 			game\_mechanic\_ent ist die Architektur, welche die eigentliche Spiellogik enthält. Hier werden zwei Spieler vom Typ player\_ent erzeugt und mit der Logik in game\_state\_ent verbunden.
 		
 			\subsection{game\_state\_ent}
+			Test
+				\begin{table}[]
+					\centering
+					\caption{Spielfeld-Kodierungen}
+					\label{tileCode}
+					\begin{tabular}{|l|l|}
+						\hline
+						\textbf{TileID} & \textbf{Bezeichnung}      \\ \hline
+						0x0           & Leeres Feld               \\ \hline
+						0x1           & Explosion                 \\ \hline
+						0xD           & Bombe                     \\ \hline
+						0xE           & Zerstörbarer Block        \\ \hline
+						0xF           & Unzerstörbarer Block      \\ \hline
+					\end{tabular}
+				\end{table}
 		
 			\subsection{player\_ent}
 				%TODO blockdiagramm
@@ -51,7 +66,7 @@
 				\label{tileCode}
 				\begin{tabular}{|l|l|}
 					\hline
-					\textbf{Wert} & \textbf{Bezeichnung}      \\ \hline
+					\textbf{SpriteID} & \textbf{Bezeichnung}      \\ \hline
 					0x0           & Leeres Feld               \\ \hline
 					0x1           & Explosion                 \\ \hline
 					0x2           & Spieler 1                 \\ \hline

@@ -7,10 +7,15 @@ entity game_state_ent is
 	port(
 		clk_state : in std_logic;
 		rst_state : in std_logic;
+
+		--rows and cols of the current position of the players
 		row_player1_state : in std_logic_vector(3 downto 0);
 		col_player1_state : in std_logic_vector(3 downto 0);
 		row_player2_state : in std_logic_vector(3 downto 0);
 		col_player2_state : in std_logic_vector(3 downto 0);
+
+		--infos about the bomb of both players
+		--where is the bomb set, if it is set and if it is exploding
 		row_bomb1_state : in std_logic_vector(3 downto 0);
 		col_bomb1_state : in std_logic_vector(3 downto 0);
 		explode_bomb1_state : in std_logic;
@@ -19,8 +24,12 @@ entity game_state_ent is
 		col_bomb2_state : in std_logic_vector(3 downto 0);
 		explode_bomb2_state : in std_logic;
 		enable_bomb2_state : in std_logic;
+
+		--are the players still alive?
 		enable_player1_state_out : out std_logic;
 		enable_player2_state_out : out std_logic;
+
+		--new state of the game board
 		row0_state : out std_logic_vector(59 downto 0);
 		row1_state : out std_logic_vector(59 downto 0);
 		row2_state : out std_logic_vector(59 downto 0);
@@ -233,30 +242,36 @@ begin
 				row_int2 := to_integer(unsigned(row_bomb2_state));
 				col_int2 := to_integer(unsigned(col_bomb2_state));
 
-			if(explode_bomb1_state = '1' and was_explode1 = '0') then -- bomb 1 is exploding right now
+			if(explode_bomb1_state = '1' and was_explode1 = '0') then
+				-- bomb 1 is exploding right now
 				was_explode1 := '1';
 				SET_TILE(row_int1, col_int1, x"1", current_map);
 
-			elsif(explode_bomb1_state = '0' and was_explode1 = '1') then -- bomb 1 finished exploding
+			elsif(explode_bomb1_state = '0' and was_explode1 = '1') then
+				-- bomb 1 finished exploding
 				was_explode1 := '0';
 				was_enable1 := '0';
 				SET_TILE(row_int1, col_int1, x"0", current_map);
 
-			elsif(was_enable1 = '0' and enable_bomb1_state = '1') then -- bomb 1 is being planted right now
+			elsif(was_enable1 = '0' and enable_bomb1_state = '1') then
+				-- bomb 1 is being planted right now
 				was_enable1 := '1';
 				SET_TILE(row_int1, col_int1, x"D", current_map);
 			end if;
 
-			if(explode_bomb2_state = '1' and was_explode2 = '0') then -- bomb 2 is exploding right now
+			if(explode_bomb2_state = '1' and was_explode2 = '0') then
+				-- bomb 2 is exploding right now
 				was_explode2 := '1';
 				SET_TILE(row_int2, col_int2, x"1", current_map);
 
-			elsif(explode_bomb2_state = '0' and was_explode2 = '1') then -- bomb 2 finished exploding
+			elsif(explode_bomb2_state = '0' and was_explode2 = '1') then
+				-- bomb 2 finished exploding
 				was_explode2 := '0';
 				was_enable2 := '0';
 				SET_TILE(row_int2, col_int2, x"0", current_map);
 
-			elsif(was_enable2 = '0' and enable_bomb2_state = '1') then -- bomb 2 is being planted right now
+			elsif(was_enable2 = '0' and enable_bomb2_state = '1') then
+				-- bomb 2 is being planted right now
 				was_enable2 := '1';
 				SET_TILE(row_int2, col_int2, x"D", current_map);
 			end if;
