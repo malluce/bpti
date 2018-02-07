@@ -21,6 +21,16 @@
 
 \begin{document}
 	\maketitle
+	\tableofcontents
+	\newpage
+	
+	\part{Allgemeines}
+		\section{Idee}
+		
+		\section{Erreichte Ziele}
+		
+		\section{Steuerung}
+	
 	\part{Beschreibung der Entities}
 		\section{bomberman\_ent}
 			%TODO blockdiagramm
@@ -170,7 +180,11 @@
 		\section{graphics\_ent}
 
 			\subsection{pixel\_gen\_ent}
-	
+				\begin{itemize}
+					\item Ein Problem war hier die falsche Berechnung des Offsets für den zweiten Spieler. Hier haben wir vergessen die 160 Pixel des schwarzen Randes zu subtrahieren. Dieser Offset wird für den Zugriff auf den Sprite verwendet.
+					\item Ein weiteres Problem war die Art, wie wir das Speilfeld zeichnen. Ursprünglich haben wir entweder das Spielfeld oder einen Spieler gezeichnet. Als wir jedoch Sprites benutzen wollten, mussten wir dies ändern, um die transparenten Bereiche in dem Sprite des Spielers auch tatsächlich transparent zeichnen zu können. Dafür mussten wir weitere Ausgänge für die Spieler hinzufügen, um Informationen über den Sprite unterhalb des Spielers, sowie über den Sprite des Spielers weitergeben zu können.
+				\end{itemize}
+			
 			\subsection{Sprites}
 				%TODO farben gefixt bekommen?
 
