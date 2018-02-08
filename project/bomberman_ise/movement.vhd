@@ -2,6 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
+-- handles the movement of a player based on the current map rows and gamepad input
 entity movement_ent is
 	generic(X_INIT_MOVE, Y_INIT_MOVE, PLAYER_SIZE_MOVE, TILE_SIZE_MOVE : integer);
 	port(
@@ -20,29 +21,35 @@ entity movement_ent is
 end movement_ent;
 
 architecture movement_behav of movement_ent is
+	-- the code we are using for bombs in the arena
 	constant BOMB_CODING : std_logic_vector(3 downto 0) := x"D";
-	
+
+	-- the pixel position of the player
 	shared variable x_int : integer range 0 to 480 := X_INIT_MOVE;
 	shared variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
+
+	-- the pixel position of the rightest pixel of the player
 	shared variable x_right : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 
 begin
 
+	-- handles moving up XOR down
 	move_up_down : process(clk_move, rst_move)
-
 
 	-- the left/right tile which may cause collision when moving up/down
 	variable left_tile : std_logic_vector(3 downto 0);
 	variable right_tile : std_logic_vector(3 downto 0);
-	
-	-- index for accessing left/right upper/lower tile from a row vector
+
+	-- index for accessing row vector to get left or right tile
 	variable row_idx_left : integer range 0 to 59;
 	variable row_idx_right : integer range 0 to 59;
-	
+
+	-- tmp variables (storing the value of a shared variable at each rising edge)
 	variable x_tmp : integer range 0 to 480;
 	variable x_right_tmp : integer range 0 to 480;
 	variable y_tmp : integer range 0 to 480;
-	
+
+	-- amount of pixels to move, if possible
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -50,11 +57,15 @@ begin
 			y_int := Y_INIT_MOVE;
 			speed := 1;
 		elsif(clk_move'event and clk_move = '1') then
+			-- save shared variables into local copies
 			x_tmp := x_int;
 			x_right_tmp := x_right;
 			y_tmp := y_int;
+
+			-- indices for the left and right tile to check
 			row_idx_left := 59 - (x_tmp-1)/TILE_SIZE_MOVE * 4;
 			row_idx_right := 59 - (x_right_tmp-1)/TILE_SIZE_MOVE * 4;
+
 			if(up_move='0') then
 				if((y_tmp - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change through moving
 					y_int := y_tmp - speed;
@@ -80,19 +91,22 @@ begin
 		end if;
 	end process move_up_down;
 
-
+	-- handles moving right XOR left
 	move_left_right : process(clk_move, rst_move)
 
 	-- the upper/lower tile which may cause collision when moving left/right
 	variable upper_tile : std_logic_vector(3 downto 0);
 	variable lower_tile : std_logic_vector(3 downto 0);
-	
+
+	-- index for the rows for getting the upper and lower tile
 	variable row_idx : integer range 0 to 59;
-	
+
+	-- tmp variables (storing the value of a shared variable at each rising edge)
 	variable x_tmp : integer range 0 to 480;
 	variable x_right_tmp : integer range 0 to 480;
 	variable y_tmp : integer range 0 to 480;
-	
+
+	-- amount of pixels to move, if possible
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -101,11 +115,12 @@ begin
 			x_right := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 			speed := 1;
 		elsif(clk_move'event and clk_move = '1') then
+			-- save shared variables into local copies
 			x_tmp := x_int;
 			x_right_tmp := x_right;
 			y_tmp := y_int;
 			if(left_move='0') then
-				if((x_tmp - 1) mod TILE_SIZE_MOVE /= 0) then
+				if((x_tmp - 1) mod TILE_SIZE_MOVE /= 0) then -- no tile change by moving
 					x_int := x_tmp - speed;
 				else
 					row_idx := 59 - (x_tmp-2)/TILE_SIZE_MOVE * 4;
@@ -132,7 +147,7 @@ begin
 						end if;
 				end if;
 			elsif(right_move= '0') then
-				if((x_tmp + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then
+				if((x_tmp + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then -- no tile change by moving
 					x_int := x_tmp + speed;
 				else
 					row_idx := 59 - (x_right_tmp)/TILE_SIZE_MOVE * 4;
