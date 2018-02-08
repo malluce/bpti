@@ -182,7 +182,7 @@ begin
 
     --second player
 	player_2: player_ent
-	generic map(417, 417, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
+	generic map(33, 417, PLAYER_SIZE_MECH, TILE_SIZE_MECH)
 	port map(
 		clk_mech,
 		rst_mech,
