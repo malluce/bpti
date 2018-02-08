@@ -186,6 +186,10 @@
 			\end{figure}
 		
 	\part{Probleme}
+		\section{Allgemein}
+			\begin{itemize}
+				\item In einer Version unseres Designs hatten wir ein \enquote{congested design}, was sich darin äußerte, dass Place \& Route mehrere Stunden dauerte und nicht zu einem Ende kam. Wir lösten dieses Problem, indem wir unnötige Ports (und somit Leitungen) aus unserem Design löschten. Dies kam vor allen Dingen bei der player\_ent zum Tragen, da wir hier zu Beginn jedem Player alle 15 Rows übergaben, wobei für die Kollision bei der Bewegung nur maximal drei Rows benötigt werden. Durch die Reduktion der Ports auf diese drei Rows wurde Place \& Route deutlich beschleunigt und das Design konnte implementiert werden.
+			\end{itemize}
 
 		\section{game\_mechanic\_ent}
 
@@ -201,7 +205,8 @@
 						\item Lange Zeit hatten wir ein Problem damit, dass die Spielfiguren in Blöcke hineinglitchen konnten, falls sie sich auf zwei Kacheln gleichzeitig befanden und in Richtung des Blockes bewegten. Der Fehler ergab sich wie folgt: 
 						Um die Position des rechtesten Pixels eines Spielers herauszufinden (wird für die Kollisionserkennung benötigt), haben wir eine Variable x\_right, welche wir nach jeder Bewegung in x-Richtung aktualisieren. Diese ergibt sich im Wesentlichen durch Addieren der Spielergröße (Generic) auf die aktuelle x-Position des Spielers. 
 						Unser Fehler bestand nun darin, dass wir für die Neuberechnung von x\_right nach jeder Bewegung in x-Richtung X\_INIT (Generic, das die initiale x-Position des Spielers enthält) statt x\_int (Variable, die die aktuelle x-Position des Spielers enthält) verwendeten.
-						\item Zu Beginn bekam movement\_ent alle 15 Rows des Spielfeldes, was wir gegen Ende noch änderten. Dies führte zu Problemen, da wir nun die zu prüfenden Rows anders auswählen mussten. Ein Fehler in unserer diesbezüglichen Logik führte dazu, dass die Bewegung in bestimmte Richtungen nicht mehr möglich war, da wir nun stets alle in Frage kommenden Kacheln überprüften und nicht nur die benötigten. Dieses Problem ließ sich allerdings leicht lösen, indem wir im Falle, dass der Spieler sich auf exakt einer Kachel befindet wir nur eine Kachel zur Kollision überprüfen.
+						\item Zu Beginn bekam movement\_ent alle 15 Rows des Spielfeldes, was wir gegen Ende noch änderten. Nun werden nur die zur Kollision benötigten Rows übergeben. 
+						Dies führte zu Problemen, da wir nun die zu prüfenden Rows anders auswählen mussten. Ein Fehler in unserer diesbezüglichen Logik führte dazu, dass die Bewegung in bestimmte Richtungen nicht mehr möglich war, da wir nun stets alle in Frage kommenden Kacheln überprüften und nicht nur die benötigten. Dieses Problem ließ sich allerdings leicht lösen, indem wir im Falle, dass der Spieler sich auf exakt einer Kachel befindet wir nur eine Kachel zur Kollision überprüfen.
 					\end{itemize}
 					
 		\section{graphics\_ent}
