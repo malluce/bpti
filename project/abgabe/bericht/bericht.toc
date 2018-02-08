@@ -24,11 +24,7 @@
 \contentsline {subsection}{\numberline {8.1}game\_state\_ent}{11}{subsection.8.1}
 \contentsline {subsection}{\numberline {8.2}player\_ent}{12}{subsection.8.2}
 \contentsline {subsubsection}{\numberline {8.2.1}movement\_ent}{12}{subsubsection.8.2.1}
-\contentsline {subsubsection}{\numberline {8.2.2}bomb\_ent}{12}{subsubsection.8.2.2}
 \contentsline {section}{\numberline {9}graphics\_ent}{12}{section.9}
 \contentsline {subsection}{\numberline {9.1}pixel\_gen\_ent}{12}{subsection.9.1}
 \contentsline {subsection}{\numberline {9.2}Sprites}{13}{subsection.9.2}
-\contentsline {subsubsection}{\numberline {9.2.1}SpriteExtractor.java}{13}{subsubsection.9.2.1}
-\contentsline {subsubsection}{\numberline {9.2.2}SpriteROM}{13}{subsubsection.9.2.2}
-\contentsline {subsubsection}{\numberline {9.2.3}PlayerROM}{13}{subsubsection.9.2.3}
 \contentsline {section}{\numberline {10}sync\_gen\_ent}{13}{section.10}

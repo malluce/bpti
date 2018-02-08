@@ -26,7 +26,7 @@
 	
 	\part{Allgemeines}
 		\section{Idee}
-			Die grundlegende Idee war ein klassisches Bomberman-Spiel, wie man es von älteren Konsolen kennt. Zwei Spieler können sich auf einem Spielfeld bewegen und Bomben platzieren, um Blöcke oder den Gegener zu zerstören.
+			Die grundlegende Idee war ein klassisches Bomberman-Spiel, wie man es von älteren Konsolen kennt. Zwei Spieler können sich auf einem Spielfeld bewegen und Bomben platzieren, um Blöcke oder den Gegner zu zerstören.
 			\begin{figure}[H]
 				\centering
 				\includegraphics[scale=0.4]{./bilder/bomberman.png}
@@ -34,15 +34,15 @@
 			\end{figure}
 		
 		\section{Erreichte Ziele}
-			%TODO Ticken der Bombe verschweigen?!
-			Wir haben alle unsere Musskrieterien erfüllt. Es gibt zwei Spielfiguren, die sich von den Spielern steuern lassen und sich nicht über Blöcke bewegen können. Das Spielfeld ist durch unzerstörbare und  zerstörbare Blöcke sowie leere Felder aufgebaut. Jeder Spieler kann eine Bombe platzieren, die nach einer bestimmten Zeit explodiert. Bei der Explosion werden zerstörbare Blöcke, die sich im Radius der Explosion befinden zerstört. Ebenfalls sterben Spieler, die sich in einer Explosion befinden. \newline
+			%TODO bildschirmfoto
+			Wir haben alle unsere Musskriterien erfüllt. Es gibt zwei Spielfiguren, die sich von den Spielern steuern lassen und sich nicht über Blöcke bewegen können. Das Spielfeld ist durch unzerstörbare und  zerstörbare Blöcke sowie leere Felder aufgebaut. Jeder Spieler kann eine Bombe platzieren, die nach einer bestimmten Zeit explodiert. Bei der Explosion werden zerstörbare Blöcke, die sich im Radius der Explosion befinden zerstört. Ebenfalls sterben Spieler, die sich in einer Explosion befinden. \newline
 			Außerdem haben wir Sprites für alle Blöcke und auch für die beiden Spieler implementiert. \newline
 			
 		
 		\section{Steuerung}
 			%TODO Bild vom Controller
 			%TODO Bild von der Verkabelung?!?!
-			\begin{table}[]
+			\begin{table}[H]
 				\centering
 				\label{controls}
 				\begin{tabular}{|l|l|}
@@ -72,7 +72,7 @@
 				Sollte ein Spieler seine Bombe legen, bekommt game\_state\_ent die Postion der Bombe, sowie die Information, dass die Bombe gelegt wurde. Daraufhin wird die entsprechende Zeile so geändert, dass die Bombe auch tatsächlich sichtbar ist. Nachdem der Zähler der Bombe abgelaufen ist und sie explodieren soll, wird das entsprechende explode Signal gesetzt. Dann werden die umgrenzenden Blöcke der Bombe überprüft und auf Explosionen gesetzt. Die Blöcke müssen zuerst überprüft werden, um zu verhindern, dass unzerstörbare Blöcke von den Explosionen zerstört werden. Wenn der entsprechende Explosions Zähler in der Bombe abläuft, wird das explosion Signal auf 0 gesetzt und die Felder mit Explosionen werden auf leere Felder geändert. \newline
 				Desweiteren werden hier die Kollisionen der Spieler erkannt. Sollte sich ein Spieler auf einem Feld befinden, auf dem momentan eine Explosion ist, wird das enable Signal des Spielers auf 0 gesetzt und er "stirbt". Dabei verwenden wir jeweils den Mittelpunkt des Spielers als Vergleichswert, um zu entscheiden ob er stirbt oder nicht. \newline
 				
-				\begin{table}[]
+				\begin{table}[H]
 					\centering
 					\label{tileCode}
 					\begin{tabular}{|l|l|}
@@ -202,8 +202,6 @@
 						%TODO nach aktualisierung der rows falsche kollisionslogik -> nur ein tile prüfen, wenn in einer dimension tile aligned
 					\end{itemize}
 					
-				\subsubsection{bomb\_ent}
-
 		\section{graphics\_ent}
 
 			\subsection{pixel\_gen\_ent}
@@ -213,15 +211,11 @@
 				\end{itemize}
 			
 			\subsection{Sprites}
-				%TODO farben gefixt bekommen?
-
-				\subsubsection{SpriteExtractor.java}
-
-				\subsubsection{SpriteROM}
-
-				\subsubsection{PlayerROM}
-				Bei der ersten Implementierung geschah der Zugriff auf die ROMs taktsynchron. Dies führte zu einer Ausgabe, die verschmiert und deutlich dunkler als erwartet war. Erklären ist dies damit, dass durch die Taktsynchronität der RGB-Wert eines Pixels aus der Top-Level-Entity zwei Takte zu spät ausgegeben wurde (SpriteROM und PlayerROM verzögern Ausgabe jeweils um einen Takt). Somit wurden am Ende jeder Zeile des Bildes jeweils zwei Takte zu lang RGB-Werte gesetzt, was bei der VGA-Signalgenerierung allerdings nicht erlaubt ist.
-				Gelöst wurde das Problem dadurch, dass SpriteROM und PlayerROM nun asynchron arbeiten.
+				\begin{itemize}
+					\item Bei der ersten Implementierung geschah der Zugriff auf die ROMs taktsynchron. Dies führte zu einer Ausgabe, die verschmiert und deutlich dunkler als erwartet war. Erklären ist dies damit, dass durch die Taktsynchronität der RGB-Wert eines Pixels aus der Top-Level-Entity zwei Takte zu spät ausgegeben wurde (SpriteROM und PlayerROM verzögern Ausgabe jeweils um einen Takt). Somit wurden am Ende jeder Zeile des Bildes jeweils zwei Takte zu lang RGB-Werte gesetzt, was bei der VGA-Signalgenerierung allerdings nicht erlaubt ist.
+					Gelöst wurde das Problem dadurch, dass SpriteROM und PlayerROM nun asynchron arbeiten.
+				\end{itemize}
+	
 		
 		\section{sync\_gen\_ent}
 			Ein Problem, das schon bei der Lösung des Übungsblatts aufgetaucht ist, hat sich auch durch das Projekt gezogen.
