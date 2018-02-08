@@ -2,6 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
+-- entity which transforms the state of the game into sprite ids and indeces
 entity pixel_gen_ent is
 	generic(PLAYER_SIZE_PIX, TILE_SIZE_PIX : integer);
 	port(
@@ -30,17 +31,17 @@ entity pixel_gen_ent is
         row9_pixel : in std_logic_vector(59 downto 0);
         row10_pixel : in std_logic_vector(59 downto 0);
         row11_pixel : in std_logic_vector(59 downto 0);
-		row12_pixel : in std_logic_vector(59 downto 0);
-		row13_pixel : in std_logic_vector(59 downto 0);
-		row14_pixel : in std_logic_vector(59 downto 0);
+				row12_pixel : in std_logic_vector(59 downto 0);
+				row13_pixel : in std_logic_vector(59 downto 0);
+				row14_pixel : in std_logic_vector(59 downto 0);
 
-		--information for the sprite entities, which sprites they should draw
-		sprite_id_pixel : out std_logic_vector(3 downto 0);
-		sprite_row_pixel : out std_logic_vector(4 downto 0);
-		sprite_col_pixel : out std_logic_vector(4 downto 0);
-		player_id_pixel : out std_logic_vector(3 downto 0);
-		player_x_pixel : out std_logic_vector(4 downto 0);
-		player_y_pixel : out std_logic_vector(4 downto 0)
+				--information for the sprite entities, which sprites they should draw
+				sprite_id_pixel : out std_logic_vector(3 downto 0);
+				sprite_row_pixel : out std_logic_vector(4 downto 0);
+				sprite_col_pixel : out std_logic_vector(4 downto 0);
+				player_id_pixel : out std_logic_vector(3 downto 0);
+				player_x_pixel : out std_logic_vector(4 downto 0);
+				player_y_pixel : out std_logic_vector(4 downto 0)
 	);
 end pixel_gen_ent;
 
