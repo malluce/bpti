@@ -73,7 +73,7 @@
 			\subsection{game\_state\_ent}
 				game\_state\_ent ist einerseits für die Verwaltung des Speilfeldes, aber auch für die Kollisionen verantwortlich. Unser Spielfeld besteht aus insgesamt 15 Zeilen mit jeweils 15 Spalten, wobei jedes Feld durch vier Bits kodiert wird. Die genauen Kodierungen der einzelnen Blöcke kann man Tabelle 1 entnehmen. In dieser Entity wird der Anfangswert für alle Zeilen des Spielfeldes bestimmt, die durch das Ablaufen des Spiels verändert werden können. \newline
 				Sollte ein Spieler seine Bombe legen, bekommt game\_state\_ent die Postion der Bombe, sowie die Information, dass die Bombe gelegt wurde. Daraufhin wird die entsprechende Zeile so geändert, dass die Bombe auch tatsächlich sichtbar ist. Nachdem der Zähler der Bombe abgelaufen ist und sie explodieren soll, wird das entsprechende explode Signal gesetzt. Dann werden die umgrenzenden Blöcke der Bombe überprüft und auf Explosionen gesetzt. Die Blöcke müssen zuerst überprüft werden, um zu verhindern, dass unzerstörbare Blöcke von den Explosionen zerstört werden. Wenn der entsprechende Explosions Zähler in der Bombe abläuft, wird das explosion Signal auf 0 gesetzt und die Felder mit Explosionen werden auf leere Felder geändert. \newline
-				Desweiteren werden hier die Kollisionen der Spieler erkannt. Sollte sich ein Spieler auf einem Feld befinden, auf dem momentan eine Explosion ist, wird das enable Signal des Spielers auf 0 gesetzt und er "stirbt". Dabei verwenden wir jeweils den Mittelpunkt des Spielers als Vergleichswert, um zu entscheiden ob er stirbt oder nicht. \newline
+				Desweiteren werden hier die Kollisionen der Spieler erkannt. Sollte sich ein Spieler auf einem Feld befinden, auf dem momentan eine Explosion ist, wird das enable Signal des Spielers auf 0 gesetzt und er stirbt. Dabei verwenden wir jeweils den Mittelpunkt des Spielers als Vergleichswert, um zu entscheiden ob er stirbt oder nicht. \newline
 				
 				\begin{table}[H]
 					\centering
@@ -93,7 +93,7 @@
 			\subsection{player\_ent}
 				Die Entity player\_ent enthält alle Unterkomponenten eines Spielers. 
 				Diese sind eine bomb\_ent und movement\_ent (inklusive Clock), da jeder Spieler eine Bombe legen kann und bei Bewegungen auf Kollision mit Kacheln überprüft werden muss.
-				Als Eingabe erhält player\_ent die VGA Clock, ein asynchrones Reset, sowie alle Eingaben des Gamepads (Bewegung in alle 4 Richtungen und den Knopf zum Bombe legen) und einen enable-Eingang. Letzterer verhindert, dass ein Spieler, der bereits von einer Bombe getötet wurde, noch Bomben legen kann. Weitere Inputs sind die Rows des Spielfeldes, welche sich um die aktuelle Spielerposition herum befinden.
+				Als Eingabe erhält player\_ent die VGA Clock, ein asynchrones Reset, sowie alle Eingaben des Gamepads (Bewegung in alle 4 Richtungen und den Knopf zum Bombe legen) und einen enable-Eingang. Letzterer verhindert, dass ein Spieler, der bereits von einer Bombe getötet wurde, noch Bomben legen kann. Weitere Inputs sind die Zeilen des Spielfeldes, welche sich um die aktuelle Spielerposition herum befinden.
 				Als Ausgabe hat player\_ent die aktuelle Position des Spielers (pixel- als auch kachelweise). Außerdem wird die Kachel-Position und der Zustand der Bombe ausgegeben.
 				
 				\begin{figure}[H]
@@ -198,8 +198,8 @@
 	\part{Probleme}
 		\section{Allgemein}
 			\begin{itemize}
-				\item In einer Version unseres Designs hatten wir ein \enquote{congested design}, was sich darin äußerte, dass Place \& Route mehrere Stunden dauerte und nicht zu einem Ende kam. Wir lösten dieses Problem, indem wir unnötige Ports (und somit Leitungen) aus unserem Design löschten. Dies kam vor allen Dingen bei der player\_ent zum Tragen, da wir hier zu Beginn jedem Player alle 15 Rows übergaben, wobei für die Kollision bei der Bewegung nur maximal drei Rows benötigt werden. Durch die Reduktion der Ports auf diese drei Rows wurde Place \& Route deutlich beschleunigt und das Design konnte implementiert werden.
-				\item Hin und wieder (nicht reproduzierbar) passieren gefühlt zufällige, unerwartete Dinge. Zum Beispiel werden eine oder mehrere Rows komplett leer oder es tauchen einzelne schwarze Blöcke auf (für schwarze Blöcke existiert in unserem Code überhaupt keine Logik).
+				\item In einer Version unseres Designs hatten wir ein \enquote{congested design}, was sich darin äußerte, dass Place \& Route mehrere Stunden dauerte und nicht zu einem Ende kam. Wir lösten dieses Problem, indem wir unnötige Ports (und somit Leitungen) aus unserem Design löschten. Dies kam vor allen Dingen bei der player\_ent zum Tragen, da wir hier zu Beginn jedem Player alle 15 Zeilen übergaben, wobei für die Kollision bei der Bewegung nur maximal drei Zeilen benötigt werden. Durch die Reduktion der Ports auf diese drei Zeilen wurde Place \& Route deutlich beschleunigt und das Design konnte implementiert werden.
+				\item Hin und wieder (nicht reproduzierbar) passieren gefühlt zufällige, unerwartete Dinge. Zum Beispiel werden eine oder mehrere Zeilen komplett leer oder es tauchen einzelne schwarze Blöcke auf (für schwarze Blöcke existiert in unserem Code überhaupt keine Logik).
 			\end{itemize}
 
 		\section{game\_mechanic\_ent}
@@ -216,8 +216,8 @@
 						\item Lange Zeit hatten wir ein Problem damit, dass die Spielfiguren in Blöcke hineinglitchen konnten, falls sie sich auf zwei Kacheln gleichzeitig befanden und in Richtung des Blockes bewegten. Der Fehler ergab sich wie folgt: 
 						Um die Position des rechtesten Pixels eines Spielers herauszufinden (wird für die Kollisionserkennung benötigt), haben wir eine Variable x\_right, welche wir nach jeder Bewegung in x-Richtung aktualisieren. Diese ergibt sich im Wesentlichen durch Addieren der Spielergröße (Generic) auf die aktuelle x-Position des Spielers. 
 						Unser Fehler bestand nun darin, dass wir für die Neuberechnung von x\_right nach jeder Bewegung in x-Richtung X\_INIT (Generic, das die initiale x-Position des Spielers enthält) statt x\_int (Variable, die die aktuelle x-Position des Spielers enthält) verwendeten.
-						\item Zu Beginn bekam movement\_ent alle 15 Rows des Spielfeldes, was wir gegen Ende noch änderten. Nun werden nur die zur Kollision benötigten Rows übergeben. 
-						Dies führte zu Problemen, da wir nun die zu prüfenden Rows anders auswählen mussten. Ein Fehler in unserer diesbezüglichen Logik führte dazu, dass die Bewegung in bestimmte Richtungen nicht mehr möglich war, da wir nun stets alle in Frage kommenden Kacheln überprüften und nicht nur die benötigten. Dieses Problem ließ sich allerdings leicht lösen, indem wir im Falle, dass der Spieler sich auf exakt einer Kachel befindet wir nur eine Kachel zur Kollision überprüfen.
+						\item Zu Beginn bekam movement\_ent alle 15  Zeilen des Spielfeldes, was wir gegen Ende noch änderten. Nun werden nur die zur Kollision benötigten Zeilen übergeben. 
+						Dies führte zu Problemen, da wir nun die zu prüfenden Zeilen anders auswählen mussten. Ein Fehler in unserer diesbezüglichen Logik führte dazu, dass die Bewegung in bestimmte Richtungen nicht mehr möglich war, da wir nun stets alle in Frage kommenden Kacheln überprüften und nicht nur die benötigten. Dieses Problem ließ sich allerdings leicht lösen, indem wir im Falle, dass der Spieler sich auf exakt einer Kachel befindet wir nur eine Kachel zur Kollision überprüfen.
 						\item Am Ende des Praktikums haben wir mit der Bewegung der Spieler noch zwei größere Probleme:
 						\begin{itemize}
 							\item In der rechten Hälfte der Arena (ab der neunten Spalte) funktioniert die Bewegung nicht wie von uns erwartet. Von dort ist eine Bewegung nach links nicht mehr möglich und auch die Kollision mit Blöcken funktioniert nicht mehr ordnungsgemäß. Woran das liegt, haben wir nicht mehr herausgefunden, da das Verhalten in der Simulation so nicht vorkommt.
