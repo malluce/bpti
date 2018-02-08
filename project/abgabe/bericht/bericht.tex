@@ -136,18 +136,18 @@
 				\end{table}			
 
 			\subsection{player\_ent}
+				\begin{figure}[H]
+					\centering
+					\includegraphics[scale=0.15]{./bilder/player.jpg}
+					\caption{Blockdiagramm player\_ent}
+				\end{figure}
+			
 				Die Entity player\_ent enthält alle Unterkomponenten eines Spielers. 
 				Diese sind eine bomb\_ent und movement\_ent (inklusive Clock), da jeder Spieler eine Bombe legen kann und bei Bewegungen auf Kollision mit Kacheln überprüft werden muss.
 				Als Eingabe erhält player\_ent die VGA Clock, ein asynchrones Reset, sowie alle Eingaben des Gamepads (Bewegung in alle 4 Richtungen und den Knopf zum Bombe legen) und einen enable-Eingang. Letzterer verhindert, dass ein Spieler, der bereits von einer Bombe getötet wurde, noch Bomben legen kann. Weitere Inputs sind die Zeilen des Spielfeldes, welche sich um die aktuelle Spielerposition herum befinden.
 				Als Ausgabe hat player\_ent die aktuelle Position des Spielers (pixel- als auch kachelweise). Außerdem wird die Kachel-Position und der Zustand der Bombe ausgegeben.
 				
-				\begin{figure}[H]
-					\centering
-					%TODO\includegraphics[scale=0.4]{}
-					\caption{Blockdiagramm player\_ent}
-				\end{figure}
-				
-				Bemerkung zur Abbildung: Neben der normalen Verdrahtung wenden wir in player\_ent noch eine Transformation von Pixel- auf Kachelkoordinaten an. Der Übersichtlichkeit halber haben wir dies nicht als asynchrone Entity modelliert, sondern direkt in die strukturelle Beschreibung eingefügt (beim Abbilden der forward-Signale auf die Out-Ports).
+				Bemerkung zu Abbildung 7: Neben der normalen Verdrahtung wenden wir in player\_ent noch eine Transformation von Pixel- auf Kachelkoordinaten an. Der Übersichtlichkeit halber haben wir dies nicht als asynchrone Entity modelliert, sondern direkt in die strukturelle Beschreibung eingefügt (beim Abbilden der forward-Signale auf die Out-Ports). In der Abbildung haben wir dies als \enquote{KONVERTER} dargestellt.
 				\subsubsection{clk\_movement\_ent}
 				Die Entity clk\_movement\_ent ist ein Clock Divider, die Architecture wird funktional beschrieben. Die Entity wird genutzt, um die Geschwindigkeit der Bewegung der Spieler zu steuern. Es wird alle 78125 Originaltakte die Ausgabe negiert. Da in unserem Design die VGA-Clock genutzt wird, wird somit alle $\frac{78125 * 2}{25.175 * 10^6}s \approx 6.2ms$ ein Takt erzeugt. Dies hat zur Folge, dass bei ständiger Bewegung eines Spielers in die gleiche Richtung, die pro steigender Takt-Flanke des ausgegebenen Takts stattfindet, die Bewegung vom linken bis zum rechten Rand des Spielfelds (480 Pixel) $480 * 6.2 ms \approx 2.98 s$ dauert. Diesen Wert haben wir bei BombermanGB über einen Emulator gemessen und \enquote{rückwärts} den nötigen Zähler, also 78125, bestimmt.
 				\subsubsection{movement\_ent}
@@ -182,6 +182,12 @@
 					\end{figure}
 			
 		\section{graphics\_ent}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[angle=90,scale=0.1]{./bilder/graphics_ent.jpg}
+				\caption{Blockdiagramm graphics\_ent}
+			\end{figure}
+		
 			graphics\_ent kapselt die Farbenerzeugung. Als Eingabe bekommt es die Informationen über die Positionen der Spieler und über das Spielfeld, sowie die Position des aktuell zu zeichnenden Pixels (generiert durch sync\_gen\_ent). Aus diesen Werten wird durch pixel\_gen\_ent entschieden welche Sprites gerade verwendet werden müssen. Anschließend werden die ausgelesenen Farbinformationen in rgb\_assign\_ent auf die einzelnen Farbausgänge gelegt.\newline
 			
 			\begin{table}[H]
@@ -201,12 +207,6 @@
 				\end{tabular}
 				\caption{Sprite-Kodierungen}
 			\end{table}
-		
-			\begin{figure}[H]
-				\centering
-				\includegraphics[angle=90,scale=0.1]{./bilder/graphics_ent.jpg}
-				\caption{Blockdiagramm graphics\_ent}
-			\end{figure}
 			
 			\subsection{pixel\_gen\_ent}
 				pixel\_gen\_ent bekommt als Eingaben die Informationen über die Spieler, sowie über das Spielfeld. Abhängig von diesen Informationen gibt die Entity aus, auf welche Sprites zugegriffen werden soll und an welcher Stelle.\newline
@@ -232,13 +232,14 @@
 				In der Entity rgb\_assign\_ent werden die Farbausgänge für den Monitor gesetzt. Dazu wird bitweise auf die RGB-Eingangsvektoren zugegriffen und die einzelnen Ausgangsbits gesetzt. Diese Vorgehen am Ende der Bearbeitung erlaubt es uns während den Berechnungen mit drei Vektoren für die Farben zu arbeiten, anstatt immer 12 einzelne Bits zu benutzen.
 		
 		\section{sync\_gen\_ent}
-			Die Entity sync\_gen\_ent wird mit einer Architecture strukturell beschrieben durch die Unterkomponenten hsync und vsync. In dieser Entity werden die Signale für den VGA-Controller generiert (also hsync und vsync). Desweiteren werden zum Setzen der Pixel die aktuelle row und column ausgegeben.
-			An dieser Stelle sei auf das VGA-Übungsblatt und den Bericht darüber verwiesen. Wir haben unsere Lösung von dem Übungsblatt für das Projekt übernommen und im Laufe des Projekts nichts an der Entity inklusive Unterkomponenten geändert.
 			\begin{figure}[H]
 				\centering
 				\includegraphics[scale=0.1]{./bilder/Sync_gen.jpeg}
 				\caption{Blockdiagramm sync\_gen\_ent}
 			\end{figure}
+		
+			Die Entity sync\_gen\_ent wird mit einer Architecture strukturell beschrieben durch die Unterkomponenten hsync und vsync. In dieser Entity werden die Signale für den VGA-Controller generiert (also hsync und vsync). Desweiteren werden zum Setzen der Pixel die aktuelle row und column ausgegeben.
+			An dieser Stelle sei auf das VGA-Übungsblatt und den Bericht darüber verwiesen. Wir haben unsere Lösung von dem Übungsblatt für das Projekt übernommen und im Laufe des Projekts nichts an der Entity inklusive Unterkomponenten geändert.
 		
 	\part{Probleme}
 		\section{Allgemein}
