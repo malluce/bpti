@@ -37,15 +37,26 @@
 			\end{figure}
 		
 		\section{Erreichte Ziele}
-			%TODO bildschirmfoto
-			%TODO nicht alles so ganz erfüllt :/
-			Wir haben alle unsere Musskriterien erfüllt. Es gibt zwei Spielfiguren, die sich von den Spielern steuern lassen und sich nicht über Blöcke bewegen können. Das Spielfeld ist durch unzerstörbare und  zerstörbare Blöcke sowie leere Felder aufgebaut. Jeder Spieler kann eine Bombe platzieren, die nach einer bestimmten Zeit explodiert. Bei der Explosion werden zerstörbare Blöcke, die sich im Radius der Explosion befinden, zerstört. Ebenfalls sterben Spieler, die sich in einer Explosion befinden. \newline
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.1]{./bilder/Screenshot.png}
+				\caption{Screenshot des fertigen Spiels}
+			\end{figure}
+			Wir haben die meisten unserer Musskriterien erfüllt. Es gibt zwei Spielfiguren, die sich von den Spielern steuern lassen und sich nicht über Blöcke bewegen können. Das Spielfeld ist durch unzerstörbare und  zerstörbare Blöcke sowie leere Felder aufgebaut. Jeder Spieler kann eine Bombe platzieren, die nach einer bestimmten Zeit explodiert. Bei der Explosion werden zerstörbare Blöcke, die sich im Radius der Explosion befinden, zerstört. Ebenfalls sterben Spieler, die sich in einer Explosion befinden. Die Kollision der Spieler an Blöcken funktioniert nicht ganz wie gewünscht. Dies wird später noch einmal näher erläutert.\newline
 			Außerdem haben wir Sprites für alle Blöcke und auch für die beiden Spieler implementiert. \newline
 			
 		
 		\section{Steuerung}
-			%TODO Bild vom Controller
-			%TODO Bild von der Verkabelung?!?!
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.1]{./bilder/Verkabelung.png}
+				\caption{Verkabelung der Controller}
+			\end{figure}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.1]{./bilder/Controller.png}
+				\caption{Bedienung eines Controllers}
+			\end{figure}
 			\begin{table}[H]
 				\centering
 				\label{controls}
@@ -62,14 +73,22 @@
 	
 	\part{Beschreibung der Entities}
 		\section{bomberman\_ent}
-			%TODO blockdiagramm
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.1]{./bilder/bombermanEnt.jpeg}
+				\caption{Diagramm von bomberman\_ent}
+			\end{figure}
 			bomberman\_ent ist die Top-Level-Architektur. Die Eingänge sind die tatsächlichen Eingaben des Nutzers und auf den Ausgängen liegen die Informationen, die für den VGA-Anschluss benötigt werden. In bomberman\_ent werden drei Entities miteinander verbunden. Zuerst die sync\_gen\_ent, die hsync und vsync erzeugt. Außerdem die game\_mechanic\_ent, welche die eigentliche Spiellogik enthält. Zuletzt noch die graphics\_ent, die für die Erzeugung der entsprechenden RGB-Farbwerte zuständig ist. 
 			Letzere enthält ausschließlich asynchrone Entities, sync\_gen\_ent und game\_mechanic\_ent enthalten ausschließlich synchrone Entities (wenn nicht anders angegeben, kriegen diese die VGA-Clock als Takt).
 			In bomberman\_ent werden außerdem die beiden Generics TILE\_SIZE und PLAYER\_SIZE definiert und mit 32 initialisiert.
 		
 		\section{game\_mechanic\_ent}
-			%TODO blockdiagramm
-			game\_mechanic\_ent ist die Architektur, welche die eigentliche Spiellogik enthält. Hier werden zwei Spieler vom Typ player\_ent erzeugt und mit der Logik in game\_state\_ent verbunden. Außerdem wird hier entschieden welche Zeilen an die einzelnen Spieler weitergegeben werden. Jeder Spieler benötigt lediglich die Zeile in der er sich befindet, sowie die über und unter ihm, um zu entscheiden, ob er sich in eine bestimmte Richtung bewegen kann. 
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.1]{./bilder/gameMechanic.jpeg}
+				\caption{Diagramm von game\_mechanic\_ent}
+			\end{figure}
+			game\_mechanic\_ent ist die Architektur, welche die eigentliche Spiellogik enthält. Hier werden zwei Spieler vom Typ player\_ent erzeugt und mit der Logik in game\_state\_ent verbunden. Außerdem wird hier entschieden welche Zeilen an die einzelnen Spieler weitergegeben werden. Dies geschieht nicht in einer eigenen Entity, wie auf dem Bild angedeutet, sondern in game\_mechanic direkt. Jeder Spieler benötigt lediglich die Zeile in der er sich befindet, sowie die über und unter ihm, um zu entscheiden, ob er sich in eine bestimmte Richtung bewegen kann. 
 		
 			\subsection{game\_state\_ent}
 				game\_state\_ent ist einerseits für die Verwaltung des Spielfeldes, aber auch für die Kollisionen verantwortlich. Unser Spielfeld besteht aus insgesamt 15 Zeilen mit jeweils 15 Spalten, wobei jedes Feld durch vier Bits kodiert wird. Die genauen Kodierungen der einzelnen Blöcke kann man Tabelle 1 entnehmen. In dieser Entity wird der Anfangswert für alle Zeilen des Spielfeldes bestimmt (vgl. Tabelle 3), die durch das Ablaufen des Spiels verändert werden können. \newline
