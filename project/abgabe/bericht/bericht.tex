@@ -267,7 +267,7 @@
 						\item Am Ende des Praktikums haben wir mit der Bewegung der Spieler noch zwei größere Probleme:
 						\begin{itemize}
 							\item In der rechten Hälfte der Arena (ab der neunten Spalte) funktioniert die Bewegung nicht wie von uns erwartet. Von dort ist eine Bewegung nach links nicht mehr möglich und auch die Kollision mit Blöcken funktioniert nicht mehr ordnungsgemäß. Woran das liegt, haben wir nicht mehr herausgefunden, da das Verhalten in der Simulation so nicht vorkommt.
-							\item %TODO diagonal glitchen?
+							\item Befindet sich ein Spieler an einem unzerstörbaren Block ist es in der finalen Version mitunter möglich, dass bei gleichzeitigem Bewegen nach unten/oben und links/rechts in Richtung des unzerstörbaren Block dieser diagonal überlaufen werden kann. Auch hier funktioniert die Kollision offensichtlich nicht wie erwartet.
 						\end{itemize}
 					\end{itemize}
 					
