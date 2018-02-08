@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+-- basically a demux for rgb vectors for getting the signals for the single pins (e.g red-vector -> red<0>)
 entity rgb_assign_ent is
 	port(
 		--values of the colors in a vector

@@ -17,10 +17,13 @@
 
 %\clearscrheadfoot
 \ohead{BPTI: Gruppe 03=\{Niklas Metz, Felix Bachmann\}, Bericht, WS 2017/18}
+
 \title{BPTI: Bomberman in VHDL}
+\subtitle{von Niklas Metz und Felix Bachmann}
 
 \begin{document}
 	\maketitle
+	\newpage
 	\tableofcontents
 	\newpage
 	
@@ -88,8 +91,18 @@
 				\end{table}
 
 			\subsection{player\_ent}
-				%TODO blockdiagramm
-				%TODO beschreibung
+				Die Entity player\_ent enthält alle Unterkomponenten eines Spielers. 
+				Diese sind eine bomb\_ent und movement\_ent (inklusive Clock), da jeder Spieler eine Bombe legen kann und bei Bewegungen auf Kollision mit Kacheln überprüft werden muss.
+				Als Eingabe erhält player\_ent die VGA Clock, ein asynchrones Reset, sowie alle Eingaben des Gamepads (Bewegung in alle 4 Richtungen und den Knopf zum Bombe legen) und einen enable-Eingang. Letzterer verhindert, dass ein Spieler, der bereits von einer Bombe getötet wurde, noch Bomben legen kann. Weitere Inputs sind die Rows des Spielfeldes, welche sich um die aktuelle Spielerposition herum befinden.
+				Als Ausgabe hat player\_ent die aktuelle Position des Spielers (pixel- als auch kachelweise). Außerdem wird die Kachel-Position und der Zustand der Bombe ausgegeben.
+				
+				\begin{figure}[H]
+					\centering
+					%TODO\includegraphics[scale=0.4]{}
+					\caption{Blockdiagramm player\_ent}
+				\end{figure}
+				
+				Bemerkung zur Abbildung: Neben der normalen Verdrahtung wenden wir in player\_ent noch eine Transformation von Pixel- auf Kachelkoordinaten an. Der Übersichtlichkeit halber haben wir dies nicht als asynchrone Entity modelliert, sondern direkt in die strukturelle Beschreibung eingefügt (beim Abbilden der forward-Signale auf die Out-Ports).
 				\subsubsection{clk\_movement\_ent}
 				Die Entity clk\_movement\_ent ist ein Clock Divider, die Architecture wird funktional beschrieben. Die Entity wird genutzt, um die Geschwindigkeit der Bewegung der Spieler zu steuern. Es wird alle 78125 Originaltakte die Ausgabe Ausgabe negiert. Da in unserem Design die VGA-Clock genutzt wird, wird somit alle $\frac{78125 * 2}{25.175 * 10^6}s \approx 6.2ms$ ein Takt erzeugt. Dies hat zur Folge, dass bei ständiger Bewegung eines Spielers in die gleiche Richtung, die pro steigender Takt-Flanke des ausgegebenen Takts stattfindet, die Bewegung vom linken bis zum rechten Rand des Spielfelds (480 Pixel) $480 * 6.2 ms \approx 2.98 s$ dauert. Diesen Wert haben wir bei BombermanGB über einen Emulator gemessen und \enquote{rückwärts} den nötigen Zähler, also 78125, bestimmt.
 				\subsubsection{movement\_ent}
@@ -183,6 +196,10 @@
 			\end{figure}
 		
 	\part{Probleme}
+		\section{Allgemein}
+			\begin{itemize}
+				\item In einer Version unseres Designs hatten wir ein \enquote{congested design}, was sich darin äußerte, dass Place \& Route mehrere Stunden dauerte und nicht zu einem Ende kam. Wir lösten dieses Problem, indem wir unnötige Ports (und somit Leitungen) aus unserem Design löschten. Dies kam vor allen Dingen bei der player\_ent zum Tragen, da wir hier zu Beginn jedem Player alle 15 Rows übergaben, wobei für die Kollision bei der Bewegung nur maximal drei Rows benötigt werden. Durch die Reduktion der Ports auf diese drei Rows wurde Place \& Route deutlich beschleunigt und das Design konnte implementiert werden.
+			\end{itemize}
 
 		\section{game\_mechanic\_ent}
 
@@ -198,8 +215,8 @@
 						\item Lange Zeit hatten wir ein Problem damit, dass die Spielfiguren in Blöcke hineinglitchen konnten, falls sie sich auf zwei Kacheln gleichzeitig befanden und in Richtung des Blockes bewegten. Der Fehler ergab sich wie folgt: 
 						Um die Position des rechtesten Pixels eines Spielers herauszufinden (wird für die Kollisionserkennung benötigt), haben wir eine Variable x\_right, welche wir nach jeder Bewegung in x-Richtung aktualisieren. Diese ergibt sich im Wesentlichen durch Addieren der Spielergröße (Generic) auf die aktuelle x-Position des Spielers. 
 						Unser Fehler bestand nun darin, dass wir für die Neuberechnung von x\_right nach jeder Bewegung in x-Richtung X\_INIT (Generic, das die initiale x-Position des Spielers enthält) statt x\_int (Variable, die die aktuelle x-Position des Spielers enthält) verwendeten.
-						\item Zu Beginn bekam movement\_ent alle 15 Rows des Spielfeldes, was wir gegen Ende noch änderten. Dies führte zu Problemen, da wir nun die zu prüfenden Rows anders auswählen mussten.
-						%TODO nach aktualisierung der rows falsche kollisionslogik -> nur ein tile prüfen, wenn in einer dimension tile aligned
+						\item Zu Beginn bekam movement\_ent alle 15 Rows des Spielfeldes, was wir gegen Ende noch änderten. Nun werden nur die zur Kollision benötigten Rows übergeben. 
+						Dies führte zu Problemen, da wir nun die zu prüfenden Rows anders auswählen mussten. Ein Fehler in unserer diesbezüglichen Logik führte dazu, dass die Bewegung in bestimmte Richtungen nicht mehr möglich war, da wir nun stets alle in Frage kommenden Kacheln überprüften und nicht nur die benötigten. Dieses Problem ließ sich allerdings leicht lösen, indem wir im Falle, dass der Spieler sich auf exakt einer Kachel befindet wir nur eine Kachel zur Kollision überprüfen.
 					\end{itemize}
 					
 		\section{graphics\_ent}
