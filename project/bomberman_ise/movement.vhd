@@ -21,28 +21,24 @@ end movement_ent;
 
 architecture movement_behav of movement_ent is
 	constant BOMB_CODING : std_logic_vector(3 downto 0) := x"D";
+	
 	shared variable x_int : integer range 0 to 480 := X_INIT_MOVE;
 	shared variable y_int : integer range 0 to 480 := Y_INIT_MOVE;
 	shared variable x_right : integer range 0 to 480 := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
-
-	-- the upper/lower tile which may cause collision when moving left/right
-	shared variable upper_tile : std_logic_vector(3 downto 0);
-	shared variable lower_tile : std_logic_vector(3 downto 0);
-
-	-- the left/right tile which may cause collision when moving up/down
-	shared variable left_tile : std_logic_vector(3 downto 0);
-	shared variable right_tile : std_logic_vector(3 downto 0);
-
-	-- index for accessing left/right upper/lower tile from a row vector
-	shared variable row_idx_left : integer range 0 to 59;
-	shared variable row_idx_right : integer range 0 to 59;
 
 begin
 
 	move_up_down : process(clk_move, rst_move)
 
 
-
+	-- the left/right tile which may cause collision when moving up/down
+	variable left_tile : std_logic_vector(3 downto 0);
+	variable right_tile : std_logic_vector(3 downto 0);
+	
+	-- index for accessing left/right upper/lower tile from a row vector
+	variable row_idx_left : integer range 0 to 59;
+	variable row_idx_right : integer range 0 to 59;
+	
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -80,8 +76,12 @@ begin
 
 	move_left_right : process(clk_move, rst_move)
 
+	-- the upper/lower tile which may cause collision when moving left/right
+	variable upper_tile : std_logic_vector(3 downto 0);
+	variable lower_tile : std_logic_vector(3 downto 0);
+	
 	variable row_idx : integer range 0 to 59;
-
+	
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -99,7 +99,8 @@ begin
 						-- player is row-wise tile aligned, just need to check row_mid
 						if(to_integer(unsigned(row_mid_move(row_idx downto row_idx - 3))) < to_integer(unsigned(BOMB_CODING))) then
 							x_int := x_int - speed;
-						else
+						end if;
+					else
 							-- player is in two tiles, need to check both
 							if((y_int + (PLAYER_SIZE_MOVE/2 - 1)) /TILE_SIZE_MOVE = y_int/TILE_SIZE_MOVE) then
 								upper_tile := row_upper_move(row_idx downto row_idx - 3);
@@ -112,7 +113,6 @@ begin
 								x_int := x_int - speed;
 							end if;
 						end if;
-					end if;
 				end if;
 			elsif(right_move= '0') then
 				if((x_int + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then
@@ -123,7 +123,8 @@ begin
 						-- player is row-wise tile aligned, just need to check row_mid
 						if(to_integer(unsigned(row_mid_move(row_idx downto row_idx - 3))) < to_integer(unsigned(BOMB_CODING))) then
 							x_int := x_int + speed;
-						else
+						end if;
+					else
 							-- player is in two tiles, need to check both
 							if((y_int + (PLAYER_SIZE_MOVE/2 - 1)) /TILE_SIZE_MOVE = y_int/TILE_SIZE_MOVE) then
 								upper_tile := row_upper_move(row_idx downto row_idx - 3);
@@ -138,7 +139,6 @@ begin
 						end if;
 					end if;
 				end if;
-			end if;
 			x_right := x_int + PLAYER_SIZE_MOVE - 1;
 			x_move <= std_logic_vector(to_unsigned(x_int, 9));
 		end if;

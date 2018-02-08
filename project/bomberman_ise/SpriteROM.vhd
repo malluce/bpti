@@ -195,13 +195,12 @@ constant explosion_tile : spriteROM := (
 	x"700700500700B00E00E30E00500700300200100300100300300700E70E00B00B00200700500300100300500500700500"
 );
 
-shared variable row_int : integer range 0 to 31 := 0;
-		shared variable col_int : integer range 0 to 31 := 0;
-		shared variable sprite_idx : integer range 0 to 383 := 0;
-
 begin
 	sprite_proc : process(sprite_id, sprite_row, sprite_col)
-
+	
+		variable row_int : integer range 0 to 31 := 0;
+		variable col_int : integer range 0 to 31 := 0;
+		variable sprite_idx : integer range 0 to 383 := 0;
 
 		begin
 				row_int := to_integer(unsigned(sprite_row));
