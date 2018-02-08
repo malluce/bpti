@@ -273,7 +273,7 @@ begin
 							  row11_fwd when row_player1_fwd = x"B" else
 							  row12_fwd when row_player1_fwd = x"C" else
 							  row13_fwd when row_player1_fwd = x"D" else
-							  row14_fwd when row_player1_fwd = x"F" else
+							  row14_fwd when row_player1_fwd = x"E" else
 							  x"000000000000000";
 							  
 	row_lower_fwd_p1 <= row1_fwd when row_player1_fwd = x"0" else
@@ -322,7 +322,7 @@ begin
 							  row11_fwd when row_player2_fwd = x"B" else
 							  row12_fwd when row_player2_fwd = x"C" else
 							  row13_fwd when row_player2_fwd = x"D" else
-							  row14_fwd when row_player2_fwd = x"F" else
+							  row14_fwd when row_player2_fwd = x"E" else
 							  x"000000000000000";
 							  
 	row_lower_fwd_p2 <= row1_fwd when row_player2_fwd = x"0" else

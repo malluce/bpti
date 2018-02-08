@@ -39,6 +39,10 @@ begin
 	variable row_idx_left : integer range 0 to 59;
 	variable row_idx_right : integer range 0 to 59;
 	
+	variable x_tmp : integer range 0 to 480;
+	variable x_right_tmp : integer range 0 to 480;
+	variable y_tmp : integer range 0 to 480;
+	
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -46,30 +50,33 @@ begin
 			y_int := Y_INIT_MOVE;
 			speed := 1;
 		elsif(clk_move'event and clk_move = '1') then
-			row_idx_left := 59 - (x_int-1)/TILE_SIZE_MOVE * 4;
-			row_idx_right := 59 - (x_right-1)/TILE_SIZE_MOVE * 4;
+			x_tmp := x_int;
+			x_right_tmp := x_right;
+			y_tmp := y_int;
+			row_idx_left := 59 - (x_tmp-1)/TILE_SIZE_MOVE * 4;
+			row_idx_right := 59 - (x_right_tmp-1)/TILE_SIZE_MOVE * 4;
 			if(up_move='0') then
-				if((y_int - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change through moving
-					y_int := y_int - speed;
+				if((y_tmp - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change through moving
+					y_int := y_tmp - speed;
 				else
 					left_tile := row_upper_move(row_idx_left downto row_idx_left - 3);
 					right_tile := row_upper_move(row_idx_right downto row_idx_right - 3);
 					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- check collision
-						y_int := y_int - speed;
+						y_int := y_tmp - speed;
 					end if;
 				end if;
 			elsif(down_move= '0') then
-				if((y_int + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change
-					y_int := y_int + speed;
+				if((y_tmp + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change
+					y_int := y_tmp + speed;
 				else
 					left_tile := row_lower_move(row_idx_left downto row_idx_left - 3);
 					right_tile := row_lower_move(row_idx_right downto row_idx_right - 3);
 					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- check collision
-						y_int := y_int + speed;
+						y_int := y_tmp + speed;
 					end if;
 				end if;
 			end if;
-			y_move <= std_logic_vector(to_unsigned(y_int, 9));
+			y_move <= std_logic_vector(to_unsigned(y_tmp, 9));
 		end if;
 	end process move_up_down;
 
@@ -82,6 +89,10 @@ begin
 	
 	variable row_idx : integer range 0 to 59;
 	
+	variable x_tmp : integer range 0 to 480;
+	variable x_right_tmp : integer range 0 to 480;
+	variable y_tmp : integer range 0 to 480;
+	
 	variable speed : integer range 0 to 5 := 1;
 
 	begin
@@ -90,51 +101,60 @@ begin
 			x_right := X_INIT_MOVE + PLAYER_SIZE_MOVE - 1;
 			speed := 1;
 		elsif(clk_move'event and clk_move = '1') then
+			x_tmp := x_int;
+			x_right_tmp := x_right;
+			y_tmp := y_int;
 			if(left_move='0') then
-				if((x_int - 1) mod TILE_SIZE_MOVE /= 0) then
-					x_int := x_int - speed;
+				if((x_tmp - 1) mod TILE_SIZE_MOVE /= 0) then
+					x_int := x_tmp - speed;
 				else
-					row_idx := 59 - (x_int-2)/TILE_SIZE_MOVE * 4;
-					if((y_int - 1) mod TILE_SIZE_MOVE = 0) then
+					row_idx := 59 - (x_tmp-2)/TILE_SIZE_MOVE * 4;
+					if((y_tmp - 1) mod TILE_SIZE_MOVE = 0) then
 						-- player is row-wise tile aligned, just need to check row_mid
 						if(to_integer(unsigned(row_mid_move(row_idx downto row_idx - 3))) < to_integer(unsigned(BOMB_CODING))) then
-							x_int := x_int - speed;
+							x_int := x_tmp - speed;
 						end if;
 					else
 							-- player is in two tiles, need to check both
-							if((y_int + (PLAYER_SIZE_MOVE/2 - 1)) /TILE_SIZE_MOVE = y_int/TILE_SIZE_MOVE) then
+							if((y_tmp + (PLAYER_SIZE_MOVE/2 - 1)) /TILE_SIZE_MOVE = y_tmp/TILE_SIZE_MOVE) then
 								upper_tile := row_upper_move(row_idx downto row_idx - 3);
 								lower_tile := row_mid_move(row_idx downto row_idx - 3);
+								if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
+									x_int := x_tmp - speed;
+								end if;
 							else
 								upper_tile := row_mid_move(row_idx downto row_idx - 3);
 								lower_tile := row_lower_move(row_idx downto row_idx - 3);
-							end if;
-							if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
-								x_int := x_int - speed;
+								if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
+									x_int := x_tmp - speed;
+								end if;
 							end if;
 						end if;
 				end if;
 			elsif(right_move= '0') then
-				if((x_int + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then
-					x_int := x_int + speed;
+				if((x_tmp + PLAYER_SIZE_MOVE - 1) mod TILE_SIZE_MOVE /= 0) then
+					x_int := x_tmp + speed;
 				else
-					row_idx := 59 - (x_right)/TILE_SIZE_MOVE * 4;
-					if((y_int - 1) mod TILE_SIZE_MOVE = 0) then
+					row_idx := 59 - (x_right_tmp)/TILE_SIZE_MOVE * 4;
+					if((y_tmp - 1) mod TILE_SIZE_MOVE = 0) then
 						-- player is row-wise tile aligned, just need to check row_mid
 						if(to_integer(unsigned(row_mid_move(row_idx downto row_idx - 3))) < to_integer(unsigned(BOMB_CODING))) then
-							x_int := x_int + speed;
+							x_int := x_tmp + speed;
 						end if;
 					else
 							-- player is in two tiles, need to check both
-							if((y_int + (PLAYER_SIZE_MOVE/2 - 1)) /TILE_SIZE_MOVE = y_int/TILE_SIZE_MOVE) then
+							if((y_tmp + (PLAYER_SIZE_MOVE/2 - 1)) /TILE_SIZE_MOVE = y_tmp/TILE_SIZE_MOVE) then
 								upper_tile := row_upper_move(row_idx downto row_idx - 3);
 								lower_tile := row_mid_move(row_idx downto row_idx - 3);
+								if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
+									x_int := x_tmp + speed;
+								end if;
 							else
 								upper_tile := row_mid_move(row_idx downto row_idx - 3);
 								lower_tile := row_lower_move(row_idx downto row_idx - 3);
-							end if;
-							if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
-								x_int := x_int + speed;
+								if(to_integer(unsigned(upper_tile)) < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(lower_tile)) < to_integer(unsigned(BOMB_CODING))) then
+									x_int := x_tmp + speed;
+								end if;
 							end if;
 						end if;
 					end if;
