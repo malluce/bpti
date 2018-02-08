@@ -91,9 +91,18 @@
 				\end{table}
 
 			\subsection{player\_ent}
-				%TODO blockdiagramm
-				%TODO beschreibung
-				Die Entity player\_ent enthält alle Unterkomponenten eines Spielers und die zugehörige Architecture wird somit strukturell beschrieben.
+				Die Entity player\_ent enthält alle Unterkomponenten eines Spielers. 
+				Diese sind eine bomb\_ent und movement\_ent (inklusive Clock), da jeder Spieler eine Bombe legen kann und bei Bewegungen auf Kollision mit Kacheln überprüft werden muss.
+				Als Eingabe erhält player\_ent die VGA Clock, ein asynchrones Reset, sowie alle Eingaben des Gamepads (Bewegung in alle 4 Richtungen und den Knopf zum Bombe legen) und einen enable-Eingang. Letzterer verhindert, dass ein Spieler, der bereits von einer Bombe getötet wurde, noch Bomben legen kann. Weitere Inputs sind die Rows des Spielfeldes, welche sich um die aktuelle Spielerposition herum befinden.
+				Als Ausgabe hat player\_ent die aktuelle Position des Spielers (pixel- als auch kachelweise). Außerdem wird die Kachel-Position und der Zustand der Bombe ausgegeben.
+				
+				\begin{figure}[H]
+					\centering
+					%TODO\includegraphics[scale=0.4]{}
+					\caption{Blockdiagramm player\_ent}
+				\end{figure}
+				
+				Bemerkung zur Abbildung: Neben der normalen Verdrahtung wenden wir in player\_ent noch eine Transformation von Pixel- auf Kachelkoordinaten an. Der Übersichtlichkeit halber haben wir dies nicht als asynchrone Entity modelliert, sondern direkt in die strukturelle Beschreibung eingefügt (beim Abbilden der forward-Signale auf die Out-Ports).
 				\subsubsection{clk\_movement\_ent}
 				Die Entity clk\_movement\_ent ist ein Clock Divider, die Architecture wird funktional beschrieben. Die Entity wird genutzt, um die Geschwindigkeit der Bewegung der Spieler zu steuern. Es wird alle 78125 Originaltakte die Ausgabe Ausgabe negiert. Da in unserem Design die VGA-Clock genutzt wird, wird somit alle $\frac{78125 * 2}{25.175 * 10^6}s \approx 6.2ms$ ein Takt erzeugt. Dies hat zur Folge, dass bei ständiger Bewegung eines Spielers in die gleiche Richtung, die pro steigender Takt-Flanke des ausgegebenen Takts stattfindet, die Bewegung vom linken bis zum rechten Rand des Spielfelds (480 Pixel) $480 * 6.2 ms \approx 2.98 s$ dauert. Diesen Wert haben wir bei BombermanGB über einen Emulator gemessen und \enquote{rückwärts} den nötigen Zähler, also 78125, bestimmt.
 				\subsubsection{movement\_ent}
