@@ -51,21 +51,15 @@ begin
 			speed := 1;
 		elsif(clk_move'event and clk_move = '1') then
 			row_idx_left := 59 - (x_int-1)/TILE_SIZE_MOVE * 4;
-			row_idx_right := 59 - (x_right)/TILE_SIZE_MOVE * 4;
+			row_idx_right := 59 - (x_right-1)/TILE_SIZE_MOVE * 4;
 			if(up_move='0') then
-				if((y_int - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change throug moving
+				if((y_int - 1) mod TILE_SIZE_MOVE /= 0) then -- no row change through moving
 					y_int := y_int - speed;
 				else
 					left_tile := row_upper_move(row_idx_left downto row_idx_left - 3);
 					right_tile := row_upper_move(row_idx_right downto row_idx_right - 3);
-					if((x_int - 1) mod TILE_SIZE_MOVE = 0) then -- player is column-wise tile aligned, just need to check left tile
-						if(to_integer(unsigned(left_tile)) /= to_integer(unsigned(BOMB_CODING))) then -- check collision
-							y_int := y_int - speed;
-						end if;
-					else -- need to check two tiles
-						if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- check collision
-							y_int := y_int - speed;
-						end if;
+					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- check collision
+						y_int := y_int - speed;
 					end if;
 				end if;
 			elsif(down_move= '0') then
@@ -74,14 +68,8 @@ begin
 				else
 					left_tile := row_lower_move(row_idx_left downto row_idx_left - 3);
 					right_tile := row_lower_move(row_idx_right downto row_idx_right - 3);
-					if((x_int - 1) mod TILE_SIZE_MOVE = 0) then -- player is column-wise tile aligned, just need to check left tile
-						if(to_integer(unsigned(left_tile)) /= to_integer(unsigned(BOMB_CODING))) then
-							y_int := y_int + speed;
-						end if;
-					else -- need to check two tiles
-						if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- check collision
-							y_int := y_int + speed;
-						end if;
+					if(to_integer(unsigned(left_tile))  < to_integer(unsigned(BOMB_CODING)) and to_integer(unsigned(right_tile))  < to_integer(unsigned(BOMB_CODING))) then -- check collision
+						y_int := y_int + speed;
 					end if;
 				end if;
 			end if;
