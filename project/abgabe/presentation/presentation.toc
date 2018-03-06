@@ -10,6 +10,8 @@
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {2}{Unser Spiel}{5}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {3}{Planung}{6}{0}{3}
+\beamer@sectionintoc {3}{Planung}{7}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{1}{Zeitplan}{6}{0}{3}
+\beamer@subsectionintoc {3}{1}{Zeitplan}{7}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {4}{Probleme}{8}{0}{4}

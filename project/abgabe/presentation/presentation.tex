@@ -115,10 +115,7 @@
 			\item Sprites
 		\end{itemize}
 	\end{frame}
-
-\section{Probleme}
 	
-		
 	
 \section{Planung}
 	\subsection{Zeitplan}
@@ -144,5 +141,28 @@
 				\end{tabular}
 			\end{table}
 		\end{frame}
+	
+\section{Probleme}
+	\begin{frame}
+		\frametitle{Gelöste Probleme}
+		\begin{itemize}
+			\item Fehlerhafte Darstellung der Explosionen
+			\begin{itemize}
+				\item Spielfeld wird zeileweise gespeichert
+				\item Funktion zum Zeichnen der Explosionen wird durch if-Zweige ausgeführt und erstellt lokale Kopien
+			\end{itemize}
+			\item Spielfiguren konnten in Blöcke hineinlaufen
+			\item Falsche Offset Berechnungen
+			\item Sowohl Spielfeld als auch Spielfiguren zeichnen
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Probleme}
+		\begin{itemize}
+			\item In der rechten Hälfte funktionieren die Kollisionen nicht mehr
+			\item Bei bestimmten Tastendrücken können unzerstörbare Blöcke überlaufen werden
+		\end{itemize}
+\end{frame}
 		
 \end{document}
