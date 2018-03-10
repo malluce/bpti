@@ -9,6 +9,7 @@ architecture movement_testbench_behav of movement_testbench_ent is
     component movement_ent
         generic(X_INIT_MOVE, Y_INIT_MOVE, PLAYER_SIZE_MOVE, TILE_SIZE_MOVE : integer);
         port(
+            fast_clk_move : in std_logic;
             clk_move : in std_logic;
             rst_move : in std_logic;
             up_move : in std_logic;
@@ -36,7 +37,7 @@ architecture movement_testbench_behav of movement_testbench_ent is
     end component;
 
     --Inputs
-    signal clk_move : std_logic := '0';
+    signal clk_move, fast_clk_move : std_logic := '0';
     signal rst_move : std_logic := '1';
     signal up_move : std_logic := '1';
     signal down_move : std_logic := '1';
@@ -66,6 +67,7 @@ begin
     mov : movement_ent
     generic map(33, 33, 32, 32)
     port map(
+        fast_clk_move,
         clk_move,
         rst_move,
         up_move,
@@ -91,7 +93,8 @@ begin
         y_move
     );
 
-    clk_move <= not clk_move after 19.85 ns; --nearly frequency of 25,175 MHz
+    fast_clk_move <= not fast_clk_move after 5 ns;
+    clk_move <= not clk_move after 20 ns;
 
     collision_test : process
     begin
@@ -112,7 +115,8 @@ begin
         assert(to_integer(unsigned(x_move)) = 33) report "X Koordinate hat sich verändert";
         rst_move <= '0';
         wait for 40 ns;
-        
+        rst_move <= '1';
+
         row0_move <= x"FFFFFFFFFFFFFFF";
         row1_move <= x"F00FFFFFFFFFFFF";
                 row2_move <= x"F00FFFFFFFFFFFF";
@@ -124,7 +128,7 @@ begin
                 wait for 120 ns;
                 assert(to_integer(unsigned(y_move)) > 33) report "Y Koordinate hat sich nicht geändert";
                 assert(to_integer(unsigned(x_move)) > 33) report "X Koordinate hat sich nicht geändert";
-        
+
                 up_move <= '0';
                 down_move <= '1';
                 right_move <= '1';
@@ -135,9 +139,4 @@ begin
                 rst_move <= '0';
                 wait for 40 ns;
     end process collision_test;
-
-    move_test : process
-    begin
-        
-    end process move_test;
 end movement_testbench_behav;

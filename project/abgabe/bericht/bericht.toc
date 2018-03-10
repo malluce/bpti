@@ -1,0 +1,31 @@
+\select@language {german}
+\contentsline {part}{\numberline {I}Allgemeines}{4}{part.1}
+\contentsline {section}{\numberline {1}Idee}{4}{section.1}
+\contentsline {section}{\numberline {2}Erreichte Ziele}{5}{section.2}
+\contentsline {section}{\numberline {3}Steuerung}{6}{section.3}
+\contentsline {part}{\numberline {II}Beschreibung der Entities}{7}{part.2}
+\contentsline {section}{\numberline {4}bomberman\_ent}{7}{section.4}
+\contentsline {section}{\numberline {5}game\_mechanic\_ent}{8}{section.5}
+\contentsline {subsection}{\numberline {5.1}game\_state\_ent}{9}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}player\_ent}{11}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}clk\_movement\_ent}{12}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}movement\_ent}{12}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}bomb\_ent}{12}{subsubsection.5.2.3}
+\contentsline {section}{\numberline {6}graphics\_ent}{14}{section.6}
+\contentsline {subsection}{\numberline {6.1}pixel\_gen\_ent}{15}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Sprites}{15}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}SpriteExtractor.java}{15}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}SpriteROM}{16}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}PlayerROM}{16}{subsubsection.6.2.3}
+\contentsline {subsection}{\numberline {6.3}rgb\_assign\_ent}{16}{subsection.6.3}
+\contentsline {section}{\numberline {7}sync\_gen\_ent}{17}{section.7}
+\contentsline {part}{\numberline {III}Probleme}{18}{part.3}
+\contentsline {section}{\numberline {8}Allgemein}{18}{section.8}
+\contentsline {section}{\numberline {9}game\_mechanic\_ent}{18}{section.9}
+\contentsline {subsection}{\numberline {9.1}game\_state\_ent}{18}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}player\_ent}{19}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}movement\_ent}{19}{subsubsection.9.2.1}
+\contentsline {section}{\numberline {10}graphics\_ent}{20}{section.10}
+\contentsline {subsection}{\numberline {10.1}pixel\_gen\_ent}{20}{subsection.10.1}
+\contentsline {subsection}{\numberline {10.2}Sprites}{20}{subsection.10.2}
+\contentsline {section}{\numberline {11}sync\_gen\_ent}{20}{section.11}
